@@ -108,7 +108,6 @@
 
       .hero-bg {
         background-color: #43AA8B;
-        height: 23em;
         margin-bottom: 2em;
       }
 
@@ -162,6 +161,7 @@
 
       .explanation {
         padding: 1em;
+        height: 30%;
 
       }
 
@@ -187,6 +187,20 @@
         line-height: 2em;
         text-align: center;
         width: 70%;
+      }
+
+
+      @media screen and (min-width: 400px) {
+        .hero-bg {
+          height: 50%;
+        }
+        .explanation {
+          height: 30%;
+        }
+
+        .promo {
+          height: 20%;
+        }
       }
 
       .interested {

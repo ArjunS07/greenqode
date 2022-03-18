@@ -183,9 +183,11 @@ def viewCommunityAsGuest(request, communityNameID):
     for item in items:
         new_item = {
             'name': item.name,
-            'image_url': item.image.url,
             'linktodetail': SITE_ROOT_URL + "viewitem/" + item.item_id
         }
+        if item.hasimage:
+            new_item['image_url'] = item.image_url
+            
         items_with_links.append(new_item)
 
     context = {'communityName': communityFromId.name, 'numItems': len(items), 'communityItems': items_with_links}
