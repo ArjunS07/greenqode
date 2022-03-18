@@ -1,2 +1,1 @@
-web: gunicorn locallibrary.wsgi --log-file -
-python manage.py collectstatic --noinput
+web: gunicorn qrcodes.wsgi --log-file -
