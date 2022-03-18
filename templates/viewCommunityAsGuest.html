@@ -53,9 +53,14 @@
 
             <div class="guest-card-body">
               <span class="guest-card-title guest-item-name">{{item.name}} </span>
-              <btn href="{{ item.linktodetail }}" class = 'guest-card-action-item btn view-btn'>
-                <i class="fa fa-solid fa-eye edit-eye-icon action-item-icon"></i>
-              </btn>
+
+              <a href = "{{ item.linktodetail }}"> 
+                <btn href="{{ item.linktodetail }}" class = 'guest-card-action-item btn view-btn'>
+                
+                  <i class="fa fa-solid fa-eye edit-eye-icon action-item-icon"></i>
+                </btn>
+              </a>
+
             </div>
 
           </div>

@@ -172,7 +172,7 @@ def viewCommunityAsGuest(request, communityNameID):
     for item in items:
         new_item = {
             'name': item.name,
-            'linktodetail': SITE_ROOT_URL + "viewitem/" + item.item_id
+            'linktodetail': SITE_ROOT_URL + "viewitem/" + communityFromId.nameID + "/" + item.item_id
         }
         # if item.hasImage:
         #     new_item['image_url'] = item.image_url
