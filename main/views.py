@@ -301,9 +301,7 @@ def generate_pdf_from_community_id(community_id):
         
             # Advance y position
             current_y += square_qr_side + (qr_padding * 2)
-        
-    Community.objects.get(nameID=community_id).hasEditedItemsSinceLastPrint = False
-        
+                
     return pdf
 
 def roundup(inp):

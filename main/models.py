@@ -13,8 +13,6 @@ class Community(models.Model):
     nameID = models.CharField(max_length=108, primary_key=True, editable=False)
     account = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    hasEditedItemsSinceLastPrint = models.BooleanField(default=False)
-
     def __str__(self):
         return self.nameID
 
@@ -55,11 +53,5 @@ class CommunityItem(models.Model):
             self.hasImage = True
         else:
             self.hasImage = False 
-
-        
-        print('setting to false')
-
-        self.community.hasEditedItemsSinceLastPrint = True 
-
 
         super().save(*args, **kwargs)
