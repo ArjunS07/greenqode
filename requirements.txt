@@ -16,4 +16,4 @@ Pyrebase==3.0.18
 numpy==1.21.1
 
 sentry-sdk==1.5.7
-pycryptodome==3.14.1
+pycryptodome==3.5
