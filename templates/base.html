@@ -67,6 +67,7 @@
       body {
         font-family: 'Raleway', 'Arial', sans-serif;
         font-size: 14px;
+        height: 100%;
       }
 
       .app-btn {
@@ -109,6 +110,10 @@
       .hero-bg {
         background-color: #43AA8B;
         margin-bottom: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 45%;
       }
 
       .hero {
@@ -161,7 +166,10 @@
 
       .explanation {
         padding: 1em;
-        height: 30%;
+        height: 65%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
       }
 
@@ -212,6 +220,10 @@
 
       .promo {
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30%;
       }
 
       .signupnow {
@@ -468,6 +480,6 @@
 
 
 
-    <main>{% block content %} {% endblock %}</main>
+    <main style = "height: 100%;">{% block content %} {% endblock %}</main>
   </body>
 </html>
