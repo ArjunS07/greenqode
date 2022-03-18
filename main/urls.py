@@ -3,6 +3,9 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 urlpatterns = [
     path('', views.home, name='home'),
     path('communitycollection',
@@ -14,7 +17,8 @@ urlpatterns = [
     path('viewcommunity/<str:communityNameID>',
          views.viewCommunityAsGuest, name='viewcommunityasguest'),
     path('viewitem/<str:communityNameID>/<str:communityItemID>', views.viewCommunityItemAsGuest, name='viewitemasguest'),
-  
+
+    path('sentry-test/', trigger_error)
 
 ]
 
