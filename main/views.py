@@ -15,7 +15,7 @@ import math
 import qrcode
 import pyrebase
 
-SITE_ROOT_URL = "http://127.0.0.1:8000/"
+SITE_ROOT_URL = "https://greenscan-app.herokuapp.com/"
 
 SERVICE_ACCOUNT_PATH = settings.STATIC_URL + "greenscan-80c5f-firebase-adminsdk-i3daq-889efc4c34.json"
 config = {
@@ -262,7 +262,7 @@ def generate_pdf_from_community_id(community_id):
             for k in range(num_items_in_row):
 
                 qr_temp_file = NamedTemporaryFile(delete=True)
-                qr_image = qrcode.make(item)
+                qr_image = qrcode.make(urls_to_encode[current_qr_index])
 
                 qr_image_temp_path = qr_temp_file.name + '.png'
                 qr_image.save(qr_image_temp_path)                
