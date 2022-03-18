@@ -40,18 +40,14 @@
       {% for i in range() item in communityItems%}
 
 
-        <div class="col-md-2 col-sm-6 col-xs-12 card-wrapper">
+        <div class="col-md-2 col-sm-4 col-xs-8 card-wrapper">
           <div class=" community-guest-item-card">
 
             {% load static %}
 
-            {% if item.hasImage == True %}
-              <img class="guest-card-img-top" src="{{ item.image.url }}">
 
-            {% else %}
             <img class="guest-card-img-top" src="{% static 'images/tree-with-qr-code-placeholder.svg' %}">
 
-            {% endif %}
 
 
 

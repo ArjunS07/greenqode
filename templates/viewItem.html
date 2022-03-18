@@ -49,20 +49,7 @@
 <div class="container">
   <div class="row">
 
-    {% if item.hasImage == True %}
-    <div class="col-xs-12 col-md-3">
-      <img src=" {{ item.image.url }} " alt="" class = "item-image">
-    </div>
-
-    <div class="col-xs-12 col-md-9">
-      <p class="item-description" style = "font-size: large;">
-
-        {{item.description}}
-      </p>
-
-    </div>
-
-    {% else %}
+   
     <div class="col-xs-12">
       <p class="item-description">
 
@@ -71,7 +58,6 @@
 
     </div>
 
-    {% endif %}
 
 
 

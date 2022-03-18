@@ -111,21 +111,11 @@ def addCommunityItem(response):
 
             currentCommunity = getCommunityFromAuthUser(response)
 
-
-            if data['image']:
-                image = data['image']
-
-                newItem = CommunityItem(community = currentCommunity, name = name, description = description, location = location, image = image)
-                print(image)
-                print(newItem)
-                newItem.save()
-            else:
-                newItem = CommunityItem(community = currentCommunity, name = name, description = description, location = location)
-                newItem.save()
+            newItem = CommunityItem(community = currentCommunity, name = name, description = description, location = location)
+            newItem.save()
 
 
 
-            # TODO: Fix the redirect once the auth in the community part has been handled
             return HttpResponseRedirect('/communitycollection')
     else:
         form = ItemForm()
@@ -152,8 +142,8 @@ def editCommunityItem(request, communityItemID):
             itemToEdit.location = data['location']
             itemToEdit.description = data['description']
 
-            if data['image']:
-                itemToEdit.image = data['image']
+            # if data['image']:
+            #     itemToEdit.image = data['image']
             return redirect('/communitycollection')
     
     else:
@@ -179,15 +169,14 @@ def viewCommunityAsGuest(request, communityNameID):
     items = CommunityItem.objects.filter(community=communityFromId)
 
     items_with_links = []
-    itemlinks = []
     for item in items:
         new_item = {
             'name': item.name,
             'linktodetail': SITE_ROOT_URL + "viewitem/" + item.item_id
         }
-        if item.hasimage:
-            new_item['image_url'] = item.image_url
-            
+        # if item.hasImage:
+        #     new_item['image_url'] = item.image_url
+
         items_with_links.append(new_item)
 
     context = {'communityName': communityFromId.name, 'numItems': len(items), 'communityItems': items_with_links}

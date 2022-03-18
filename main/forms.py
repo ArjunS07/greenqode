@@ -10,7 +10,6 @@ class ItemForm(ModelForm):
             'name': '',
             'location' : '',
             'description': '',
-            'image': 'Upload an image (optional)'
         }
         # placeholders = {
         #     'name': ,
@@ -18,7 +17,7 @@ class ItemForm(ModelForm):
         #     'description': 'A description for people to see',
         #     'image': ''
         # }
-        fields = ['name', 'location', 'description', 'image']
+        fields = ['name', 'location', 'description']
         # widgets = {
 
         #     'name': forms.TextInput(attrs={
@@ -42,7 +41,6 @@ class ItemForm(ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'Tree or plant name'}),
             'location': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item location in community'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'A description of the tree or plant for people to see when they scan the code'}),
-            'image': forms.ClearableFileInput(attrs={'class': 'image-upload-btn', 'id': 'img-upload'}),
         }
 
 #     name = forms.CharField(max_length=40, widget = forms.TextInput(attrs={

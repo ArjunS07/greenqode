@@ -30,8 +30,8 @@ class CommunityItem(models.Model):
     description = models.TextField()
     location = models.CharField(max_length=100)
 
-    image = models.ImageField(upload_to="item_images/", default="", null=True, blank = True)
-    hasImage = models.BooleanField(default = False)
+    # image = models.ImageField(upload_to="item_images/", default="", null=True, blank = True)
+    # hasImage = models.BooleanField(default = False)
 
 
     item_id = models.CharField(
@@ -49,9 +49,9 @@ class CommunityItem(models.Model):
             self.item_id = self.name.replace(
                 " ", "").lower() + uuidToAppend  
 
-        if self.image:
-            self.hasImage = True
-        else:
-            self.hasImage = False 
+        # if self.image:
+        #     self.hasImage = True
+        # else:
+        #     self.hasImage = False 
 
         super().save(*args, **kwargs)
