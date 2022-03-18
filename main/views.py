@@ -45,6 +45,10 @@ storage = firebase.storage()
 generated_pdfs_ref = 'generated_pdfs'
 
 def home(request):
+
+    if request.user.is_authenticated:
+        return redirect("/communitycollection")
+
     context = {}
     template = loader.get_template('home.html')
     return HttpResponse(template.render(context, request))
@@ -174,7 +178,7 @@ def viewCommunityAsGuest(request, communityNameID):
 
     items = CommunityItem.objects.filter(community=communityFromId)
 
-    context = {'communityName': communityFromId.name, 'numItems': len(items), 'communityItems': items, 'rootItemDetailURL': 'http://127.0.0.1:8000/viewItem/' + communityNameID + "/"}
+    context = {'communityName': communityFromId.name, 'numItems': len(items), 'communityItems': items, 'rootItemDetailURL': SITE_ROOT_URL + "/viewItem/" + communityNameID + "/"}
 
 
     template = loader.get_template('viewCommunityAsGuest.html')
@@ -186,7 +190,7 @@ def viewCommunityItemAsGuest(request, communityNameID, communityItemID):
     community = Community.objects.get(nameID = communityNameID)
     item = CommunityItem.objects.filter(community = community).get(item_id = communityItemID)
 
-    linkToCommunityPage = 'http://127.0.0.1:8000/viewcommunity/' + communityNameID 
+    linkToCommunityPage = SITE_ROOT_URL + '/viewcommunity/' + communityNameID 
 
     context = {'communityName': community.name, 'item': item, 'linkToCommunityPage': linkToCommunityPage}
     template = loader.get_template('viewItem.html')
