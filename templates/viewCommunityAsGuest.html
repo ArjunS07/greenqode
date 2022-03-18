@@ -37,7 +37,7 @@
 
     <div class="items row">
 
-      {% for item in communityItems%}
+      {% for i in range() item in communityItems%}
 
 
         <div class="col-md-2 col-sm-6 col-xs-12 card-wrapper">
@@ -57,7 +57,7 @@
 
             <div class="guest-card-body">
               <span class="guest-card-title guest-item-name">{{item.name}} </span>
-              <btn href="" class = 'guest-card-action-item btn view-btn'>
+              <btn href="{{ item.linktodetail }}" class = 'guest-card-action-item btn view-btn'>
                 <i class="fa fa-solid fa-eye edit-eye-icon action-item-icon"></i>
               </btn>
             </div>

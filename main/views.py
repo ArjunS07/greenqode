@@ -178,7 +178,17 @@ def viewCommunityAsGuest(request, communityNameID):
 
     items = CommunityItem.objects.filter(community=communityFromId)
 
-    context = {'communityName': communityFromId.name, 'numItems': len(items), 'communityItems': items, 'rootItemDetailURL': SITE_ROOT_URL + "viewItem/" + communityNameID + "/"}
+    items_with_links = []
+    itemlinks = []
+    for item in items:
+        new_item = {
+            'name': item.name,
+            'image_url': item.image.url,
+            'linktodetail': SITE_ROOT_URL + "viewitem/" + item.item_id
+        }
+        items_with_links.append(new_item)
+
+    context = {'communityName': communityFromId.name, 'numItems': len(items), 'communityItems': items_with_links}
 
 
     template = loader.get_template('viewCommunityAsGuest.html')
@@ -191,6 +201,8 @@ def viewCommunityItemAsGuest(request, communityNameID, communityItemID):
     item = CommunityItem.objects.filter(community = community).get(item_id = communityItemID)
 
     linkToCommunityPage = SITE_ROOT_URL + 'viewcommunity/' + communityNameID 
+
+    
 
     context = {'communityName': community.name, 'item': item, 'linkToCommunityPage': linkToCommunityPage}
     template = loader.get_template('viewItem.html')
