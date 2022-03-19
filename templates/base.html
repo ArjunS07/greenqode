@@ -442,6 +442,12 @@
         font-weight: bold;
       }
 
+      .edit-submit-btn {
+        width: 10em;
+        height: 3em;
+        font-weight: bold;
+      }
+
       .add-check {
         font-size: 1.25em;
         margin-right: 0.3em;
@@ -460,6 +466,25 @@
         transform: translateY(-50%);
       }
 
+      .google-search {
+        width: 17.5em;
+        height: 3em;
+        float: right;
+        background-color: white;
+        border: 2px solid black;
+        border-radius: 10px;
+        color: black;
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+
+      .g-logo {
+        height: 16px;
+        position: relative;
+        top: -2px;
+        margin-right: 4px;
+      }
+
 
 
     </style>
@@ -470,5 +495,22 @@
 
 
     <main style = "height: 100%;">{% block content %} {% endblock %}</main>
+
+    <script>
+
+
+
+      function searchOnGoogle() {
+        var itemName = document.getElementById('item-detail-name').value 
+        if (itemName) {
+          var googleLink = "https://www.google.com/search?q=" + itemName;
+          window.open(googleLink)
+        }
+
+      }
+
+      document.getElementById("google-search-href").addEventListener("click", searchOnGoogle)
+
+    </script>
   </body>
 </html>

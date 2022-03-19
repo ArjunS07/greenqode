@@ -38,7 +38,7 @@ class ItemForm(ModelForm):
         # }   
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'Tree or plant name'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'Tree or plant name', 'id': 'item-detail-name'}),
             'location': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item location in community'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'A description of the tree or plant for people to see when they scan the code'}),
         }

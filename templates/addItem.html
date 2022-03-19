@@ -39,7 +39,12 @@
     {% csrf_token %}
     {{ form|crispy }}
 
-      
+      <a href = "" id = "google-search-href">
+        <button class = "google-search"> 
+          <img src = "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class = "g-logo"></i>
+         Search for details on Google
+        </button>
+      </a> 
       <br/>
     <button type="submit" class = "add-submit-btn app-btn">
       <i class="fa fa-check add-check"></i>
