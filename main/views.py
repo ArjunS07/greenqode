@@ -13,7 +13,7 @@ from .forms import ItemForm
 from fpdf import FPDF  # fpdf class
 import math
 import qrcode
-import pyrebase
+from pyrebase import pyrebase
 
 SITE_ROOT_URL = "https://greenscan-app.herokuapp.com/"
 
@@ -87,7 +87,7 @@ def render_pdf_view(request, *args, **kwargs):
     uploaded_pdf_ref = generated_pdfs_ref + "/" + community_id + ".pdf"
     storage.child(uploaded_pdf_ref).put(temp_pdf_url)
 
-    media_url = storage.child(uploaded_pdf_ref).get_url()
+    media_url = storage.child(uploaded_pdf_ref).get_url(None)
     
     return HttpResponseRedirect(media_url)
 
@@ -106,12 +106,13 @@ def addCommunityItem(response):
             name = data['name']
             location = data['location']
             description = data['description']
+            quantity = data['quantity']
 
             print(data)
 
             currentCommunity = getCommunityFromAuthUser(response)
 
-            newItem = CommunityItem(community = currentCommunity, name = name, description = description, location = location)
+            newItem = CommunityItem(community = currentCommunity, name = name, description = description, location = location, quantity=quantity)
             newItem.save()
 
 
@@ -141,6 +142,7 @@ def editCommunityItem(request, communityItemID):
             itemToEdit.name = data['name']
             itemToEdit.location = data['location']
             itemToEdit.description = data['description']
+            itemToEdit.quantity = data['quantity']
 
             # if data['image']:
             #     itemToEdit.image = data['image']
@@ -213,8 +215,10 @@ def generate_pdf_from_community_id(community_id):
 
     for item in items:
         item_url = SITE_ROOT_URL + "viewitem/" + communnity.nameID + '/' + item.item_id
-        urls_to_encode.append(item_url)
-        labels.append(item.name)
+
+        for l in range(item.quantity):
+            urls_to_encode.append(item_url)
+            labels.append(item.name)
 
     pdf = PDF()#pdf object
 

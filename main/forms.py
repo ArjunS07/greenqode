@@ -7,9 +7,11 @@ class ItemForm(ModelForm):
     class Meta:
         model = CommunityItem
         labels = {
-            'name': '',
-            'location' : '',
-            'description': '',
+            'name': 'Name',
+            'location' : 'Location',
+            'description': 'Description',
+            'quantity': 'Number of items',
+
         }
         # placeholders = {
         #     'name': ,
@@ -17,7 +19,7 @@ class ItemForm(ModelForm):
         #     'description': 'A description for people to see',
         #     'image': ''
         # }
-        fields = ['name', 'location', 'description']
+        fields = ['name', 'location', 'description', 'quantity']
         # widgets = {
 
         #     'name': forms.TextInput(attrs={
@@ -40,7 +42,8 @@ class ItemForm(ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'Tree or plant name', 'id': 'item-detail-name'}),
             'location': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item location in community'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'A description of the tree or plant for people to see when they scan the code'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'What people will see when they scan the code'}),
+            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Number of these items in community', 'value': '1'}),
         }
 
 #     name = forms.CharField(max_length=40, widget = forms.TextInput(attrs={

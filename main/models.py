@@ -29,6 +29,7 @@ class CommunityItem(models.Model):
     name = models.CharField(max_length=20)
     description = models.TextField()
     location = models.CharField(max_length=100)
+    quantity = models.IntegerField(default=1)
 
     # image = models.ImageField(upload_to="item_images/", default="", null=True, blank = True)
     # hasImage = models.BooleanField(default = False)
