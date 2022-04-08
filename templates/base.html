@@ -33,11 +33,11 @@
       }
 
       .qr-logo {
-        width: 1em;
+        width: 16px;
         color: var(--app-green);
         position: relative;
         top: 3px;
-        margin-right: 0.2em;
+        margin-right: 3px;
       }
 
       .centre-align-brand {
@@ -74,8 +74,8 @@
         background-color: var(--app-orange);
         color:  white;
         text-transform: uppercase;
-        padding:  0.5em;
-        border-radius: 0.6em;
+        padding:  8px;
+        border-radius: 10px;
         border: none;
 
       }
@@ -93,23 +93,23 @@
 
       h1.l1-heading {
         text-transform: capitalize;
-        font-size: 2.6em;
+        font-size: 42px;
         font-weight: bold;
       }
 
       .secondary-heading {
         text-transform: uppercase;
         font-weight: bold;
-        font-size: 1.2em;
+        font-size: 21px;
         color: var(--app-grey);
-        height:  1em;
+        height:  16px;
       }
 
       /* index */
 
       .hero-bg {
         background-color: #43AA8B;
-        margin-bottom: 2em;
+        margin-bottom: 48px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -117,19 +117,19 @@
       }
 
       .hero {
-        padding: 1em;
+        padding: 16px;
       }
 
       .hero-heading {
         color: white;
-        font-size: 2.5em;
+        font-size: 40px;
         font-weight: bold;
       }
 
       .hero-desc {
-        font-size: 1.5em;
+        font-size: 24px;
         color: white;
-        line-height: 2.25em;
+        line-height: 36px;
       }
 
       .hero-img {
@@ -143,8 +143,8 @@
       }
 
       .hero-btn {
-        width: 12.5em;
-        height: 3em;
+        width: 200px;
+        height: 48px;
         border-radius: 7px;
         background-color: white;
         border: none;
@@ -153,46 +153,47 @@
 
       .hero-btn-text {
         font-weight: bold;
-        font-size: 1.2em;
+        font-size: 19px;
         color: var(--app-green);
 
       }
 
       .hero-arrow-right {
-        margin-left: 0.2em;
+        margin-left: 3px;
         color: var(--app-green);
-        font-size: 1.4em;
+        font-size: 22px;
       }
 
       .explanation {
-        padding: 1em;
-        height: 65%;
+        padding: 16px;
         display: flex;
         justify-content: center;
         align-items: center;
 
       }
 
-      .explainer-icon {
-        font-size: 5em;
-        text-align: center;
-        margin-bottom: 0.2em;
-        position: relative;
+      .explainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
 
-        left: 22%;
+      .explainer-icon {
+        font-size: 80px;
+        text-align: center;
+        margin-bottom: 3px;
       }
 
       .explainer-icon-svg {
         text-align: center;
-        margin-bottom: 0.2em;
-        position: relative;
-        left: 22%;
-        width: 5em;
+        margin-bottom: 3px;
+        width: 80px;
       }
 
       .explainer-p {
-        font-size: 1.2em;
-        line-height: 2em;
+        font-size: 19px;
+        line-height: 38px;
         text-align: center;
         width: 70%;
       }
@@ -202,9 +203,9 @@
 
       .interested {
         text-transform: uppercase;
-        letter-spacing: 3px;;
+        letter-spacing: 3px;
         font-weight: bold;
-        font-size: 2.5em;
+        font-size: 40px;
       }
 
       .promo {
@@ -220,27 +221,30 @@
         border: none;
         color: white;
         border-radius: 7px;
-        width: 10em;
-        height: 2em;
-        font-size: 1.75em;
-        margin-left: 0.5em;
+        width: 275px;
+        height: 50px;
+        font-size: 28px;
+        margin-left: 8px;
         font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
       }
 
       /* VIEW COMMUNITY AS ADMIN PAGE */
 
+      .items {
+        
+      }
+
       .top-content {
-        margin-bottom: 2em;
+        margin-bottom: 32px;
       }
 
       .top-text {
         display: inline-block;
       }
-
-
-
-
 
       .top-action-items {
         display: inline-block;
@@ -248,8 +252,8 @@
       }
 
       .top-action-item {
-        font-size:  1.25em;
-        margin-top:  2em;
+        font-size: 20px;
+        margin-top:  32px;
       }
 
       .top-action-item:hover{
@@ -262,28 +266,27 @@
         color: white;
       }
       .top-action-icon {
-        margin-right: 0.3em;
+        margin-right: 5px;
       }
 
 
       .print-btn {
-        width:  6.5em;
-        margin-right:  0.7em;
-
+        width: 120px;
+        margin-right:  11px;
       }
 
       .add-btn {
-        width:  6em;
+        width:  110px;
       }
 
-
+      .card-wrapper {
+      }
 
       .community-owner-item-card {
         box-shadow: 5px 12px 15px rgba(0, 0, 0, 0.15);
-        height: 15em;
-        margin-bottom: 2em;
+        margin-bottom: 32px;
+        width: 100%;
       }
-
 
       .card-img-top {
         width: 100%;
@@ -293,13 +296,14 @@
       }
 
       .card-body {
-        padding: 0.5em 0.75em;
+        padding: 8px 12px;
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
         position: relative;
         top: -10px;
         z-index: 1000;
         background-color: white;
+        width: 100%;
 
       }
 
@@ -314,15 +318,16 @@
       .card-action-item {
         display: inline-block;
 
-        font-size: 0.8em;
-        height: 2.5em;
+        font-size: 13px;
+        height: 35px;
+        width: 75px;
         border-radius: 5px;
         text-align: left;
         font-weight: 600;
       }
 
       .action-item-icon {
-        font-size: 1em;
+        font-size: 16px;
         position: relative;
       }
 
@@ -352,7 +357,7 @@
 
       .community-guest-item-card {
         box-shadow: 5px 12px 15px rgba(0, 0, 0, 0.15);
-        margin-bottom: 2em;
+        margin-bottom: 32px;
       }
 
       .guest-card-img-top {
@@ -365,7 +370,7 @@
       .guest-item-name {
         display: inline-block;
         max-width: 70%;
-        max-height: 3em;
+        max-height: 48px;
         text-overflow: ellipsis;
         overflow: hidden;
 
@@ -383,7 +388,7 @@
       }
 
       .guest-card-body {
-        padding: 0.5em 0.75em;
+        padding: 8px 12px;
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
         position: relative;
@@ -399,25 +404,25 @@
       .item-detail-heading {
         text-transform: uppercase;
         color: var(--app-green);
-        font-size: 2.5em;
+        font-size: 40px;
         font-weight: bold;
       }
 
       .item-detail-top {
-        margin-bottom: 1.75em;
+        margin-bottom: 28px;
       }
 
       .listen-btn {
-        margin-top:  1.5em;
-        font-size: 1.2em;
+        margin-top:  24px;
+        font-size: 29px;
         font-weight: 600;
-        width: 7.5em;
+        width: 120px;
         float: right;
       }
 
       .listen-btn-vol-up {
-        font-size: 1.4em;
-        margin-right: 0.3em;
+        font-size: 22px;
+        margin-right: 5px;
         position: relative;
         top: 2px;
       }
@@ -425,7 +430,7 @@
 
       .item-description {
         font-size: 24px;
-        line-height: 2em;
+        line-height: 32px;
         text-align: justify;
       }
 
@@ -443,14 +448,14 @@
       }
 
       .edit-submit-btn {
-        width: 10em;
-        height: 3em;
+        width: 160px;
+        height: 48px;
         font-weight: bold;
       }
 
       .add-check {
-        font-size: 1.25em;
-        margin-right: 0.3em;
+        font-size: 20px;
+        margin-right: 5px;
       }
 
 
@@ -458,7 +463,7 @@
       .text {
         width: 100%;
         text-align: center;
-        font-size: 0.9em;
+        font-size: 14px;
         margin: 0;
         position: absolute;
         top: 50%;
@@ -467,15 +472,15 @@
       }
 
       .google-search {
-        width: 17.5em;
-        height: 3em;
+        width: 280px;
+        height: 48px;
         float: right;
         background-color: white;
         border: 2px solid black;
         border-radius: 10px;
         color: black;
         font-weight: bold;
-        font-size: 1.1em;
+        font-size: 17px;
       }
 
       .g-logo {
@@ -506,7 +511,7 @@
           var googleLink = "https://www.google.com/search?q=" + itemName;
           window.open(googleLink)
         }
-
+        
       }
 
       document.getElementById("google-search-href").addEventListener("click", searchOnGoogle)

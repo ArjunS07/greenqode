@@ -3,10 +3,10 @@
 {% load static %}
 
 
-{% block title %} Home {% endblock %}
+{% block title %} GreenScan - Add printable QR codes to trees and plants in your community {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default"> 
  <div class="container">
    <div class="navbar-header">
      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -20,8 +20,9 @@
    </div>
    <div class="collapse navbar-collapse" id="myNavbar">
      <ul class="nav navbar-nav">
-       <li><a href="{% url 'login' %}">login</a></li>
-     </ul>
+      <li><a href="{% url 'login' %}">login</a></li>
+      <li><a href="{% url 'about' %}">about</a></li>
+    </ul>
 
 
    </div>
@@ -62,7 +63,7 @@
   <div class="container" style = "height: 100%;">
 
     <div class="row explanation">
-      <div class="col-sm-3 col-xs-12 explainer">
+      <div class="col-lg-3 col-xs-12 explainer">
 
         <i class="fa fa-plus-square explainer-icon">
 
@@ -74,7 +75,7 @@
         </p>
 
       </div>
-      <div class="col-sm-3 col-xs-12 explainer">
+      <div class="col-lg-3 col-xs-12 explainer">
 
         <i class="fa fa-qrcode explainer-icon">
 
@@ -86,7 +87,7 @@
         </p>
 
       </div>
-      <div class="col-sm-3 col-xs-12 explainer">
+      <div class="col-lg-3 col-xs-12 explainer">
 
         <i class="fa fa-print explainer-icon">
 
@@ -98,7 +99,7 @@
         </p>
 
       </div>
-      <div class="col-sm-3 col-xs-12 explainer">
+      <div class="col-lg-3 col-xs-12 explainer">
 
         <svg class = "explainer-icon-svg" viewBox="0 0 75 85" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_14_58)">

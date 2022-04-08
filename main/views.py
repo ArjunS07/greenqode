@@ -201,6 +201,13 @@ def viewCommunityItemAsGuest(request, communityNameID, communityItemID):
     template = loader.get_template('viewItem.html')
     return HttpResponse(template.render(context, request))
 
+def aboutPage(request):
+
+    template = loader.get_template('about.html')
+    context = {}
+
+    return HttpResponse(template.render(context, request))
+
 # Utilities
 class PDF(FPDF):
     pass
@@ -224,51 +231,59 @@ def generate_pdf_from_community_id(community_id):
 
     num_qrs = len(urls_to_encode)
 
+    # Constants
     pdf_w=210
     pdf_h=297
-    square_qr_side = 35
+    square_qr_side = 70
     qr_label = 15
     qr_padding = 5
-    leftmost_x = 25
-    topmost_y = 25
+    leftmost_x = 35
+    topmost_y = 35
+    qrs_per_row = 2
+    rows_per_page = 3
+    qrs_per_page = qrs_per_row * rows_per_page
 
-
-    qrs_per_page = 24
-    num_pages_decimal = num_qrs / qrs_per_page
-    num_pages = roundup(num_pages_decimal)
-
+    # Values to keep track of
     current_x = leftmost_x
     current_y = topmost_y
+
+    num_pages_decimal = num_qrs / qrs_per_page
+    num_pages = roundup(num_pages_decimal)
 
     num_qrs_used = 0
     current_qr_index = 0
 
+    # Config
     pdf.set_font('Arial', '', 12)
 
     for i in range(num_pages):
-        pdf.add_page()   
+
+        pdf.add_page()
 
         remaining = num_qrs - num_qrs_used
         num_rows = 0
         if remaining > qrs_per_page:
-            num_rows = 6
+            num_rows = rows_per_page
         else:
-            num_rows = roundup(remaining / 4)
+            num_rows = roundup(remaining / qrs_per_row)
+        
+        # reset y to 0
+        current_y = topmost_y
         
         
         # For every row
         for j in range(num_rows):
             
-            # Rest at beginning of every row        
+            # Reset at beginning of every row        
             current_x = leftmost_x
             
             remaining = (num_qrs-num_qrs_used)
             num_items_in_row = 0
             
-            if remaining >= 4:
-                num_items_in_row = 4
+            if remaining >= qrs_per_row:
+                num_items_in_row = qrs_per_row
             else:
-                num_items_in_row = remaining % 4
+                num_items_in_row = remaining % qrs_per_row
             
             for k in range(num_items_in_row):
 
@@ -303,7 +318,7 @@ def generate_pdf_from_community_id(community_id):
                 # Move ahead
                 current_x += square_qr_side + qr_padding
 
-                # No need to change y since this is the samr row          
+                # No need to change y since this is the same row          
                 
                         
                 current_qr_index += 1
@@ -312,7 +327,6 @@ def generate_pdf_from_community_id(community_id):
         
             # Advance y position
             current_y += square_qr_side + (qr_padding * 2)
-                
     return pdf
 
 def roundup(inp):
