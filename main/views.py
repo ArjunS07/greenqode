@@ -84,7 +84,7 @@ def render_pdf_view(request, *args, **kwargs):
     uploaded_pdf_ref = generated_pdfs_ref + "/" + community_id + ".pdf"
     storage.child(uploaded_pdf_ref).put(temp_pdf_url)
 
-    media_url = storage.child(uploaded_pdf_ref).get_url(None)
+    media_url = storage.child(uploaded_pdf_ref).get_url()
     
     return HttpResponseRedirect(media_url)
 
