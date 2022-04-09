@@ -13,7 +13,6 @@ import qrcode
 from pyrebase import pyrebase
 
 
-
 SERVICE_ACCOUNT_PATH = settings.STATIC_URL + "greenscan-80c5f-firebase-adminsdk-i3daq-889efc4c34.json"
 config = {
     "apiKey": "AIzaSyAzIJvvgRzpGQKXm_upBJiX6ebOKyAtHMg",
@@ -76,7 +75,7 @@ def render_pdf_view(request, *args, **kwargs):
     else:
         return redirect("/accounts/login")
 
-    qr_codes_generated_pdf = generate_pdf_from_community_id(pk)
+    qr_codes_generated_pdf = generate_pdf_from_community_id(pk, request)
     temp_pdf_file = NamedTemporaryFile(delete = True)
     temp_pdf_url = temp_pdf_file.name + '.pdf'
     qr_codes_generated_pdf.output(temp_pdf_url, 'F')
