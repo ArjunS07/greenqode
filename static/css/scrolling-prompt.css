@@ -152,7 +152,6 @@ body {
 	-moz-animation: pulse 1.5s 0s infinite normal ease forwards;
 	-o-animation: pulse 1.5s 0s infinite normal ease forwards;
 	animation: pulse 1.5s 0s infinite normal ease forwards;
-	background-image: url(images/arrow-down.svg);
 	background-repeat: no-repeat;
 }
 .scroll-down a:before, .scroll-down a:after {
