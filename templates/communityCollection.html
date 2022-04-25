@@ -11,116 +11,84 @@
 
 {% block content %}
 
-<nav class="navbar navbar-default">
- <div class="container">
-   <div class="navbar-header">
-     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-       <span class="icon-bar"></span>
-       <span class="icon-bar"></span>
-       <span class="icon-bar"></span>
-     </button>
-     <a class="navbar-brand">
-<svg fill = "#79C99E" class = "qr-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M144 32C170.5 32 192 53.49 192 80V176C192 202.5 170.5 224 144 224H48C21.49 224 0 202.5 0 176V80C0 53.49 21.49 32 48 32H144zM128 96H64V160H128V96zM144 288C170.5 288 192 309.5 192 336V432C192 458.5 170.5 480 144 480H48C21.49 480 0 458.5 0 432V336C0 309.5 21.49 288 48 288H144zM128 352H64V416H128V352zM256 80C256 53.49 277.5 32 304 32H400C426.5 32 448 53.49 448 80V176C448 202.5 426.5 224 400 224H304C277.5 224 256 202.5 256 176V80zM320 160H384V96H320V160zM352 448H384V480H352V448zM448 480H416V448H448V480zM416 288H448V416H352V384H320V480H256V288H352V320H416V288z"/></svg>      GreenScan
-    </a>
-   </div>
-   <div class="collapse navbar-collapse" id="myNavbar">
-     <ul class="nav navbar-nav">
-       <li><a href="{% url 'communitycollection' %}" class = "nav-active">View collection</a></li>
-       <li><a href="{% url 'logout' %}">logout</a></li>
-     </ul>
 
 
-   </div>
- </div>
-</nav>
+<div class="container ">
 
-<div class="container">
+  <h1 class="is-size-2 has-text-weight-bold">Your Collection</h1>
 
-    <div class="top-content row">
+      <div class="is-flex-tablet is-flex-direction-row mb-5">
+        <div class="is-flex-grow-1">
 
+          <div class="block is-flex is-flex-direction-column">
+            <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold"> {{ communityName }}</p>
+            <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold">{{ numCommunityItems }} items</p>
+          </div>
+        </div>
 
+        <div class="buttons are-medium">
 
-      <div class="top-text col-md-9 col-xs-12">
-        <h1 class="l1-heading">Your Collection</h1>
-        <p class="secondary-heading community-name"> {{ communityName }}</p>
-        <p class="secondary-heading community-num-items">{{ numCommunityItems }} items</p>
+          <a href="{{ printurl }}" target="_blank" class = "mr-2">
+            <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center">
+              <span class="icon is-medium">
+                <i class="fa fa-print top-action-icon" aria-hidden="true"></i>
+              </span>
+              <span> Print QR codes</span>
+            </button>
+          </a>
+
+          <a href="{% url 'additem' %}">
+            <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center">
+              <span class="icon is-medium">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </span>
+              <span> Add item </span>
+            </button>
+          </a>
+
+        </div>
+
       </div>
-
-        <div class="top-action-items col-md-3 col-xs-12">
-
-          {% if  numCommunityItems > 0 %}
-
-          <a href="{{ printurl }}" target="_blank">
-            <button class="btn top-action-item print-btn app-btn">
-              <i class="fa fa-print top-action-icon" aria-hidden="true"></i>
-              Print
-          </button>
-        </a>
-        {% endif %}
-
-        <a href="{% url 'additem' %}">
-            <button class="btn top-action-item add-btn app-btn">
-              <i class="fa fa-plus top-action-icon" aria-hidden="true"></i>
-              Add
-          </button>
-        </a>
-      </div>
-
-
-
-
-
-
-    </div>
 
 </div>
 
-<div class = "container">
+<div class = "container mb-5">
 
-    <div class="items row">
+    <div class="columns">
 
       {% for item in communityItems %}
 
-        <div class="col-md-3 col-sm-6 col-xs-12 card-wrapper">
-            <div class="card community-owner-item-card">
-
-              {% load static %}
+        <div class="column is-one-quarter">
+            <div class="box is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
 
 
-              {% if item.hasImage == True %}
-                <img class="card-img-top" src="{{ item.image.url }}">
+              <div class="">
+                <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ item.name }}</p>
+                <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
 
-              {% else %}
-              <img class="card-img-top" src="{% static 'images/tree-with-qr-code-placeholder.svg' %}">
+                <div class="columns flex-grow-0">
 
-              {% endif %}
+                  <div class="column">
 
+                      <a href="{% url 'edititem' item.item_id %}"  class = 'button is-outlined is-link box'>
+                        <span class="icon">
+                          <i class="fa fa-solid fa-pencil-alt "></i>
+                        </span>
+                        <span> Edit </span>      
+                      </a>
 
+                  </div>
 
+                  <div class="column">
 
-              <div class="card-body">
-                <p class="card-title"> {{ item.name }}</p>
-
-                <a href="{% url 'edititem' item.item_id %}" >
-
-                  <btn class = 'card-action-item btn edit-btn'>
-                    <i class="fa fa-solid fa-pencil edit-pencil-icon action-item-icon"></i>
-                    Edit
-                  </btn>
-
-                </a>
-
-                <a href="{% url 'deletecommunityitem' item.item_id %}">
-                  <btn href="{% url 'deletecommunityitem' item.item_id %}" class = 'card-action-item btn delete-btn'>
-                    <i class="fa fa-solid fa-trash edit-pencil-icon action-item-icon"></i>
-                    Delete
-                  </btn>
-                </a>
-
-
-
-
-
+                      <a href="{% url 'deletecommunityitem' item.item_id %}" class = "button is-outlined is-danger box">
+                        <span class="icon">
+                          <i class="fa fa-solid fa-trash "></i>
+                        </span>
+                        <span> Delete </span>    
+                      </a>
+                  </div>
+                </div>
 
 
               </div>
@@ -135,5 +103,8 @@
     </div>
 
 </div>
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
 
 {% endblock %}
