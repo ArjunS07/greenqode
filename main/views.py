@@ -42,14 +42,14 @@ firebase = pyrebase.initialize_app(config)
 storage = firebase.storage()
 generated_pdfs_ref = 'generated_pdfs'
 
-def home(request):
+# def home(request):
 
-    if request.user.is_authenticated:
-        return redirect("/communitycollection")
+#     if request.user.is_authenticated:
+#         return redirect("/communitycollection")
 
-    context = {}
-    template = loader.get_template('home.html')
-    return HttpResponse(template.render(context, request))
+#     context = {}
+#     template = loader.get_template('index.html')
+#     return HttpResponse(template.render(context, request))
 
 @login_required
 def communityCollection(request):
@@ -171,6 +171,8 @@ def viewCommunityAsGuest(request, communityNameID):
     for item in items:
         new_item = {
             'name': item.name,
+            'description': item.description,
+            'location': item.location,
             'linktodetail': request.build_absolute_uri("/viewitem/" + communityFromId.nameID + "/" + item.item_id)
         }
         # if item.hasImage:

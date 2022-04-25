@@ -17,38 +17,38 @@
 
   <h1 class="is-size-2 has-text-weight-bold">Your Collection</h1>
 
-      <div class="is-flex-tablet is-flex-direction-row mb-5">
-        <div class="is-flex-grow-1">
+  <div class="is-flex-tablet is-flex-direction-row mb-5">
+    <div class="is-flex-grow-1">
 
-          <div class="block is-flex is-flex-direction-column">
-            <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold"> {{ communityName }}</p>
-            <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold">{{ numCommunityItems }} items</p>
-          </div>
-        </div>
-
-        <div class="buttons are-medium">
-
-          <a href="{{ printurl }}" target="_blank" class = "mr-2">
-            <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center">
-              <span class="icon is-medium">
-                <i class="fa fa-print top-action-icon" aria-hidden="true"></i>
-              </span>
-              <span> Print QR codes</span>
-            </button>
-          </a>
-
-          <a href="{% url 'additem' %}">
-            <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center">
-              <span class="icon is-medium">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-              </span>
-              <span> Add item </span>
-            </button>
-          </a>
-
-        </div>
-
+      <div class="block is-flex is-flex-direction-column">
+        <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold"> {{ communityName }}</p>
+        <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold">{{ numCommunityItems }} items</p>
       </div>
+    </div>
+
+    <div class="buttons are-medium">
+
+      <a href="{{ printurl }}" target="_blank" class = "mr-2">
+        <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center">
+          <span class="icon is-medium">
+            <i class="fa fa-print top-action-icon" aria-hidden="true"></i>
+          </span>
+          <span> Print QR codes</span>
+        </button>
+      </a>
+
+      <a href="{% url 'additem' %}">
+        <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center">
+          <span class="icon is-medium">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </span>
+          <span> Add item </span>
+        </button>
+      </a>
+
+    </div>
+
+  </div>
 
 </div>
 
