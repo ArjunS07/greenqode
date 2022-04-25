@@ -3,13 +3,14 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+from django.views.generic import TemplateView
 
 def trigger_error(request):
     division_by_zero = 1 / 0
 
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', TemplateView.as_view(template_name = 'index.html'), name='index'),
     path('communitycollection',
          views.communityCollection, name='communitycollection'),
     path('pdf/<pk>', views.render_pdf_view, name='render_pdf_view'),

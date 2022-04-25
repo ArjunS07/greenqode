@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from django.template import loader
 from django.conf import settings
 from django.core.files.temp import NamedTemporaryFile
+from django.contrib.auth.decorators import login_required
 
 from .models import Community, CommunityItem
 from .forms import ItemForm
@@ -41,20 +42,19 @@ firebase = pyrebase.initialize_app(config)
 storage = firebase.storage()
 generated_pdfs_ref = 'generated_pdfs'
 
-def home(request):
+# def home(request):
 
-    if request.user.is_authenticated:
-        return redirect("/communitycollection")
+#     if request.user.is_authenticated:
+#         return redirect("/communitycollection")
 
-    context = {}
-    template = loader.get_template('home.html')
-    return HttpResponse(template.render(context, request))
+#     context = {}
+#     template = loader.get_template('index.html')
+#     return HttpResponse(template.render(context, request))
 
-
+@login_required
 def communityCollection(request):
 
-    if not request.user.is_authenticated:
-        return redirect("/login")
+
         
     communityFromAuthStatus = getCommunityFromAuthUser(request)
     items = CommunityItem.objects.filter(community=communityFromAuthStatus)
@@ -84,15 +84,12 @@ def render_pdf_view(request, *args, **kwargs):
     uploaded_pdf_ref = generated_pdfs_ref + "/" + community_id + ".pdf"
     storage.child(uploaded_pdf_ref).put(temp_pdf_url)
 
-    media_url = storage.child(uploaded_pdf_ref).get_url()
+    media_url = storage.child(uploaded_pdf_ref).get_url(None)
     
     return HttpResponseRedirect(media_url)
 
-
+@login_required
 def addCommunityItem(response):
-
-    if not response.user.is_authenticated:
-        return redirect("/accounts/login")
 
     if response.method == 'POST':
         form = ItemForm(response.POST, response.FILES)
@@ -122,6 +119,7 @@ def addCommunityItem(response):
         template = loader.get_template('addItem.html')
         return HttpResponse(template.render(context, response))
 
+@login_required
 def editCommunityItem(request, communityItemID):
     
     authenticateUserOwnership(request, communityItemID)
@@ -153,6 +151,7 @@ def editCommunityItem(request, communityItemID):
         template = loader.get_template('editItem.html')
         return HttpResponse(template.render(context, request)) 
 
+@login_required
 def deleteitem(request, communityItemID):
 
     authenticateUserOwnership(request, communityItemID)
@@ -161,6 +160,7 @@ def deleteitem(request, communityItemID):
     itemToDelete = CommunityItem.objects.filter(community = currentCommunity).get(item_id = communityItemID)
     itemToDelete.delete()
     return redirect('/communitycollection')
+
 
 def viewCommunityAsGuest(request, communityNameID):
     communityFromId = Community.objects.get(nameID=communityNameID)
@@ -171,6 +171,8 @@ def viewCommunityAsGuest(request, communityNameID):
     for item in items:
         new_item = {
             'name': item.name,
+            'description': item.description,
+            'location': item.location,
             'linktodetail': request.build_absolute_uri("/viewitem/" + communityFromId.nameID + "/" + item.item_id)
         }
         # if item.hasImage:
