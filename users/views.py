@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from django.template import loader
-from django.http import HttpResponse, HttpResponseRedirect
-from main.models import Community, CommunityItem
+from django.contrib.auth import login, authenticate, logout
+from main.models import Community
 
 from .forms import RegisterForm
 from django.contrib.auth.models import User
@@ -52,3 +50,7 @@ def login_user(request):
 
     else:
         return render(request, 'login.html', {'error_message': ''})
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')

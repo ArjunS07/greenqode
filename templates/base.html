@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html>
+  
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +19,6 @@
   </head>
 
   <body>
-
 <nav class="navbar has-shadow is-spaced" role="navigation"  aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="/">
@@ -34,46 +34,52 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item">
+      <a class="navbar-item" href = "/">
         Home
       </a>
 
-      <a class="navbar-item">
-        Documentation
+      {% if request.user.is_authenticated %}
+
+      <a class="navbar-item" href = "/communitycollection">
+        My Community
       </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More
-        </a>
+      {% endif %}
 
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href = "/about">
-            About GreenScan
-          </a>
-          <a class="navbar-item">
-            Jobs
-          </a>
-          <a class="navbar-item">
-            Contact
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a>
-        </div>
-      </div>
+
+      
+
+      <a class="navbar-item" href = "/about">
+        About GreenScan
+      </a>
+
+
+
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
+
+          {% if request.user.is_authenticated %}
+
+          <a class="button is-light" href = "{% url 'logout' %}">
+            Log out
+          </a>
+
+          {% else %}
+
           <a class="button is-primary" href = "/register">
             <strong>Sign up</strong>
           </a>
           <a class="button is-light" href = "/login">
             Log in
           </a>
+
+          {% endif %}
+
+
+
         </div>
       </div>
     </div>
@@ -85,17 +91,16 @@
     <footer class="footer has-background-grey-darker has-text-white">
       <div class="content">
 
-        <div class="columns has-text-grey">
+        <div class="columns is-desktop has-text-grey">
 
-          <div class="column has-text-grey">
+          <div class="column is-four-fifths has-text-grey">
             <p class="title is-5 has-text-grey"> Contact </p>
             <p class = "subtitle is-6 mt-2 has-text-grey"> Email <strong class = "has-text-grey-light"> app.greenscan@gmail.com </strong> if you have any queries, suggestions, or feedback regarding GreenScan. <p>
             </p>
           </div>
 
-          <div class="column is-2"></div>
 
-          <div class="column has-text-grey">
+          <div class="column is-one-fifth has-text-grey">
             <p class="title is-5 has-text-grey"> About </p>
 
             <a href = "/about" class = "has-text-grey"> About GreenScan </a> <br> 
