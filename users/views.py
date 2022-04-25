@@ -24,3 +24,31 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, "users/signup.html", {"form": form})
+
+def login_user(request):
+
+    print("logging in user")
+
+
+    username = ''
+    password = ''
+    
+    if request.method == 'POST':
+        print('received post')
+        username = request.POST['username']
+        password = request.POST['password']
+
+        print(username)
+        print(password)
+
+        user = authenticate(username=username, password=password)
+        if user is not None and user.is_active:
+                login(request, user)
+                return redirect('/communitycollection')
+
+        else:
+            print("user not found")
+            return render(request, 'login.html', {'error_message': 'Invalid username or password. Please try again.'})
+
+    else:
+        return render(request, 'login.html', {'error_message': ''})

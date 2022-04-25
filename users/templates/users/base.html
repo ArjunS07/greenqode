@@ -4,115 +4,117 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-    <title>{% block title %}Django App{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>{% block title %} {% endblock %}</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
-    <style type="text/css">
-      :root {
-        --app-green: #79C99E;
-        --app-orange: #F87060;
-        --app-grey: #B2B5C9;
-      }
-
-      .navbar-default {
-        background-color: white;
-        border: none;
-      }
-
-      .navbar-default .navbar-brand {
-        color: black;
-        font-weight: bold;
-        font-size: 1.2em;
-      }
-
-      .qr-logo {
-        width: 16px;
-        color: var(--app-green);
-        position: relative;
-        top: 3px;
-        margin-right: 3px;
-      }
-
-      .centre-align-brand {
-        position: absolute;
-        width: 100%;
-        left: 0;
-        text-align: center;
-        margin:0 auto;
-      }
-
-      nav li a {
-        text-transform: uppercase;
-        color: var(--app-grey);
-        font-weight: bold;
-        position: relative;
-        top: 2px;
-      }
-
-      .nav-active{
-        color: var(--app-green) !important;
-        background-color: white;
-      }
-
-
-
-      @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-      body {
-        font-family: 'Raleway', 'Arial', sans-serif;
-        font-size: 14px;
-        height: 100%;
-      }
-
-      .app-btn {
-        background-color: var(--app-orange);
-        color:  white;
-        text-transform: uppercase;
-        padding:  8px;
-        border-radius: 10px;
-        border: none;
-
-      }
-
-      .app-btn:hover {
-        background-color: var(--app-orange);
-        color:  white;
-        border: none;
-      }
-
-      .app-btn:focus {
-        outline: 0 !important;
-        color: white;
-      }
-
-      h1.l1-heading {
-        text-transform: capitalize;
-        font-size: 42px;
-        font-weight: bold;
-      }
-
-      .secondary-heading {
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 21px;
-        color: var(--app-grey);
-        height:  16px;
-      }      
-
-
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
   </head>
+
   <body>
 
+<nav class="navbar has-shadow is-spaced" role="navigation"  aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="{% static "images/logo.png" %}" style = "width: 100%; height: 100px">
+    </a>
 
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
 
-    <main>{% block content %} {% endblock %}</main>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item">
+        Home
+      </a>
+
+      <a class="navbar-item">
+        Documentation
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href = "/about">
+            About GreenScan
+          </a>
+          <a class="navbar-item">
+            Jobs
+          </a>
+          <a class="navbar-item">
+            Contact
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">
+            Report an issue
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" href = "/register">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light" href = "/login">
+            Log in
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    {% block content %} {% endblock %}
+
+    <footer class="footer has-background-grey-darker has-text-white">
+      <div class="content">
+
+        <div class="columns has-text-grey">
+
+          <div class="column has-text-grey">
+            <p class="title is-5 has-text-grey"> Contact </p>
+            <p class = "subtitle is-6 mt-2 has-text-grey"> Email <strong class = "has-text-grey-light"> app.greenscan@gmail.com </strong> if you have any queries, suggestions, or feedback regarding GreenScan. <p>
+            </p>
+          </div>
+
+          <div class="column is-2"></div>
+
+          <div class="column has-text-grey">
+            <p class="title is-5 has-text-grey"> About </p>
+
+            <a href = "/about" class = "has-text-grey"> About GreenScan </a> <br> 
+            <a href = "/aboutsite"  class = "has-text-grey" > Our tech stack </a>
+          </div>
+
+        </div>
+
+        <div class="copy has-text-centered">
+
+          <p class = "has-text-grey">
+            <strong class = "has-text-grey">&copy GreenScan</strong> by <a class = "has-text-grey-light" href="https://github.com/arjunS07/">Arjun Sharma</a>
+          </p>
+        </div>
+
+      </div>
+    </footer>
+
   </body>
+  {% load static %}
+  <script src="{% static "js/nav.js" %}"></script>
 </html>
