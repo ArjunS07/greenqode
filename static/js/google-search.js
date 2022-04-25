@@ -4,6 +4,8 @@ function searchOnGoogle() {
       var googleLink = "https://www.google.com/search?q=" + itemName;
       window.open(googleLink)
     }
+
+    return false;
     
   }
 

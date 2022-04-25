@@ -40,10 +40,10 @@ class ItemForm(ModelForm):
         # }   
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'Tree or plant name', 'id': 'item-detail-name'}),
-            'location': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item location in community'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'What people will see when they scan the code'}),
-            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Number of these items in community', 'value': '1'}),
+            'name': forms.TextInput(attrs={'class': 'input ', 'placeholder' : 'Tree or plant name', 'id': 'item-detail-name'}),
+            'location': forms.TextInput(attrs={'class': 'input ', 'placeholder': 'Item location in community'}),
+            'description': forms.Textarea(attrs={'class': 'input textarea ', 'placeholder': 'What people will see when they scan the code', 'rows' : '5', 'cols': '50'}),
+            'quantity': forms.NumberInput(attrs={'class': 'input ', 'placeholder': 'Number of these items in community', 'value': '1'}),
         }
 
 #     name = forms.CharField(max_length=40, widget = forms.TextInput(attrs={

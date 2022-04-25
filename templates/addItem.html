@@ -7,52 +7,73 @@
 {% block title %} {{ communityName }} Add item {{ item.name }} {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-default">
- <div class="container">
-   <div class="navbar-header">
-     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-       <span class="icon-bar"></span>
-       <span class="icon-bar"></span>
-       <span class="icon-bar"></span>
-     </button>
-     <a class="navbar-brand">
-<svg fill = "#79C99E" class = "qr-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M144 32C170.5 32 192 53.49 192 80V176C192 202.5 170.5 224 144 224H48C21.49 224 0 202.5 0 176V80C0 53.49 21.49 32 48 32H144zM128 96H64V160H128V96zM144 288C170.5 288 192 309.5 192 336V432C192 458.5 170.5 480 144 480H48C21.49 480 0 458.5 0 432V336C0 309.5 21.49 288 48 288H144zM128 352H64V416H128V352zM256 80C256 53.49 277.5 32 304 32H400C426.5 32 448 53.49 448 80V176C448 202.5 426.5 224 400 224H304C277.5 224 256 202.5 256 176V80zM320 160H384V96H320V160zM352 448H384V480H352V448zM448 480H416V448H448V480zM416 288H448V416H352V384H320V480H256V288H352V320H416V288z"/></svg>      GreenScan
-    </a>
-   </div>
-   <div class="collapse navbar-collapse" id="myNavbar">
-     <ul class="nav navbar-nav">
-       <li><a href="{% url 'communitycollection' %}">View collection</a></li>
-       <li><a href="{% url 'logout' %}">logout</a></li>
-     </ul>
 
-
-   </div>
- </div>
-</nav>
-<div class="container">
-  <h1 class="l1-heading">
+<div class="container mb-3">
+  <h1 class="title is-2">
     Add Item
   </h1>
 
   <form action="additem" method="POST">
 
     {% csrf_token %}
-    {{ form|crispy }}
 
-      <a href = "" id = "google-search-href">
-        <button class = "google-search"> 
-          <img src = "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class = "g-logo"></i>
-         Search for details on Google
-        </button>
-      </a> 
-      <br/>
-    <button type="submit" class = "add-submit-btn app-btn">
-      <i class="fa fa-check add-check"></i>
-      CONFIRM
+    {{ form.non_field_errors }}
+
+    <div class="field">
+      {{ form.name.errors }}
+      <label for="{{ form.name.id_for_name }}" class="label">Name</label>
+      {{ form.name }}
+    </div>
+
+    <div class="field">
+      {{ form.location.errors }}
+      <label for="{{ form.location.id_for_location }}" class="label">Location</label>
+      {{ form.location }}
+    </div>
+
+    <div class="field">
+      {{ form.description.errors }}
+      <label for="{{ form.description.id_for_description }}" class="label">Description</label>
+      {{ form.description }}
+    </div>
+
+      <button type = "button" id = "google-search-href" class = "button "> 
+        <span class="icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <span>
+          Search for details on Google
+        </span>
+      </button>
+
+      <br>
+      <br>
+    
+
+    <div class="field">
+      {{ form.quantity.errors }}
+      <label for="{{ form.quantity.id_for_quantity }}" class="label">Number of items (this determines the number of QR codes printed for this tree or plant) </label>
+      {{ form.quantity }}
+    </div>
+
+
+    <br/>
+
+    <button type="submit" class = "button is-success is-medium">
+      <span class="icon">
+        <i class="fa fa-check add-check"></i>
+      </span>
+      <span class = "has-text-weight-bold">
+        Add item
+      </span>
     </button>
+
   </form>
 
 
 </div>
+
+<script src="{% static "js/google-search.js" %}"></script>
+<link rel="stylesheet" href="{% static 'css/item-detail.css' %}">
 
 {% endblock %}
