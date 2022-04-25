@@ -10,7 +10,7 @@ class RegisterForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(
         attrs={
         'class':'input',
-        'placeholder':'CityTownsvilleApartments'
+        'placeholder':'City_Townsville_Park'
         }
     ))
 
