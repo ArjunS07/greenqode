@@ -1,3 +1,20 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+
 .mt-auto {
     margin-top: auto;
+}
+
+.navbar-brand img {
+    height: 2.75rem;
+    max-height:max-content !important;
+}
+
+.navbar-brand p {
+    color: #43AA8B;
 }
