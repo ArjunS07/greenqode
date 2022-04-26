@@ -1,69 +1,118 @@
 {% extends 'base.html' %} 
 {% load static %} 
-<link rel="stylesheet" href="{% static 'css/about.css' %}">
 
 {% block title %} About GreenQode {%endblock %} 
 
 {% block content %}
 
 
-<div class="p-5">
-  <h1 class = "title is-3 has-text-centered"> About GreenQode </h1>
 
-  <div class="box">
-    <h3 class = "title is-4"> What is GreenQode?</h3>
-    
-    <p class = "is-size-5"> 
-      GreenQode is a platform that I have developed that allows communities to easily communicate information about trees and plants in their communities with interested people using QR codes. I was inspired to create this after my visit to Lodhi Gardens a few years ago, where we saw  QR codes on trees and scanned them to learn more about them.
-      <br/><br/>
-      On this site, a community manager enters information about a tree or plant into the website. With one click of a button, they can generate a printable PDF consisting of QR codes that link to a webpage with the information previously entered. The platform can be used by any organisation – local park, RWA, school, university etc. - which would like to encourage its visitors to learn more about the flora in their community.
-      <br/><br/>
-      When a community member scans the QR code using their mobile phone, they’re taken to a page on the internet showing what the community manager added.
-      This means that community managers can enter details, print the QR code, then update the details without having to update the QR codes. 
-      <br> <br> 
-  
-      The main advantages of using GreenQode to a community manager are:
-      
-      <ol class = "p-5"> 
-  
-        <li class = "is-size-5">It allows any community - regardless of technical ability - to set up such a system</li>
-        <li class = "is-size-5">Information can be updated over time without having to reprint the paper, since the QR code just points to a link on the internet</li>
-        <li class = "is-size-5">It's more convenient for community members to read the information on a screen than having to read a printed paper that's vulnerable to damage or may be uncomfortably placed</li>
-        <li class = "is-size-5">QR codes which contain the information themselves can't be updated and are limited in how much information they can store </li>
-      </ol>
-  
-      <br> <br> 
-    </p>
+<div class="container p-5">
+
+  <div class="column is-12">
+    <div class="box has-background-primary-dark has-text-white">
+      <div class="content">
+        <h3 class = "has-text-white">What is GreenQode?</h3>
+        <p>GreenQode allows communities to <strong class="has-text-white">create and print QR codes</strong> that link to information about the trees and plants in their community. </p>
+        <p>
+          This information includes a description (fun facts, historical information, trivia, uses, and so on) and a list of locations in the community in which the plant can be found. </p>
+        </p>
+      </div>
+    </div>
   </div>
 
+  <div class="column is-12">
+    <div class="box has-background-primary-dark has-text-white">
+      <div class="content">
+        <h3 class = "has-text-white">How does it work?</h3>
+        <p>Once you create a GreenQode account, you enter information about the flora in your community - plus the number of QR codes you want to print for that plant or tree. </p>
+        
+        <p>
+          With a click of a button, you can then <strong class="has-text-white">print a PDF with all your QR codes</strong>. The PDF has cutting lines and labels to ease the process for you.
+        </p>
 
-  <div class="box">
-    <h3 class = "title is-4"> Who made it? </h3>
-  
-    <p class = "is-size-5"> 
-      I’m Arjun Sharma, an 11th grade student living in Gurgaon. I’ve been interested in technology since I was eleven years old. Since starting programming in seventh grade, I've explored app development, machine learning and AI, full-stack development and scripting in various different projects.
-      I pen my thoughts on all thngs tech on my personal blog, <a href = "throbac.xyz"> Throbac</a>. 
-  
-      <br>
-      <br>
-  
-      Contact me at <b> contact.greenqode@gmail.com  </b> if you have any questions or comments regarding the website.
-      You can email me at <b> arjun.sharma07@outlook.com <b> for other matters.
-      
-      <br>
-      <br>
-  
-      
-    </p>
+        <p>
+          Put up the QR codes on the trees and plants in your community. When someone scans any of these QR codes with a mobile phone camera, they're instantly taken to a webpage containing the information you've entered for that particular tree or plant.  
+        </p>
+
+      </div>
+    </div>
   </div>
 
+  <div class="column is-12">
+
+    <div class="box has-background-primary-dark has-text-white">
+      <div class="content">
+        <h3 class = "has-text-white"> Why GreenQode? </h3>
+        <p>
+          Traditional approaches to sharing information about trees and plants include using plaques or collecting information in booklets. 
+          However, these are typically difficult to update, hard to scale, and expensive to install. 
+        </p>
+        <p>
+          Using compact, printable QR codes that you can install on or next to any tree or plant, you can avoid all these problems. The QR codes always link directly to a webpage with the <strong class="has-text-white">latest information</strong>  you've entered. 
+
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="column is-12">
+    <div class="box has-background-primary-dark has-text-white">
+
+      <div class="content">
+
+        <h3 class = "has-text-white">Who it's meant for</h3>
+
+        <p>
+          <strong class = "has-text-white"> Everyone! </strong> Whether you're a large national park or small homestay, anyone can use GreenQode. 
+        </p>
+        <p>
+          There are essentially no technical skills required - all you need is internet access, a printer, and a pair of scissors.    
+
+        </p>
+
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="column is-12">
+    <div class="box has-background-primary-dark has-text-white">
+
+      <div class="content">
+
+        <h3 class = "has-text-white"> How much does it cost? </h3>
+
+        <p>
+          <strong class = "has-text-white"> Nothing!</strong> GreenQode is a free platform.  
+        </p>
+
+        
+
+
+      </div>
+
+    </div>
+  </div>
+
+  
+  <div class="columns">
+        
+  </div>
+
+  <br>
+  
 </div>
 
 <style> 
-
+  p {
+    font-size: 1.1rem;
+    font-weight: 'medium';
+  }
 </style>
 
 
-<link rel="stylesheet" href="{% static 'css/about.css' %}">
 
 {% endblock %}

@@ -24,14 +24,14 @@ class RegisterForm(UserCreationForm):
     password1 = forms.CharField(widget=forms.PasswordInput(
         attrs={
         'class':'input',
-        'placeholder':'Password1'
+        'placeholder':'pa55w0rd'
         }
     ))
 
     password2 = forms.CharField(widget=forms.PasswordInput(
         attrs={
         'class':'input',
-        'placeholder':'Password2'
+        'placeholder':'pa55w0rd'
         }
     ))
 

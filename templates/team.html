@@ -1,0 +1,80 @@
+{% extends 'base.html' %} 
+{% load static %} 
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+
+{% block title %} About GreenQode - Team {%endblock %} 
+
+{% block content %}
+
+
+<div class="container p-5">
+
+    <div class="content">
+
+
+
+        <div class="columns">
+            <div class="column is-10-mobile is-offset-1-mobile is-3-desktop   is-flex is-align-items-center is-justify-content-center">
+                <figure class="image">
+                    <img src="{% static "/images/arjun-profile.jpg" %}" class = "is-rounded" width = >
+                </figure>
+            </div>
+            <div class="column is-12-mobile is-9-desktop ">
+
+                <h3 class = "has-text mb-5"> Hi, I'm Arjun Sharma </h3>
+
+                <p>
+                    I'm an 11th grade student living in Gurgaon, India. I've been interested in all things tech since fifth grade, and have been coding since I was eleven. I like to write about my thoughts on technology <a href = "https://www.throbac.xyz" target = "_blank">on my personal blog</a>.
+                    <br> 
+                </p>
+
+                <p>
+                    <strong class = "block"> I'm passionate about using technology to make a change in society. </strong>
+                    GreenQode is one of my efforts that attempt to realise this goal. The idea was born in a sustainability hackathon in March 2022. Since then, it's gone through multiple iterations aimed at increasing the usability and scalability of the web app.                 </p>
+
+                </p>
+
+                <p>
+                    My technical skills include:
+                    <ul>
+                        <li>Full-stack web development with Django (which is <a href = "{% url "about-site" %}"> what this site is built with</a>) </li>
+                        <li>Data analysis and machine learning, using packages such as Tensorflow, Keras, and Turi Create</li>
+                        <li>App development with Flutter, using Dart, as well as with UIKit, using Swift</li>
+                        <li>Front-end web development using the languages of the web - HTMl, CSS, and JavaScript. I've worked with a number of front-end frameworks, including Bootstrap, Bulma (<a href = "{% url "about-site" %}">another component </a> of this site), and Tailwind CSS. </li>
+                        <li>Python and Java for scripting and other programming tasks </li>
+                    </ul>
+
+                </p>
+
+                <p> 
+                    I'm always open to working on exciting and impactful projects. 
+                    Feel free to email me at arjun.sharma07@outlook.com</strong> if you've got any ideas you'd like to work with me on - or for anything else.  You can find my Github <a href = "github.com/arjuns07"> here</a>.
+                    <br>
+
+                </p>
+                
+                <p>
+                    Thanks for checking out GreenQode! 
+                </p>
+
+
+
+                
+            </div>
+        </div>
+
+
+
+        
+
+    </div>
+</div>
+
+<style> 
+
+</style>
+
+
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+
+{% endblock %}

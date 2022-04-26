@@ -37,24 +37,41 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" href = "/">
+      <a class="navbar-item" href = "{% url "index" %}">
         Home
       </a>
 
       {% if request.user.is_authenticated %}
 
-      <a class="navbar-item" href = "/communitycollection">
+      <a class="navbar-item" href = "{% url "communitycollection" %}">
         My Community
       </a>
 
       {% endif %}
 
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          About
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href = "{% url "about"%}">
+            More about GreenQode
+          </a>
+          <a class="navbar-item" href = "{% url "team"%}">
+            Team
+          </a>
+          <a class="navbar-item" href = "{% url "about-site"%}">
+            Tech stack
+          </a>
+
+        </div>
+      </div>
+
 
       
 
-      <a class="navbar-item" href = "/about">
-        About GreenQode
-      </a>
+
 
 
 
@@ -72,10 +89,10 @@
 
           {% else %}
 
-          <a class="button is-primary" href = "/register">
+          <a class="button has-background-primary-dark has-text-white" href = "{% url "register"%}">
             <strong>Sign up</strong>
           </a>
-          <a class="button is-light" href = "/login">
+          <a class="button is-light" href = "{% url "login"%}">
             Log in
           </a>
 
@@ -106,8 +123,9 @@
           <div class="column is-one-fifth has-text-grey">
             <p class="title is-5 has-text-grey"> About </p>
 
-            <a href = "/about" class = "has-text-grey"> About GreenQode </a> <br> 
-            <a href = "/aboutsite"  class = "has-text-grey" > Our tech stack </a>
+            <a href = "{% url "about"%}" class = "has-text-grey"> About GreenQode </a> <br> 
+            <a href = "{% url "team"%}"  class = "has-text-grey" > Team </a> <br>
+            <a href = "{% url "about-site"%}"  class = "has-text-grey" > Our tech stack </a>
           </div>
 
         </div>

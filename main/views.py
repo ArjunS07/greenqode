@@ -200,12 +200,7 @@ def viewCommunityItemAsGuest(request, communityNameID, communityItemID):
     template = loader.get_template('viewItem.html')
     return HttpResponse(template.render(context, request))
 
-def aboutPage(request):
 
-    template = loader.get_template('about.html')
-    context = {}
-
-    return HttpResponse(template.render(context, request))
 
 # Utilities
 class PDF(FPDF):
