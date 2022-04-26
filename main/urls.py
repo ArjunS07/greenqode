@@ -13,7 +13,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name = 'index.html'), name='index'),
     path('about',
          TemplateView.as_view(template_name = 'about.html'), name='about'),
-     path('aboutsite', TemplateView.as_view(template_name = 'about-site.html'), name='about-site'),
+     path('aboutsite', TemplateView.as_view(template_name = 'aboutsite.html'), name='aboutsite'),
      path('team', TemplateView.as_view(template_name = 'team.html'), name='team'),
 
     path('communitycollection',
