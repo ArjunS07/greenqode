@@ -73,7 +73,9 @@ def render_pdf_view(request, *args, **kwargs):
     pk = kwargs.get('pk')
     if request.user.is_authenticated:
         accountForUser = Community.objects.get(account = request.user)
-        if accountForUser.nameID != pk:
+        numCommunityItems = len(Community.objects.filter(community=communityFromAuthStatus))
+
+        if accountForUser.nameID != pk or numCommunityItems < 1:
             return redirect("/communitycollection")
     else:
         return redirect("/accounts/login")
