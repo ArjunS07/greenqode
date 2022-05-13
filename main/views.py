@@ -57,7 +57,7 @@ def checkAuth(request):
 
 def communityCollection(request):
 
-    checkAuth()
+    checkAuth(request)
 
     communityFromAuthStatus = getCommunityFromAuthUser(request)
     items = CommunityItem.objects.filter(community=communityFromAuthStatus)
@@ -93,7 +93,7 @@ def render_pdf_view(request, *args, **kwargs):
 
 def addCommunityItem(response):
 
-    checkAuth()
+    checkAuth(response)
 
     if response.method == 'POST':
         form = ItemForm(response.POST, response.FILES)
@@ -125,7 +125,7 @@ def addCommunityItem(response):
 
 def editCommunityItem(request, communityItemID):
 
-    checkAuth()    
+    checkAuth(request)    
     authenticateUserOwnership(request, communityItemID)
 
     currentCommunity = getCommunityFromAuthUser(request)
@@ -155,7 +155,7 @@ def editCommunityItem(request, communityItemID):
         return HttpResponse(template.render(context, request)) 
 
 def deleteitem(request, communityItemID):
-    checkAuth()
+    checkAuth(request)
 
     authenticateUserOwnership(request, communityItemID)
 
