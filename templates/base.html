@@ -19,94 +19,100 @@
   </head>
 
   <body>
-<nav class="navbar has-shadow is-spaced" role="navigation"  aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="{% url 'index' %}">
-      <img src="{% static "images/logo-icon.png" %}" height = "100">
-      <p class="has-text-weight-bold is-3 ml-2 ">
-        GreenQode
-      </p>
-    </a>
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href = "{% url "index" %}">
-        Home
-      </a>
-
-      {% if request.user.is_authenticated %}
-
-      <a class="navbar-item" href = "{% url "communitycollection" %}">
-        My Community
-      </a>
-
-      {% endif %}
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          About
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href = "{% url "about"%}">
-            More about GreenQode
+    <main>
+      <nav class="navbar has-shadow is-spaced" role="navigation"  aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="{% url 'index' %}">
+            <img src="{% static "images/logo-icon.png" %}" height = "100">
+            <p class="has-text-weight-bold is-3 ml-2 ">
+              GreenQode
+            </p>
           </a>
-          <a class="navbar-item" href = "{% url "team"%}">
-            Team
-          </a>
-          <a class="navbar-item" href = "{% url "aboutsite"%}">
-            Tech stack
-          </a>
-
-        </div>
-      </div>
-
-
       
-
-
-
-
-
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-
-          {% if request.user.is_authenticated %}
-
-          <a class="button is-light" href = "{% url 'logout' %}">
-            Log out
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
           </a>
-
-          {% else %}
-
-          <a class="button has-background-primary-dark has-text-white" href = "{% url "register"%}">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light" href = "{% url "login"%}">
-            Log in
-          </a>
-
-          {% endif %}
-
-
-
         </div>
-      </div>
-    </div>
-  </div>
-</nav>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href = "{% url "index" %}">
+              Home
+            </a>
+      
+            {% if request.user.is_authenticated %}
+      
+            <a class="navbar-item" href = "{% url "communitycollection" %}">
+              My Community
+            </a>
+      
+            {% endif %}
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                About
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href = "{% url "about"%}">
+                  More about GreenQode
+                </a>
+                <a class="navbar-item" href = "{% url "team"%}">
+                  Team
+                </a>
+                <a class="navbar-item" href = "{% url "aboutsite"%}">
+                  Tech stack
+                </a>
+      
+              </div>
+            </div>
+      
+      
+            
+      
+      
+      
+      
+      
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+      
+                {% if request.user.is_authenticated %}
+      
+                <a class="button is-light" href = "{% url 'logout' %}">
+                  Log out
+                </a>
+      
+                {% else %}
+      
+                <a class="button has-background-primary-dark has-text-white" href = "{% url "register"%}">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light" href = "{% url "login"%}">
+                  Log in
+                </a>
+      
+                {% endif %}
+      
+      
+      
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
 
-    {% block content %} {% endblock %}
+      {% block content %} {% endblock %}
+
+    </main>
+
+
 
     <footer class="footer has-background-grey-darker has-text-white">
       <div class="content">

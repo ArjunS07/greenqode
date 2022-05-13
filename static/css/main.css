@@ -22,3 +22,7 @@ html, body {
 .navbar-brand p {
     color: #43AA8B;
 }
+
+main {
+    min-height: calc(100vh - 306px);
+}

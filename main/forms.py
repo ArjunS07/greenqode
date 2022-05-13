@@ -42,7 +42,7 @@ class ItemForm(ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'input ', 'placeholder' : 'Tree or plant name', 'id': 'item-detail-name'}),
             'location': forms.TextInput(attrs={'class': 'input ', 'placeholder': 'Item location in community'}),
-            'description': forms.Textarea(attrs={'class': 'input textarea ', 'placeholder': 'What people will see when they scan the code', 'rows' : '5', 'cols': '50'}),
+            'description': forms.Textarea(attrs={'class': 'input textarea ', 'placeholder': 'What people will see when they scan the code. You could about the uses of this tree or plant - cultural, medicinal, religious, and more. You could also include interesting facts, like the history of this species or a story you have about this particular tree or plant. ', 'rows' : '5', 'cols': '50'}),
             'quantity': forms.NumberInput(attrs={'class': 'input ', 'placeholder': 'Number of these items in community', 'value': '1'}),
         }
 
