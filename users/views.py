@@ -17,7 +17,7 @@ def register(request):
             newCommunity = Community(account = newuser, name = username)
             newCommunity.save()
 
-            return redirect("/communitycollection")
+            return redirect("/login")
 
     else:
         form = RegisterForm()
