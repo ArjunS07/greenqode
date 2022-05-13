@@ -51,11 +51,14 @@ generated_pdfs_ref = 'generated_pdfs'
 #     template = loader.get_template('index.html')
 #     return HttpResponse(template.render(context, request))
 
-@login_required
+def checkAuth(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
 def communityCollection(request):
 
+    checkAuth()
 
-        
     communityFromAuthStatus = getCommunityFromAuthUser(request)
     items = CommunityItem.objects.filter(community=communityFromAuthStatus)
 
@@ -88,8 +91,9 @@ def render_pdf_view(request, *args, **kwargs):
     
     return HttpResponseRedirect(media_url)
 
-@login_required
 def addCommunityItem(response):
+
+    checkAuth()
 
     if response.method == 'POST':
         form = ItemForm(response.POST, response.FILES)
@@ -119,11 +123,10 @@ def addCommunityItem(response):
         template = loader.get_template('addItem.html')
         return HttpResponse(template.render(context, response))
 
-@login_required
 def editCommunityItem(request, communityItemID):
-    
-    authenticateUserOwnership(request, communityItemID)
 
+    checkAuth()    
+    authenticateUserOwnership(request, communityItemID)
 
     currentCommunity = getCommunityFromAuthUser(request)
     itemToEdit = CommunityItem.objects.filter(community = currentCommunity).get(item_id = communityItemID)
@@ -151,8 +154,8 @@ def editCommunityItem(request, communityItemID):
         template = loader.get_template('editItem.html')
         return HttpResponse(template.render(context, request)) 
 
-@login_required
 def deleteitem(request, communityItemID):
+    checkAuth()
 
     authenticateUserOwnership(request, communityItemID)
 
@@ -163,8 +166,8 @@ def deleteitem(request, communityItemID):
 
 
 def viewCommunityAsGuest(request, communityNameID):
+    
     communityFromId = Community.objects.get(nameID=communityNameID)
-
     items = CommunityItem.objects.filter(community=communityFromId)
 
     items_with_links = []
@@ -194,12 +197,9 @@ def viewCommunityItemAsGuest(request, communityNameID, communityItemID):
 
     linkToCommunityPage = request.build_absolute_uri('/viewcommunity/' + communityNameID)
 
-    
-
     context = {'communityName': community.name, 'item': item, 'linkToCommunityPage': linkToCommunityPage}
     template = loader.get_template('viewItem.html')
     return HttpResponse(template.render(context, request))
-
 
 
 # Utilities
