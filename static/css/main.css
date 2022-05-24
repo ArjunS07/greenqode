@@ -26,3 +26,8 @@ html, body {
 main {
     min-height: calc(100vh - 290px);
 }
+
+.navbar-brand .navbar-item p {
+    position: relative;
+    left: -12px;
+}
