@@ -8,68 +8,70 @@
 {% block title %} Edit item {% endblock %}
 
 {% block content %}
-
-<div class="container mb-3">
-  <h1 class="title is-2">
-    Edit Item
-  </h1>
-
-  <form method = "post" enctype="multipart/form-data">
-
-    {% csrf_token %}
-
-    {{ form.non_field_errors }}
-
-    <div class="field">
-      {{ form.name.errors }}
-      <label for="{{ form.name.id_for_name }}" class="label">Name</label>
-      {{ form.name }}
-    </div>
-
-    <div class="field">
-      {{ form.location.errors }}
-      <label for="{{ form.location.id_for_location }}" class="label">Location</label>
-      {{ form.location }}
-    </div>
-
-    <div class="field">
-      {{ form.description.errors }}
-      <label for="{{ form.description.id_for_description }}" class="label">Description</label>
-      {{ form.description }}
-    </div>
-
-      <button type = "button" id = "google-search-href" class = "button "> 
+<section class="section">
+  <div class="container mb-3">
+    <h1 class="title is-2">
+      Edit Item
+    </h1>
+  
+    <form method = "post" enctype="multipart/form-data">
+  
+      {% csrf_token %}
+  
+      {{ form.non_field_errors }}
+  
+      <div class="field">
+        {{ form.name.errors }}
+        <label for="{{ form.name.id_for_name }}" class="label">Name</label>
+        {{ form.name }}
+      </div>
+  
+      <div class="field">
+        {{ form.location.errors }}
+        <label for="{{ form.location.id_for_location }}" class="label">Location</label>
+        {{ form.location }}
+      </div>
+  
+      <div class="field">
+        {{ form.description.errors }}
+        <label for="{{ form.description.id_for_description }}" class="label">Description</label>
+        {{ form.description }}
+      </div>
+  
+        <button type = "button" id = "google-search-href" class = "button "> 
+          <span class="icon">
+            <i class="fa fa-search"></i>
+          </span>
+          <span>
+            Search for details on Google
+          </span>
+        </button>
+  
+        <br>
+        <br>
+      
+  
+      <div class="field">
+        {{ form.quantity.errors }}
+        <label for="{{ form.quantity.id_for_quantity }}" class="label">Number of items (this determines the number of QR codes printed for this tree or plant). Only you can see this. </label>
+        {{ form.quantity }}
+      </div>
+  
+  
+      <br/>
+  
+      <button type="submit" class = "button is-success is-medium">
         <span class="icon">
-          <i class="fa fa-search"></i>
+          <i class="fa fa-check add-check"></i>
         </span>
-        <span>
-          Search for details on Google
+        <span class = "has-text-weight-bold">
+          Update details
         </span>
       </button>
+  
+  </div>
+</section>
 
-      <br>
-      <br>
-    
-
-    <div class="field">
-      {{ form.quantity.errors }}
-      <label for="{{ form.quantity.id_for_quantity }}" class="label">Number of items (this determines the number of QR codes printed for this tree or plant). Only you can see this. </label>
-      {{ form.quantity }}
-    </div>
-
-
-    <br/>
-
-    <button type="submit" class = "button is-success is-medium">
-      <span class="icon">
-        <i class="fa fa-check add-check"></i>
-      </span>
-      <span class = "has-text-weight-bold">
-        Update details
-      </span>
-    </button>
-
-</div>
 <script src="{% static "js/google-search.js" %}"></script>
 <link rel="stylesheet" href="{% static 'css/item-detail.css' %}">
 

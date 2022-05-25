@@ -1,6 +1,3 @@
-  <!-- templates/registration/login.html -->
-
-
 {% extends 'base.html' %}
 {% load static %}
 
@@ -11,100 +8,102 @@
 
 {% block content %}
 
+<section class="section">
+  <div class="container ">
 
-
-<div class="container ">
-
-  <h1 class="is-size-2 has-text-weight-bold">Your Collection</h1>
-
-  <div class="is-flex-tablet is-flex-direction-row mb-5">
-    <div class="is-flex-grow-1">
-
-      <div class="block is-flex is-flex-direction-column">
-        <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold"> {{ communityName }}</p>
-        <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold">{{ numCommunityItems }} items</p>
-      </div>
-    </div>
-
-    <div class="buttons are-medium">
-
-      {% if numCommunityItems > 0 %}
-      <a href="{{ printurl }}" target="_blank" class = "mr-2">
-        <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center">
-          <span class="icon is-medium">
-            <i class="fa fa-print top-action-icon" aria-hidden="true"></i>
-          </span>
-          <span> Print QR codes</span>
-        </button>
-      </a>
-      {% endif %}
-
-      <a href="{% url 'additem' %}">
-        <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center">
-          <span class="icon is-medium">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-          </span>
-          <span> Add item </span>
-        </button>
-      </a>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class = "container mb-5">
-
-    <div class="columns">
-
-      {% for item in communityItems %}
-
-        <div class="column is-one-quarter">
-            <div class="box is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
-
-
-              <div class="">
-                <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ item.name }}</p>
-                <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
-
-                <div class="columns flex-grow-0">
-
-                  <div class="column">
-
-                      <a href="{% url 'edititem' item.item_id %}"  class = 'button is-outlined is-link box'>
-                        <span class="icon">
-                          <i class="fa fa-solid fa-pencil-alt "></i>
-                        </span>
-                        <span> Edit </span>      
-                      </a>
-
-                  </div>
-
-                  <div class="column">
-
-                      <a href="{% url 'deletecommunityitem' item.item_id %}" class = "button is-outlined is-danger box">
-                        <span class="icon">
-                          <i class="fa fa-solid fa-trash "></i>
-                        </span>
-                        <span> Delete </span>    
-                      </a>
-                  </div>
-                </div>
-
-
-              </div>
-
-            </div>
+    <h1 class="is-size-2 has-text-weight-bold">Your Collection</h1>
+  
+    <div class="is-flex-tablet is-flex-direction-row mb-5">
+      <div class="is-flex-grow-1">
+  
+        <div class="block is-flex is-flex-direction-column">
+          <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold"> {{ communityName }}</p>
+          <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold">{{ numCommunityItems }} items</p>
         </div>
-
-      {% endfor %}
-
-
-
+      </div>
+  
+      <div class="buttons">
+  
+        {% if numCommunityItems > 0 %}
+        <a href="{{ printurl }}" target="_blank" class = "mr-2">
+          <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center border-radius">
+            <span class="icon is-medium">
+              <i class="fa fa-print top-action-icon" aria-hidden="true"></i>
+            </span>
+            <span> Print QR codes</span>
+          </button>
+        </a>
+        {% endif %}
+  
+        <a href="{% url 'additem' %}">
+          <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center border-radius">
+            <span class="icon is-medium">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </span>
+            <span> Add item </span>
+          </button>
+        </a>
+  
+      </div>
+  
     </div>
+  
+  </div>
+  
+  <div class = "container mb-5">
+  
+      <div class="columns">
+  
+        {% for item in communityItems %}
+  
+          <div class="column is-one-quarter">
+              <div class="box is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
+  
+  
+                <div class="">
+                  <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ item.name }}</p>
+                  <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
+  
+                  <div class="flex-grow-0 is-flex is-flex-direction-row">
+  
+                    <div class="mr-2">
+  
+                        <a href="{% url 'edititem' item.item_id %}"  class = 'button is-outlined is-link box'>
+                          <span class="icon">
+                            <i class="fa fa-solid fa-pencil-alt "></i>
+                          </span>
+                          <span> Edit </span>      
+                        </a>
+  
+                    </div>
+  
+                    <div class="">
+  
+                        <a href="{% url 'deletecommunityitem' item.item_id %}" class = "button is-outlined is-danger box">
+                          <span class="icon">
+                            <i class="fa fa-solid fa-trash "></i>
+                          </span>
+                          <span> Delete </span>    
+                        </a>
+                    </div>
+                  </div>
+  
+  
+                </div>
+  
+              </div>
+          </div>
+  
+        {% endfor %}
+  
+  
+  
+      </div>
+  
+  </div>
+</section>
 
-</div>
+
 
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 
