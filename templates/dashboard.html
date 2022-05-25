@@ -23,23 +23,20 @@
 
     </div>
 
-
-
-
   </div>
 
 
-  <div class="tabs">
+  <div class="tabs is-boxed">
     <ul>
-      <li class="is-active"><a>All items</a></li>
-      <li><a>Groups</a></li>
+      <li class="is-active" id="allitems-btn"><a>All items</a></li>
+      <li id="group-btn"><a>Groups</a></li>
 
     </ul>
   </div>
 
   <div class="container mb-5">
 
-    <div id="allitems">
+    <div id="allitems" class = "tab-content">
      
       <p class="is-size-5 has-text-weight-semibold mt-5 mb-2"> {{ communityItems|length }} items</p>
       <div class="columns">
@@ -87,7 +84,7 @@
       </div>
     </div>
 
-    <div id="groups"></div>
+    <div id="groups" class = "is-hidden"></div>
 
   </div>
 </section>
@@ -96,6 +93,26 @@
 
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 <script>
+
+  let allItemsBtn = document.getElementById('allitems-btn');
+  let groupBtn = document.getElementById('group-btn');
+
+  allItemsBtn.addEventListener("click", showAllItems)
+  groupBtn.addEventListener("click", showGroups)
+
+  function showAllItems() {
+    allItemsBtn.classList.add('is-active');
+    groupBtn.classList.remove('is-active');
+    document.getElementById('allitems').classList.remove('is-hidden');
+    document.getElementById('groups').classList.add('is-hidden');
+  }
+
+  function showGroups() {
+    allItemsBtn.classList.remove('is-active');
+    groupBtn.classList.add('is-active');
+    document.getElementById('allitems').classList.add('is-hidden');
+    document.getElementById('groups').classList.remove('is-hidden');
+  }
 
 </script>
 
