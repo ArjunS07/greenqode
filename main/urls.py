@@ -16,8 +16,8 @@ urlpatterns = [
      path('aboutsite', TemplateView.as_view(template_name = 'aboutsite.html'), name='aboutsite'),
      path('team', TemplateView.as_view(template_name = 'team.html'), name='team'),
 
-    path('communitycollection',
-         views.communityCollection, name='communitycollection'),
+    path('dashboard',
+         views.dashboard, name='dashboard'),
     path('pdf/<pk>', views.render_pdf_view, name='render_pdf_view'),
     path('additem', views.addCommunityItem, name='additem'),
     path('edititem/<str:communityItemID>',

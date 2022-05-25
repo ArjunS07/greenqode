@@ -42,7 +42,7 @@ def login_user(request):
         user = authenticate(username=username, password=password)
         if user is not None and user.is_active:
                 login(request, user)
-                return redirect('/communitycollection')
+                return redirect('/dashboard')
 
         else:
             print("user not found")

@@ -85,7 +85,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'qrcodes.wsgi.application'
 
-LOGIN_REDIRECT_URL = '/communitycollection'
+LOGIN_REDIRECT_URL = '/dashboard'
 LOGOUT_REDIRECT_URL = '/'
 
 # Database

@@ -45,7 +45,7 @@ generated_pdfs_ref = 'generated_pdfs'
 # def home(request):
 
 #     if request.user.is_authenticated:
-#         return redirect("/communitycollection")
+#         return redirect("/dashboard")
 
 #     context = {}
 #     template = loader.get_template('index.html')
@@ -55,7 +55,7 @@ def checkAuth(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-def communityCollection(request):
+def dashboard(request):
 
     checkAuth(request)
 
@@ -64,7 +64,7 @@ def communityCollection(request):
 
     context = {'communityName': communityFromAuthStatus.name, 'numCommunityItems': len(items), 'communityItems': items, 'printurl': "/pdf/" + communityFromAuthStatus.nameID}
 
-    template = loader.get_template('communityCollection.html')
+    template = loader.get_template('dashboard.html')
     return HttpResponse(template.render(context, request))
 
 from .utils.pdf_utils import generate_pdf_from_community_id
@@ -77,7 +77,7 @@ def render_pdf_view(request, *args, **kwargs):
         numCommunityItems = len(CommunityItem.objects.filter(community=accountForUser))
 
         if accountForUser.nameID != pk or numCommunityItems < 1:
-            return redirect("/communitycollection")
+            return redirect("/dashboard")
     else:
         return redirect("/accounts/login")
 
@@ -120,7 +120,7 @@ def addCommunityItem(response):
 
 
 
-            return HttpResponseRedirect('/communitycollection')
+            return HttpResponseRedirect('/dashboard')
     else:
         form = ItemForm()
         context = {'form': form}
@@ -149,7 +149,7 @@ def editCommunityItem(request, communityItemID):
 
             # if data['image']:
             #     itemToEdit.image = data['image']
-            return redirect('/communitycollection')
+            return redirect('/dashboard')
     
     else:
         form = ItemForm(instance = itemToEdit) 
@@ -167,7 +167,7 @@ def deleteitem(request, communityItemID):
     currentCommunity = getCommunityFromAuthUser(request)
     itemToDelete = CommunityItem.objects.filter(community = currentCommunity).get(item_id = communityItemID)
     itemToDelete.delete()
-    return redirect('/communitycollection')
+    return redirect('/dashboard')
 
 
 def viewCommunityAsGuest(request, communityNameID):
@@ -224,6 +224,6 @@ def authenticateUserOwnership(request, itemID):
         currentAccountCommunity = Community.objects.get(account = currentUser)
 
         if currentAccountCommunity.nameID != ownerOfItem.nameID:
-            return redirect("/communitycollection")
+            return redirect("/dashboard")
     else:
         return redirect("/login")
