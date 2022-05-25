@@ -73,7 +73,7 @@ def render_pdf_view(request, *args, **kwargs):
     pk = kwargs.get('pk')
     if request.user.is_authenticated:
         accountForUser = Community.objects.get(account = request.user)
-        numCommunityItems = len(Community.objects.filter(community=accountForUser))
+        numCommunityItems = len(CommunityItem.objects.filter(community=accountForUser))
 
         if accountForUser.nameID != pk or numCommunityItems < 1:
             return redirect("/communitycollection")
@@ -89,7 +89,7 @@ def render_pdf_view(request, *args, **kwargs):
     uploaded_pdf_ref = generated_pdfs_ref + "/" + community_id + ".pdf"
     storage.child(uploaded_pdf_ref).put(temp_pdf_url)
 
-    media_url = storage.child(uploaded_pdf_ref).get_url(None)
+    media_url = storage.child(uploaded_pdf_ref).get_url()
     
     return HttpResponseRedirect(media_url)
 
