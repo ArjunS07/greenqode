@@ -1,63 +1,102 @@
-{% extends 'base_dashboard.html' %}
+{% extends 'base.html' %}
+{% load static %}
 
 
-{% block tabs %}
-<div class="tabs">
-  <ul>
-    <li class="is-active"><a>All items</a></li>
-    <li><a>Groups</a></li>
 
-  </ul>
-</div>
-
-{% endblock tabs %}
-
-{% block listOfItems %}
-<div class="columns">
-
-  {% for item in communityItems %}
-
-  <div class="column is-one-quarter">
-    <div class="box is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
+{% block title %} Community collection {% endblock %}
 
 
-      <div class="">
-        <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ item.name }}</p>
-        <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
+{% block content %}
 
-        <div class="flex-grow-0 is-flex is-flex-direction-row">
+<section class="section">
+  <div class="container ">
 
-          <div class="mr-2">
+    <h1 class="is-size-2 has-text-weight-bold">Your Collection</h1>
 
-            <a href="{% url 'edititem' item.item_id %}" class='button is-outlined is-link box'>
-              <span class="icon">
-                <i class="fa fa-solid fa-pencil-alt "></i>
-              </span>
-              <span> Edit </span>
-            </a>
+    <div class="is-flex-tablet is-flex-direction-row mb-5">
+      <div class="is-flex-grow-1">
 
-          </div>
-
-          <div class="">
-
-            <a href="{% url 'deletecommunityitem' item.item_id %}" class="button is-outlined is-danger box">
-              <span class="icon">
-                <i class="fa fa-solid fa-trash "></i>
-              </span>
-              <span> Delete </span>
-            </a>
-          </div>
+        <div class="block is-flex is-flex-direction-column">
+          <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold"> {{ communityName }}</p>
         </div>
-
-
       </div>
 
     </div>
+
+
+
+
   </div>
 
-  {% endfor %}
+
+  <div class="tabs">
+    <ul>
+      <li class="is-active"><a>All items</a></li>
+      <li><a>Groups</a></li>
+
+    </ul>
+  </div>
+
+  <div class="container mb-5">
+
+    <div id="allitems">
+     
+      <p class="is-size-5 has-text-weight-semibold mt-5 mb-2"> {{ communityItems|length }} items</p>
+      <div class="columns">
+
+        {% for item in communityItems %}
+        <div class="column is-one-quarter">
+          <div class="box is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
+
+
+            <div class="">
+              <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ item.name }}</p>
+              <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
+
+              <div class="flex-grow-0 is-flex is-flex-direction-row">
+
+                <div class="mr-2">
+
+                  <a href="{% url 'edititem' item.item_id %}" class='button is-outlined is-link box'>
+                    <span class="icon">
+                      <i class="fa fa-solid fa-pencil-alt "></i>
+                    </span>
+                    <span> Edit </span>
+                  </a>
+
+                </div>
+
+                <div class="">
+
+                  <a href="{% url 'deletecommunityitem' item.item_id %}" class="button is-outlined is-danger box">
+                    <span class="icon">
+                      <i class="fa fa-solid fa-trash "></i>
+                    </span>
+                    <span> Delete </span>
+                  </a>
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+    <div id="groups"></div>
+
+  </div>
+</section>
 
 
 
-</div>
-{% endblock listOfItems %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<script>
+
+</script>
+
+{% endblock %}
