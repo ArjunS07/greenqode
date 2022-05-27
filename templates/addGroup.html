@@ -13,20 +13,20 @@ Add group
         {% csrf_token %}
 
         <div class="field">
-            <label for="">Group name</label>
+            <label for="" class="label">Group name</label>
             <div class="control">
                 <input class="input" type="text" placeholder="My plantation" name = "groupName" required>
             </div>
         </div>
 
         <div class="field">
-            <label for="">Group location</label>
+            <label for="" class="label">Group location</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Newsville Park Area #2" name = "groupLocation" required>
+                <input class="input" type="text" placeholder="Plantation Area #2" name = "groupLocation" required>
             </div>
         </div>
 
-        <p class="is-size-6 mt-5 mb-1">Plants and trees in this group:</p>
+        <label class="label">Plants and trees in this group:</label>
         <div id="items" class = "p-2">
 
             <div class="field">
@@ -55,12 +55,26 @@ Add group
 
         </div>
 
-        <div class="control mt-2 mb-4">
-            <button class="button" type="button" id="addGroupButton">Add item</button>
+        <div class="control mt-2 mb-4 is-pulled-right">
+            <button class="button has-background-link has-text-white border-radius" type="button" id="addGroupButton">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span>
+                    Add item
+                </span>
+            </button>
         </div>
 
         <div class="control">
-            <button class="button">Submit</button>
+            <button class="button is-medium has-background-primary-dark has-text-white">
+            <span class="icon">
+                <i class="fas fa-check"></i>
+            </span>
+            <span>
+                Submit
+            </span>
+            </button>
         </div>
 
     </form>
@@ -103,7 +117,7 @@ Add group
                         <input type="number" class="input" placeholder="Quantity" min = "1" select="" name = "${quantityFieldName}" required>
                     </div>
                     <div class="control pl-2">
-                        <button type = "button" class="button is-danger is-small border-radius remove-btn" id="for-${newID}">
+                        <button type = "button is-small" class="button is-danger is-small border-radius remove-btn" id="for-${newID}">
                             <i class="fa fa-minus"></i>
                         </button>
                     </div>
