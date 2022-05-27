@@ -10,15 +10,6 @@ class Community(models.Model):
     nameID = models.CharField(max_length=108, primary_key=True, editable=False)
     account = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.nameID
-
-    def save(self):
-        if not self.nameID:
-            uuidToAppend = str(uuid.uuid4())[:8]
-            self.nameID = self.name.replace(" ", "").lower() + uuidToAppend
-        super(Community, self).save()
-    
     @property
     def items(self):
         return CommunityItem.objects.filter(community=self)
@@ -32,6 +23,15 @@ class Community(models.Model):
         return reverse('communityDetail', kwargs={'communityNameID': self.nameID})
 
 
+    def __str__(self):
+        return self.nameID
+
+    def save(self):
+        if not self.nameID:
+            uuidToAppend = str(uuid.uuid4())[:8]
+            self.nameID = self.name.replace(" ", "").lower() + uuidToAppend
+        super(Community, self).save()
+
 class CommunityItem(models.Model):
     name = models.CharField(max_length=20)
     description = models.TextField()
@@ -43,7 +43,7 @@ class CommunityItem(models.Model):
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name + " from " + self.community.nameID
+        return self.name
 
     def save(self, *args, **kwargs): 
         if not self.item_id:
@@ -61,8 +61,16 @@ class CommunityItemGroup(models.Model):
     location = models.CharField(max_length=100)
     items = models.ManyToManyField(CommunityItem, blank=True, through = "CommunityItemGroupThrough")
     community = models.ForeignKey(Community, on_delete=models.CASCADE, default=None)
+    group_id = models.CharField(max_length=28, default=None, null=True, editable=True)
 
-    group_id = models.CharField(max_length=28, default=None, null=True, editable=False)
+    @property
+    def printURL(self):
+        return reverse('groupPDFView', kwargs={'groupID': self.group_id})
+
+    @property
+    def itemsList(self):
+        return self.items.all()
+    
 
     def __str__(self):
         return self.title
@@ -74,7 +82,6 @@ class CommunityItemGroup(models.Model):
         super().save(*args, **kwargs)
 
 class CommunityItemGroupThrough(models.Model):
-    itemGroup = models.ForeignKey(CommunityItemGroup, on_delete=models.CASCADE)
+    group = models.ForeignKey(CommunityItemGroup, on_delete=models.CASCADE)
     item = models.ForeignKey(CommunityItem, on_delete=models.CASCADE)
     count = models.IntegerField(default=1)
-

@@ -15,7 +15,11 @@ html, body {
 }
 
 .border-radius {
-    border-radius: 7px;
+    border-radius: 10% !important;
+}
+
+.is-fullwidth {
+    width: 100%;
 }
 
 .navbar-brand img {

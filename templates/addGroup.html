@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} 
+Add group
+{% endblock title%}
+
+{% block content %}
+<section class="section">
+
+    <form action="addgroup" method="POST">
+
+        {% csrf_token %}
+
+        <div class="field">
+            <label for="">Group name</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="My plantation" name = "groupName" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="">Group location</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Newsville Park Area #2" name = "groupLocation" required>
+            </div>
+        </div>
+
+        <p class="is-size-6 mt-5 mb-1">Plants and trees in this group:</p>
+        <div id="items" class = "p-2">
+
+            <div class="field">
+                <div class="columns">
+                    <div class="column is-10 p-1">
+                        <div class="control is-fullwidth">
+                            <div class="select is-fullwidth pr-2">
+                                <select name = "itemType_1">
+                                    <option disabled selected value class="has-text-grey"> Select item </option>
+                                    {% for item in items%}
+                                    <option value = "{{ item.item_id }}"> {{ item }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-2 p-1">
+                        <div class="control">
+                            <input type="number" class="input" placeholder="Quantity" min = "1" name = "itemQuantity_1" required>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="control mt-2 mb-4">
+            <button class="button" type="button" id="addGroupButton">Add item</button>
+        </div>
+
+        <div class="control">
+            <button class="button">Submit</button>
+        </div>
+
+    </form>
+
+</section>
+
+<script>
+    function uniqueID() {
+        return '_' + Math.random().toString(36).substr(2, 9);
+    };
+
+    let container = document.getElementById('items');
+
+    var ids = [];
+    function addItemField() {
+
+        let createdElement = document.createElement('div');
+        let newID = uniqueID();
+        let typeFieldName = "itemType_" + newID; quantityFieldName = "itemQuantity_" + newID;
+        ids.push(newID);
+
+        createdElement.classList.add('field');
+        container.appendChild(createdElement).innerHTML = `
+        <div class = "columns">
+            <div class = "column is-10 p-1">
+                <div class="control" id = "${newID}">
+                    <div class="select is-fullwidth pr-2">
+                        <select name = "${typeFieldName}">
+                            <option disabled selected value class="has-text-grey"> Select item </option>
+                            {% for item in items%}
+                                <option> {{ item }} </option>
+                            {% endfor %}                       
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class = "column is-2 p-1">
+                <div class="is-flex is-align-items-center is-justify-content-center">
+                    <div class="control">
+                        <input type="number" class="input" placeholder="Quantity" min = "1" select="" name = "${quantityFieldName}" required>
+                    </div>
+                    <div class="control pl-2">
+                        <button type = "button" class="button is-danger is-small border-radius remove-btn" id="for-${newID}">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+    }
+
+    document.getElementById('addGroupButton').addEventListener('click', addItemField);
+
+    document.getElementsByClassName('remove-btn').forEach(element => {
+        element.addEventListener('click', function (e) {
+            let id = e.target.id.split('-')[1];
+            ids.splice(ids.indexOf(id), 1);
+            container.removeChild(document.getElementById(id));
+        });
+    })
+
+
+
+</script>
+{% endblock %}

@@ -24,7 +24,9 @@ def itemDetailsFromCommunity(community_id, request):
 
 def itemDetailsFromGroup(group_id, request):
     group = CommunityItemGroup.objects.get(group_id=group_id)
-    items = group.items
+    print("The group is", group)
+    items = group.itemsList
+    print("The items are", items)
 
     urls = []
     labels = []
@@ -36,6 +38,10 @@ def itemDetailsFromGroup(group_id, request):
         for _ in range(itemCount):
             urls.append(item_url)
             labels.append(label)
+    print(urls)
+    print(labels)
+
+    return urls, labels
 
 
 CONFIG_PATH = os.path.join(os.getcwd(), 'main/utils/firebase_config.json')
@@ -58,11 +64,11 @@ COMMUNITY_PDF_REF = 'communityPDFs'
 GROUP_PDF_REF = 'groupPDFs'
 
 def firebasePDFFromCommunity(community_id, request):
-    urls, labels = itemDetailsFromCommunity(community_id, request=request)
+    urls, labels = itemDetailsFromCommunity(community_id=community_id, request=request)
     pdf = generate_pdf(urls_to_encode=urls, labels=labels)
     return firebase_pdf(pdf, community_id, COMMUNITY_PDF_REF)
 
-def firebasePDFFromGroup(group_id):
-    urls, labels = itemDetailsFromGroup(group_id)
+def firebasePDFFromGroup(group_id, request):
+    urls, labels = itemDetailsFromGroup(group_id=group_id, request=request)
     pdf = generate_pdf(urls_to_encode=urls, labels=labels)
     return firebase_pdf(pdf, group_id, GROUP_PDF_REF)

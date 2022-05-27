@@ -14,10 +14,13 @@ urlpatterns = [
 
     path('dashboard',views.dashboard, name='dashboard'),
     path('communityprint/<communityID>', views.communityPDFView, name='communityPDFView'),
+    path('groupprint/<groupID>', views.groupPDFView, name='groupPDFView'),
 
     path('additem', views.addCommunityItem, name='additem'),
     path('edititem/<str:communityItemID>',views.editCommunityItem, name='edititem'),
     path('deletecommunityitem/<str:communityItemID>',views.deleteitem, name='deletecommunityitem'),
+
+    path('addgroup', views.addGroup, name='addgroup'),
     
     path('viewcommunity/<str:communityNameID>', views.communityDetail, name='communityDetail'),
     path('viewitem/<str:communityItemID>',

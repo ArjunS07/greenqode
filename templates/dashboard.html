@@ -40,7 +40,7 @@
 
       <div class="is-flex is-flex-direction-row">
         {% if community.items|length == 0 %}
-        <p class="is-size-6 is-flex-grow-1">Get started adding items to your community</p>
+        <p class="is-size-6 is-flex-grow-1">Get started adding plants and trees to your community</p>
         {% else %}
         <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> {{ community.items|length}} {% if community.items|length == 1 %} item {% else %} items {% endif %}</p>
         {% endif %}
@@ -72,37 +72,33 @@
       </div>
 
 
-      <div class="columns">
+      <div class="columns is-multiline">
 
         {% for item in community.items %}
         <div class="column is-one-quarter">
           <div class="box is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
 
 
-            <div class="">
+            <div class="is-fullwidth">
               <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ item.name }}</p>
               <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
 
 
               <div class="buttons are-small">
-                <a href="{% url 'edititem' item.item_id %}" class='button has-background-link box'>
+                <a href="{% url 'edititem' item.item_id %}" class='button has-background-link box border-radius'>
                   <span class="icon">
                     <i class="fa fa-solid fa-pencil-alt has-text-white"></i>
                   </span>
                   <span class="has-text-white"> Edit </span>
                 </a>
 
-
-
-                <a href="{% url 'deletecommunityitem' item.item_id %}" class="button has-background-danger box">
+                <a href="{% url 'deletecommunityitem' item.item_id %}" class="button has-background-danger box border-radius">
                   <span class="icon">
                     <i class="fa fa-solid fa-trash has-text-white "></i>
                   </span>
                   <span class="has-text-white"> Delete </span>
                 </a>
               </div>
-
-
 
             </div>
 
@@ -115,13 +111,72 @@
 
     <div id="groups" class="is-hidden">
       <div class="is-flex is-flex-direction-row">
+        {% if groups.count == 0 %}
         <p class="is-size-6 is-flex-grow-1"> Make groups to more easily manage related sets of plants or trees - like in an individual plantation. </p>
+        {% else %}
+        <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> {{ groups.count }} {% if groups.count == 1 %} group {% else %} groups {% endif %}</p>
+        {% endif %}
+        <p class="is-size-6 is-flex-grow-1"> 
+        </p>
         <div class="buttons">
-          <a href="" class="button has-background-primary-dark">
-            Add group
+          <a href="{%url 'addgroup' %}">
+            <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center border-radius">
+              <span class="icon is-medium">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </span>
+              <span> Add group </span>
+            </button>
           </a>
         </div>
       </div>
+
+      <div class="columns is-multiline">
+
+        {% for group in groups %}
+        <div class="column is-one-quarter">
+          <div class="box is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
+
+
+            <div class="is-fullwidth">
+              <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ group.title }}</p>
+              <p class="is-size-6 has-text-weight-regular has-text-grey has-text-left"> {{ group.location }}</p>
+              <p class="is-size-6 has-text-weight-regular has-text-grey has-text-left"> {{ group.location }}</p>
+
+
+              <div class="buttons are-small">
+                <a href="{}" class='button has-background-link box border-radius'>
+                  <span class="icon">
+                    <i class="fa fa-solid fa-pencil-alt has-text-white"></i>
+                  </span>
+                  <span class="has-text-white"> Edit </span>
+                </a>
+
+                <a href="{{ group.printURL }}" class='button has-background-link box border-radius'>
+                  <span class="icon">
+                    <i class="fa fa-solid fa-print has-text-white"></i>
+                  </span>
+                  <span class="has-text-white"> Print </span>
+                </a>
+
+                <a href="{}" class='button has-background-link box border-radius'>
+                  <span class="icon">
+                    <i class="fa fa-solid fa-share has-text-white"></i>
+                  </span>
+                  <span class="has-text-white"> Share </span>
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+
+      
+
     </div>
 
   </div>
@@ -139,6 +194,7 @@
   groupBtn.addEventListener("click", showGroups)
 
   function showAllItems() {
+    document.cookie = "dashboardMode=all"
     allItemsBtn.classList.add('is-active');
     groupBtn.classList.remove('is-active');
     document.getElementById('allitems').classList.remove('is-hidden');
@@ -146,10 +202,20 @@
   }
 
   function showGroups() {
+    document.cookie = "dashboardMode=all"
     allItemsBtn.classList.remove('is-active');
     groupBtn.classList.add('is-active');
     document.getElementById('allitems').classList.add('is-hidden');
     document.getElementById('groups').classList.remove('is-hidden');
+  }
+
+  let mode = "{{ mode }}";
+  console.log(mode);
+
+  if (mode == 'all') {
+    showAllItems();
+  } else if (mode == 'groups') {
+    showGroups();
   }
 
 </script>
