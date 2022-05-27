@@ -4,20 +4,20 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Community collection {% endblock %}
+{% block title %} {{ community.name }} on GreenQode {% endblock %}
 
 
 {% block content %}
 <section class="section">
   <div class="container">
 
-    <h1 class="is-size-2 has-text-weight-bold"> {{ communityName }} </h1>
+    <h1 class="is-size-2 has-text-weight-bold"> {{ community.name }} </h1>
   
     <div class="is-flex-tablet is-flex-direction-row mb-5">
       <div class="is-flex-grow-1">
   
         <div class="block is-flex is-flex-direction-column">
-          <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold">{{ numItems }} items</p>
+          <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold">{{ items|length }} items</p>
         </div>
       </div>
   
@@ -31,7 +31,7 @@
   
     <div class="columns">
   
-      {% for item in communityItems %}
+      {% for item in items %}
   
         <div class="column is-one-quarter">
             <div class="box is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
@@ -39,10 +39,9 @@
   
               <div class="">
                 <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ item.name }}</p>
-                <p class="is-size-6 has-text-weight-medium has-text-left item-desc mt-3 mb-3"> Found in: {{ item.location }}</p>
                 <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
                 
-                <a href="{{ item.linktodetail }}">
+                <a href="{{ item.get_absolute_url }}">
                   <button class="box button is-responsive hvr-icon-forward">
                     <span class = "mr-2"> Learn more </span>
                     <i class="fa fa-chevron-circle-right hvr-icon"></i>

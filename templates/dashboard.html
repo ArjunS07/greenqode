@@ -17,7 +17,7 @@
       <div class="is-flex-grow-1">
 
         <div class="block is-flex is-flex-direction-column">
-          <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold"> {{ communityName }}</p>
+          <p class="is-size-4-tablet is-size-5-mobile has-text-weight-semibold"> {{ community.name }}</p>
         </div>
       </div>
 
@@ -36,12 +36,45 @@
 
   <div class="container mb-5">
 
-    <div id="allitems" class = "tab-content">
-     
-      <p class="is-size-5 has-text-weight-semibold mt-5 mb-2"> {{ communityItems|length }} items</p>
+    <div id="allitems" class="tab-content">
+
+      <div class="is-flex is-flex-direction-row">
+        {% if community.items|length == 0 %}
+        <p class="is-size-6 is-flex-grow-1">Get started adding items to your community</p>
+        {% else %}
+        <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> {{ community.items|length}} {% if community.items|length == 1 %} item {% else %} items {% endif %}</p>
+        {% endif %}
+
+        <div class="buttons">
+
+          {% if community.items|length > 0 %}
+          <a href="{{ community.printURL }}" target="_blank" class="mr-2">
+            <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center border-radius">
+              <span class="icon is-medium">
+                <i class="fa fa-print top-action-icon" aria-hidden="true"></i>
+              </span>
+              <span> Print QR codes</span>
+            </button>
+          </a>
+          {% endif %}
+
+          <a href="{% url 'additem' %}">
+            <button
+              class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center border-radius">
+              <span class="icon is-medium">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </span>
+              <span> Add item </span>
+            </button>
+          </a>
+
+        </div>
+      </div>
+
+
       <div class="columns">
 
-        {% for item in communityItems %}
+        {% for item in community.items %}
         <div class="column is-one-quarter">
           <div class="box is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
 
@@ -50,29 +83,25 @@
               <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ item.name }}</p>
               <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
 
-              <div class="flex-grow-0 is-flex is-flex-direction-row">
 
-                <div class="mr-2">
+              <div class="buttons are-small">
+                <a href="{% url 'edititem' item.item_id %}" class='button has-background-link box'>
+                  <span class="icon">
+                    <i class="fa fa-solid fa-pencil-alt has-text-white"></i>
+                  </span>
+                  <span class="has-text-white"> Edit </span>
+                </a>
 
-                  <a href="{% url 'edititem' item.item_id %}" class='button is-outlined is-link box'>
-                    <span class="icon">
-                      <i class="fa fa-solid fa-pencil-alt "></i>
-                    </span>
-                    <span> Edit </span>
-                  </a>
 
-                </div>
 
-                <div class="">
-
-                  <a href="{% url 'deletecommunityitem' item.item_id %}" class="button is-outlined is-danger box">
-                    <span class="icon">
-                      <i class="fa fa-solid fa-trash "></i>
-                    </span>
-                    <span> Delete </span>
-                  </a>
-                </div>
+                <a href="{% url 'deletecommunityitem' item.item_id %}" class="button has-background-danger box">
+                  <span class="icon">
+                    <i class="fa fa-solid fa-trash has-text-white "></i>
+                  </span>
+                  <span class="has-text-white"> Delete </span>
+                </a>
               </div>
+
 
 
             </div>
@@ -84,7 +113,16 @@
       </div>
     </div>
 
-    <div id="groups" class = "is-hidden"></div>
+    <div id="groups" class="is-hidden">
+      <div class="is-flex is-flex-direction-row">
+        <p class="is-size-6 is-flex-grow-1"> Make groups to more easily manage related sets of plants or trees - like in an individual plantation. </p>
+        <div class="buttons">
+          <a href="" class="button has-background-primary-dark">
+            Add group
+          </a>
+        </div>
+      </div>
+    </div>
 
   </div>
 </section>

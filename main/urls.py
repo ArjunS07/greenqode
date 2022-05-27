@@ -18,7 +18,7 @@ urlpatterns = [
 
     path('dashboard',
          views.dashboard, name='dashboard'),
-    path('pdf/<pk>', views.render_pdf_view, name='render_pdf_view'),
+    path('communityprint/<communityID>', views.communityPDFView, name='communityPDFView'),
     path('additem', views.addCommunityItem, name='additem'),
     path('edititem/<str:communityItemID>',
          views.editCommunityItem, name='edititem'),
@@ -26,9 +26,9 @@ urlpatterns = [
 
          views.deleteitem, name='deletecommunityitem'),
     path('viewcommunity/<str:communityNameID>',
-         views.viewCommunityAsGuest, name='viewcommunityasguest'),
-    path('viewitem/<str:communityNameID>/<str:communityItemID>',
-         views.viewCommunityItemAsGuest, name='viewitemasguest'),
+         views.viewCommunity, name='viewCommunity'),
+    path('viewitem/<str:communityItemID>',
+         views.itemDetail, name='itemdetail'),
 
 
 ]

@@ -1,11 +1,8 @@
-from email.policy import default
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
-
 import uuid
 
-
-from django.core.files import File
 
 
 class Community(models.Model):
@@ -21,14 +18,23 @@ class Community(models.Model):
             uuidToAppend = str(uuid.uuid4())[:8]
             self.nameID = self.name.replace(" ", "").lower() + uuidToAppend
         super(Community, self).save()
+    
+    @property
+    def items(self):
+        return CommunityItem.objects.filter(community=self)
+    
+    @property
+    def printURL(self):
+        return reverse('communityPDFView', kwargs={'communityID': self.nameID})
 
+    @property
+    def detailURL(self):
+        return reverse('viewCommunity', kwargs={'communityNameID': self.nameID})
 
 
 class CommunityItem(models.Model):
-
     name = models.CharField(max_length=20)
     description = models.TextField()
-    location = models.CharField(max_length=100)
     quantity = models.IntegerField(default=1)
 
     item_id = models.CharField(
@@ -40,26 +46,35 @@ class CommunityItem(models.Model):
         return self.name + " from " + self.community.nameID
 
     def save(self, *args, **kwargs): 
-
         if not self.item_id:
             uuidToAppend = str(uuid.uuid4())[:8]
             self.item_id = self.name.replace(
                 " ", "").lower() + uuidToAppend   
-
         super().save(*args, **kwargs)
+    
+    @property
+    def get_absolute_url(self):
+        return reverse('itemdetail', kwargs={'communityItemID': str(self.item_id)})
 
 class CommunityItemGroup(models.Model):
     title = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-
     items = models.ManyToManyField(CommunityItem, blank=True, through = "CommunityItemGroupThrough")
+    community = models.ForeignKey(Community, on_delete=models.CASCADE, default=None)
+
+    group_id = models.CharField(max_length=28, default=None, null=True, editable=False)
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs): 
+        if not self.group_id:
+            uuidToAppend = str(uuid.uuid4())[:8]
+            self.group_id = self.title[:8].replace(" ", "").lower() + uuidToAppend   
+        super().save(*args, **kwargs)
 
 class CommunityItemGroupThrough(models.Model):
     itemGroup = models.ForeignKey(CommunityItemGroup, on_delete=models.CASCADE)
     item = models.ForeignKey(CommunityItem, on_delete=models.CASCADE)
     count = models.IntegerField(default=1)
 
-    community = models.ForeignKey(Community, on_delete=models.CASCADE, default=None)

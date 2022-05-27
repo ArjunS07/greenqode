@@ -1,8 +1,6 @@
 
 {% extends 'base.html' %}
 {% load static %}
-{%load crispy_forms_tags %}
-
 
 {% block title %} {{ communityName }} Add item {{ item.name }} {% endblock %}
 
@@ -23,12 +21,6 @@
       {{ form.name.errors }}
       <label for="{{ form.name.id_for_name }}" class="label">Name</label>
       {{ form.name }}
-    </div>
-
-    <div class="field">
-      {{ form.location.errors }}
-      <label for="{{ form.location.id_for_location }}" class="label">Location</label>
-      {{ form.location }}
     </div>
 
     <div class="field">
