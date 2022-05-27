@@ -29,7 +29,7 @@ class Community(models.Model):
 
     @property
     def detailURL(self):
-        return reverse('viewCommunity', kwargs={'communityNameID': self.nameID})
+        return reverse('communityDetail', kwargs={'communityNameID': self.nameID})
 
 
 class CommunityItem(models.Model):

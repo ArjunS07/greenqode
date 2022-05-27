@@ -106,7 +106,7 @@ def deleteitem(request, communityItemID):
     return redirect('/dashboard')
 
 
-def viewCommunity(request, communityNameID):
+def communityDetail(request, communityNameID):
     
     communityFromId = Community.objects.get(nameID=communityNameID)
     items = CommunityItem.objects.filter(community=communityFromId)
@@ -114,7 +114,7 @@ def viewCommunity(request, communityNameID):
     context = {'community': communityFromId, 'items': items}
 
 
-    template = loader.get_template('viewCommunity.html')
+    template = loader.get_template('communityDetail.html')
     return HttpResponse(template.render(context, request))
 
 
@@ -124,7 +124,7 @@ def itemDetail(request, communityItemID):
     community = item.community
 
     context = {'community': community, 'item': item}
-    template = loader.get_template('viewItem.html')
+    template = loader.get_template('itemDetail.html')
     return HttpResponse(template.render(context, request))
 
 

@@ -13,15 +13,16 @@ def itemDetailsFromCommunity(community_id, request):
     labels = []
 
     for item in items:
+        itemCount = item.quantity
         item_url = request.build_absolute_uri(item.get_absolute_url)
         label = item.name
-        for _ in range(item.quantity):
+        for _ in range(itemCount):
             urls.append(item_url)
             labels.append(label)
 
     return urls, labels
 
-def itemDetailsFromGroup(group_id):
+def itemDetailsFromGroup(group_id, request):
     group = CommunityItemGroup.objects.get(group_id=group_id)
     items = group.items
 
@@ -29,8 +30,12 @@ def itemDetailsFromGroup(group_id):
     labels = []
     
     for item in items:
-        throughModel = CommunityItemGroupThrough.objects.get(item=item, group=group)
-
+        itemCount = CommunityItemGroupThrough.objects.get(item=item, group=group).count
+        item_url = request.build_absolute_uri(item.get_absolute_url)
+        label = item.name
+        for _ in range(itemCount):
+            urls.append(item_url)
+            labels.append(label)
 
 
 CONFIG_PATH = os.path.join(os.getcwd(), 'main/utils/firebase_config.json')
