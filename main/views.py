@@ -117,7 +117,7 @@ def addGroup(request):
     elif request.method == 'POST':
 
         data = request.POST
-        print(type(data))
+        print((data))
 
         name = data['groupName']
         location = data['groupLocation']
@@ -134,10 +134,11 @@ def addGroup(request):
 
         values = []
         for _, value in itemdata.items():
-            values.append(value)
-        
+            values.append(value)        
         for i in range(0, len(values), 2):
             itemID = values[i]
+            print(itemID)
+            
             item = CommunityItem.objects.get(item_id = itemID)
             print("item:", item)
             print("Item type:", type(item))
@@ -156,18 +157,21 @@ def editGroup(request, groupID):
             return redirect('/dashboard')
 
     if request.method == 'GET':
-        existingItems = []
-        for item in group.items.all():
-            throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
-            quantity = throughModel.count
-            existingItems.append(
-                {
-                    'item': item,
-                    'quantity': quantity
-                }
-            )
         communityItems = community.items
-        context = {'group': group, 'communityItems': communityItems, 'existingItems': existingItems}
+        groupItems = group.itemsList
+        itemsToPass = []
+        for item in communityItems:
+            if item in groupItems:
+                throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
+                itemsToPass.append({
+                    'item': item, 'quantity': throughModel.count
+                })
+            else:
+                itemsToPass.append({
+                    'item': item, 'quantity': 0
+                })
+                
+        context = {'group': group, 'items': itemsToPass}
         template = loader.get_template('editGroup.html')
         return HttpResponse(template.render(context, request))
 

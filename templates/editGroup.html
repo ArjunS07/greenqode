@@ -10,49 +10,39 @@ Edit {{ group.title }}
 
     <h3 class="title is-3">Edit {{ group.title }} </h3>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" id = "creationForm">
 
         {% csrf_token %}
 
         <div class="field">
             <label for="" class="label">Group name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="My plantation" name="groupName" value="{{ group.title }}"
-                    required>
+                <input class="input" type="text" placeholder="My plantation" name="groupName" value="{{ group.title }}" id = "groupName" required>
             </div>
         </div>
 
         <div class="field">
             <label for="" class="label">Group location</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Plantation Area #2" name="groupLocation"
-                    value="{{ group.location }}" required>
+                <input class="input" type="text" placeholder="Plantation Area #2" name="groupLocation" id = "groupLocation" value="{{ group.location }}" required>
             </div>
         </div>
 
         <label class="label">Plants and trees in this group:</label>
         <div id="items" class="p-2">
 
-            {% for existingItem in existingItems %}
+            {% for item in items %}
             <div class="field">
                 <div class="columns">
-                    <div class="column is-10 p-1">
-                        <div class="control is-fullwidth">
-                            <div class="select is-fullwidth pr-2">
-                                <select name="{{ existingItem.item.name }}" required>
-                                    <option selected value="{{ existingItem.item.item_id }}"> {{ existingItem.item }} </option>
-                                    {% for communityItem in communityItems %}
-                                    <option value="{{ communityItem.item_id }}"> {{ communityItem }} </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                    <div class="column is-9 p-1">
+                        <div class="control is-">
+                            <input type="text" class="input" value = "Number of {{ item.item.name }}s in this group" readonly>
+                            <input type="hidden" name="itemID_{{ item.item.item_id }}" value = "{{ item.item.item_id }}">
                         </div>
                     </div>
-                    <div class="column is-2 p-1">
+                    <div class="column is-3 p-1">
                         <div class="control">
-                            <input type="number" class="input" placeholder="Quantity" min="1"
-                                name="itemQuantity_{{ existingItem.item.name }}" value="{{ existingItem.quantity }}"
-                                required>
+                            <input type="number" class="input item-quantity-input" placeholder="Quantity" name="itemQuantity_{{ item.item.item_id }}" value="{{ item.quantity }}" required>
                         </div>
                     </div>
 
@@ -61,23 +51,10 @@ Edit {{ group.title }}
             </div>
             {% endfor %}
 
-
-
         </div>
 
-        <div class="control mt-2 mb-4 is-pulled-right">
-            <button class="button has-background-link has-text-white border-radius" type="button" id="addGroupButton">
-                <span class="icon">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span>
-                    Add item to group
-                </span>
-            </button>
-        </div>
-
-        <div class="control">
-            <button class="button is-medium has-background-primary-dark has-text-white">
+        <div class="control mt-5">
+            <button class="button is-medium has-background-primary-dark has-text-white" id = "submitbtn" disabled>
                 <span class="icon">
                     <i class="fas fa-check"></i>
                 </span>
@@ -92,67 +69,43 @@ Edit {{ group.title }}
 </section>
 
 <script>
-    function uniqueID() {
-        return '_' + Math.random().toString(36).substr(2, 9);
-    };
 
-    let container = document.getElementById('items');
+    // validate on load
+    validateForm();
 
-    var ids = [];
-    function addItemField() {
+    // validate when data changes
+    let form = document.getElementById('creationForm');
+    form.addEventListener('change', validateForm);
 
-        let createdElement = document.createElement('div');
-        let newID = uniqueID();
-        let typeFieldName = "itemType_" + newID; quantityFieldName = "itemQuantity_" + newID;
-        ids.push(newID);
 
-        createdElement.classList.add('field');
-        createdElement.id = newID;
-        container.appendChild(createdElement).innerHTML = `
-        <div class = "columns">
-            <div class = "column is-10 p-1">
-                <div class="control">
-                    <div class="select is-fullwidth pr-2">
-                        <select name = "${typeFieldName}" required>
-                            <option disabled selected value class="has-text-grey"> Select item </option>
-                            {% for communityItem in communityItems %}
-                                <option value = "{{ communityItem.item_id }}"> {{ communityItem }} </option>
-                            {% endfor %}                       
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class = "column is-2 p-1">
-                <div class="is-flex is-align-items-center is-justify-content-center">
-                    <div class="control">
-                        <input type="number" class="input" placeholder="Quantity" min = "1" select="" name = "${quantityFieldName}" required>
-                    </div>
-                    <div class="control pl-2">
-                        <button type = "button" class="button is-danger is-small border-radius remove-btn" id="for-${newID}">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        `;
-        let buttons = document.getElementsByClassName('remove-btn');
-        console.log(buttons);
-        for (var i = 0; i < buttons.length; i++) {
-            let button = buttons[i];
-            console.log("adding button event listener")
-            button.addEventListener('click', function (e) {
-                let id = e.target.id.split('-')[1];
-                ids.splice(ids.indexOf(id), 1);
-                console.log(id);
-                document.getElementById(id).remove();
-            });
+    function validateForm() {
+        let name = document.getElementById('groupName').value;
+        let location = document.getElementById('groupLocation').value;
+        let quantityInputFields = document.getElementsByClassName('item-quantity-input');
+        let submitBtn = document.getElementById('submitbtn');
+
+
+        var isOnlyZeros = true;
+        for (var i = 0; i < quantityInputFields.length; i++) {
+            if (quantityInputFields[i].value != 0) {
+                isOnlyZeros = false;
+                break;
+            }
+        }
+
+        var hasValidInput = false;
+        if (name != '' && location != '' && !isOnlyZeros) {
+            hasValidInput = true;
+        }
+
+        if (hasValidInput) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
         }
     }
 
-    document.getElementById('addGroupButton').addEventListener('click', addItemField);
 
-
-
+   
 </script>
 {% endblock content %}

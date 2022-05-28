@@ -8,70 +8,56 @@ Add group
 {% block content %}
 <section class="section">
 
-    <h3 class="title is-3">Edit group</h3>
+    <h3 class="title is-3">Add group</h3>
 
 
-    <form action="addgroup" method="POST">
+    <form action="addgroup" method="POST" id = "creationForm">
 
         {% csrf_token %}
 
         <div class="field">
             <label for="" class="label">Group name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="My plantation" name="groupName" required>
+                <input class="input" type="text" placeholder="My plantation" name="groupName" id="groupName" required>
             </div>
         </div>
 
         <div class="field">
             <label for="" class="label">Group location</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Plantation Area #2" name="groupLocation" required>
+                <input class="input" type="text" placeholder="Plantation Area #2" name="groupLocation"
+                    id="groupLocation" required>
             </div>
         </div>
 
         <label class="label">Plants and trees in this group:</label>
         <div id="items" class="p-2">
 
+
+            {% for item in items %}
             <div class="field">
                 <div class="columns">
-                    <div class="column is-10 p-1">
-                        <div class="control is-fullwidth">
-                            <div class="select is-fullwidth pr-2">
-                                <select name="itemType_1">
-                                    <option disabled selected value class="has-text-grey"> Select item </option>
-                                    {% for item in items%}
-                                    <option value="{{ item.item_id }}"> {{ item }} </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                    <div class="column is-9 p-1">
+                        <div class="control is-">
+                            <input type="text" class="input" value="Number of {{ item.name }}s in this group" readonly>
+                            <input type="hidden" name="itemID_{{ item.item_id }}" value = "{{ item.item_id }}">
                         </div>
                     </div>
-                    <div class="column is-2 p-1">
+                    <div class="column is-3 p-1">
                         <div class="control">
-                            <input type="number" class="input" placeholder="Quantity" min="1" name="itemQuantity_1"
-                                required>
+                            <input type="number" class="input item-quantity-input" placeholder="Quantity" name="itemQuantity_{{ item.item_id }}" value="0" required>
                         </div>
                     </div>
 
                 </div>
 
             </div>
+            {% endfor %}
 
         </div>
 
-        <div class="control mt-2 mb-4 is-pulled-right">
-            <button class="button has-background-link has-text-white border-radius" type="button" id="addGroupButton">
-                <span class="icon">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span>
-                    Add item
-                </span>
-            </button>
-        </div>
-
-        <div class="control">
-            <button class="button is-medium has-background-primary-dark has-text-white">
+        <div class="control mt-5">
+            <button class="button is-medium has-background-primary-dark has-text-white" id="submitbtn" disabled>
                 <span class="icon">
                     <i class="fas fa-check"></i>
                 </span>
@@ -86,65 +72,36 @@ Add group
 </section>
 
 <script>
-    function uniqueID() {
-        return '_' + Math.random().toString(36).substr(2, 9);
-    };
 
-    let container = document.getElementById('items');
+    let form = document.getElementById('creationForm');
+    form.addEventListener('change', validateForm);
 
-    var ids = [];
-    function addItemField() {
+    function validateForm() {
+        let name = document.getElementById('groupName').value;
+        let location = document.getElementById('groupLocation').value;
+        let quantityInputFields = document.getElementsByClassName('item-quantity-input');
+        let submitBtn = document.getElementById('submitbtn');
 
-        let createdElement = document.createElement('div');
-        let newID = uniqueID();
-        let typeFieldName = "itemType_" + newID; quantityFieldName = "itemQuantity_" + newID;
-        ids.push(newID);
 
-        createdElement.classList.add('field');
-        container.appendChild(createdElement).innerHTML = `
-        <div class = "columns">
-            <div class = "column is-10 p-1">
-                <div class="control" id = "${newID}">
-                    <div class="select is-fullwidth pr-2">
-                        <select name = "${typeFieldName}">
-                            <option disabled selected value class="has-text-grey"> Select item </option>
-                            {% for item in items%}
-                                <option> {{ item }} </option>
-                            {% endfor %}                       
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class = "column is-2 p-1">
-                <div class="is-flex is-align-items-center is-justify-content-center">
-                    <div class="control">
-                        <input type="number" class="input" placeholder="Quantity" min = "1" select="" name = "${quantityFieldName}" required>
-                    </div>
-                    <div class="control pl-2">
-                        <button type = "button is-small" class="button is-danger is-small border-radius remove-btn" id="for-${newID}">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        `;
+        var isOnlyZeros = true;
+        for (var i = 0; i < quantityInputFields.length; i++) {
+            if (quantityInputFields[i].value != 0) {
+                isOnlyZeros = false;
+                break;
+            }
+        }
 
-        let buttons = document.getElementsByClassName('remove-btn');
-        console.log(buttons);
-        for (var i = 0; i < buttons.length; i++) {
-            let button = buttons[i];
-            console.log("adding button event listener")
-            button.addEventListener('click', function (e) {
-                let id = e.target.id.split('-')[1];
-                ids.splice(ids.indexOf(id), 1);
-                console.log(id);
-                document.getElementById(id).remove();
-            });
+        var hasValidInput = false;
+        if (name != '' && location != '' && !isOnlyZeros) {
+            hasValidInput = true;
+        }
+
+        if (hasValidInput) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
         }
     }
-
-
 
 </script>
 {% endblock %}
