@@ -16,7 +16,9 @@ def dashboard(request):
     
     groups = CommunityItemGroup.objects.filter(community=communityFromAuthStatus)
     
-    request.session['dashboardMode'] = 'all'
+    if 'dashboardMode' not in request.session:
+        request.session['dashboardMode'] = 'all'
+    
     context = {'community': communityFromAuthStatus, 'groups': groups, 'mode': request.session['dashboardMode']}
 
     template = loader.get_template('dashboard.html')
