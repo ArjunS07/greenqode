@@ -223,7 +223,14 @@ def deleteGroup(request, groupID):
     return redirect('/dashboard')
 
 def groupDetail(request, groupID):
-    pass
+    group = CommunityItemGroup.objects.get(group_id = groupID)
+    items = group.itemsList
+    throughModels = []
+    for item in items:
+        throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
+        throughModels.append(throughModel)
+    context = {'group': group, 'throughModels': throughModels}
+    return render(request, 'groupDetail.html', context)
 
 def communityDetail(request, communityNameID):
     
