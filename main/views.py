@@ -15,7 +15,6 @@ def dashboard(request):
         return redirect('/')
     
     groups = CommunityItemGroup.objects.filter(community=communityFromAuthStatus)
-    print(request.session['dashboardMode'])
         
     context = {'community': communityFromAuthStatus, 'groups': groups}
 
@@ -114,7 +113,6 @@ def deleteitem(request, communityItemID):
 def addGroup(request):
     request.session['dashboardMode'] = 'groups'
     request.session.modified = True
-    print(request.session['dashboardMode'])
     if request.method == 'GET':
         community = getCommunityFromAuthUser(request)
         items = community.items

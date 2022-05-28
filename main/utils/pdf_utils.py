@@ -24,9 +24,7 @@ def itemDetailsFromCommunity(community_id, request):
 
 def itemDetailsFromGroup(group_id, request):
     group = CommunityItemGroup.objects.get(group_id=group_id)
-    print("The group is", group)
     items = group.itemsList
-    print("The items are", items)
 
     urls = []
     labels = []
@@ -38,8 +36,6 @@ def itemDetailsFromGroup(group_id, request):
         for _ in range(itemCount):
             urls.append(item_url)
             labels.append(label)
-    print(urls)
-    print(labels)
 
     return urls, labels
 

@@ -34,7 +34,7 @@ SECURE_SSL_REDIRECT = False
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
-    "https://greenscan-app.herokuapp.com/"
+    "https://greenqode.herokuapp.com/"
 ]
 
 
