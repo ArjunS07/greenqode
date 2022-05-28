@@ -23,8 +23,8 @@ urlpatterns = [
 
     path('addgroup', views.addGroup, name='addgroup'),
     path('editgroup/<str:groupID>', views.editGroup, name='editgroup'),
-    path('deleteGroup/<str:groupID>', views.deleteGroup, name='deletegroup'),
-    path('viewGroup/<str:groupID>', views.groupDetail, name='groupdetail'),
+    path('deletegroup/<str:groupID>', views.deleteGroup, name='deletegroup'),
+    path('viewgroup/<str:groupID>', views.groupDetail, name='groupdetail'),
 
     path('viewcommunity/<str:communityNameID>', views.communityDetail, name='communityDetail'),
 

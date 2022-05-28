@@ -42,14 +42,16 @@
         {% if community.items|length == 0 %}
         <p class="is-size-6 is-flex-grow-1">Get started adding plants and trees to your community</p>
         {% else %}
-        <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> {{ community.items|length}} {% if community.items|length == 1 %} item {% else %} items {% endif %}</p>
+        <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> {{
+          community.items|length}} {% if community.items|length == 1 %} item {% else %} items {% endif %}</p>
         {% endif %}
 
         <div class="buttons">
 
           {% if community.items|length > 0 %}
           <a href="{{ community.printURL }}" target="_blank" class="mr-2">
-            <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center border-radius">
+            <button
+              class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center border-radius">
               <span class="icon is-medium">
                 <i class="fa fa-print top-action-icon" aria-hidden="true"></i>
               </span>
@@ -84,14 +86,14 @@
               <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
 
 
-              <div class="buttons are-small">
+              <div class="buttons are-small mt-3">
                 <a href="{% url 'edititem' item.item_id %}" class='button has-background-link box border-radius'>
                   <span class="icon">
                     <i class="fa fa-solid fa-pencil-alt has-text-white"></i>
                   </span>
                   <span class="has-text-white"> Edit </span>
                 </a>
-                
+
               </div>
 
             </div>
@@ -104,17 +106,19 @@
     </div>
 
     <div id="groups" class="is-hidden">
-      <div class="is-flex is-flex-direction-row">
+      <div class="is-flex is-flex-direction-row mb-4">
         {% if groups.count == 0 %}
-        <p class="is-size-6 is-flex-grow-1"> Make groups to more easily manage related sets of plants or trees - like in an individual plantation. </p>
+        <p class="is-size-6 is-flex-grow-1"> Make groups to more easily manage related sets of plants or trees - like in
+          an individual plantation. </p>
         {% else %}
         <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> You have {{ groups.count }} {% if groups.count == 1 %} group {% else %} groups {% endif %}</p>
         {% endif %}
-        <p class="is-size-6 is-flex-grow-1"> 
+        <p class="is-size-6 is-flex-grow-1">
         </p>
         <div class="buttons">
-          <a href="{%url 'addgroup' %}">
-            <button class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center border-radius">
+          <a href="{% url 'addgroup' %}">
+            <button
+              class="button has-background-primary-dark	has-text-white is-flex is-align-items-center is-justify-content-center border-radius">
               <span class="icon is-medium">
                 <i class="fa fa-plus" aria-hidden="true"></i>
               </span>
@@ -134,10 +138,11 @@
             <div class="is-fullwidth">
               <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ group.title }}</p>
               <p class="is-size-6 has-text-weight-regular has-text-grey has-text-left"> {{ group.location }}</p>
-              <p class="is-size-6 has-text-weight-regular has-text-grey has-text-left"> {{ group.numTotalItems }} in this group </p>
+              <p class="is-size-6 has-text-weight-regular has-text-grey has-text-left"> {{ group.numTotalItems }} plants
+                and trees in this group </p>
 
 
-              <div class="buttons are-small">
+              <div class="buttons are-small mt-3">
                 <a href="{{ group.editURL }}" class='button has-background-link box border-radius'>
                   <span class="icon">
                     <i class="fa fa-solid fa-pencil-alt has-text-white"></i>
@@ -152,12 +157,12 @@
                   <span class="has-text-white"> Print </span>
                 </a>
 
-                <a href="{}" class='button has-background-link box border-radius'>
+                <button class='button has-background-link box border-radius copy-btn' id="{{ group.group_id }}" onclick="copyGroupURL()">
                   <span class="icon">
                     <i class="fa fa-solid fa-share has-text-white"></i>
                   </span>
                   <span class="has-text-white"> Share </span>
-                </a>
+                </button>
 
               </div>
 
@@ -169,10 +174,16 @@
 
       </div>
 
-      
+
 
     </div>
+  </div>
 
+  <div class="copy-container is-flex is-align-items-center is-justify-content-center is-fullwidth mt-6">
+    <div class="copy-notification has-background-black has-text-white py-2 px-4 is-hidden"
+      id="copy-notification">
+      <p class="is-size-7 has-text-weight-medium has-text-centered" id="copy-notification-text"> Copied </p>
+    </div>
   </div>
 </section>
 
@@ -182,10 +193,11 @@
 <script>
 
   // when coming back with the back button, the page doesn't reload, so the mode doesn't always change. 
-  if(performance.navigation.type == 2){
+  if (performance.navigation.type == 2) {
     location.reload(true);
   }
 
+  // toggle tabs
   let allItemsBtn = document.getElementById('allitems-btn');
   let groupBtn = document.getElementById('group-btn');
 
@@ -208,6 +220,7 @@
     document.getElementById('groups').classList.remove('is-hidden');
   }
 
+  // read tab mode from session
   let mode = "{{ mode }}";
   console.log(mode);
 
@@ -216,6 +229,36 @@
   } else if (mode == 'groups') {
     showGroups();
   }
+
+
+  function copyGroupURL() {
+    var target = event.currentTarget;
+    var id = target.id;
+    console.log("copy group url");
+    console.log(event.target)
+    console.log(id);
+
+    let siteURL = document.location.host; // greenqode.org
+    let groupURL = "https://" + siteURL + "/viewgroup/" + id;
+
+    copyToClipboard(groupURL);
+
+    // show success notification with URL
+    document.getElementById('copy-notification').classList.remove('is-hidden');
+    var message = "Copied group URL to clipboard: " + groupURL;
+    document.getElementById('copy-notification-text').innerHTML = message;
+
+    // hide notification after 3 seconds
+    setTimeout(function () {
+      document.getElementById('copy-notification').classList.add('is-hidden');
+    }, 4500);
+
+  };
+
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+  }
+
 
 </script>
 

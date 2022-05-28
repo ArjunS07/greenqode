@@ -15,7 +15,7 @@ html, body {
 }
 
 .border-radius {
-    border-radius: 10% !important;
+    border-radius: 5px !important;
 }
 
 .is-fullwidth {

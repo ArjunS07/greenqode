@@ -1,0 +1,50 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {{ community.name }} - {{ group.title }} {% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="">
+    <div class="">
+      <h1 class="title is-3 has-text-weight-bold"> {{ group.title }} </h1>
+      <p class="is-size-5 has-text-weight-medium"> 
+        In: <a href = "{{ community.detailURL }}" class = "has-text-success	">
+           {{ community.name }} 
+        </a>
+      </p>
+      <p class="is-size-6 has-text-weight-medium" href=""> A total of {{ group.numTotalItems }} plants and trees are in this group </p>
+  
+  </div>
+  
+  <br>
+
+  <div class="columns is-desktop is-multiline">
+
+    {% for throughModel in throughModels %}
+      <div class="column is-one-quarter">
+          <div class="box">
+              <p class="is-size-5 has-text-weight-bold"> 
+                  {{ throughModel.item.name }}
+              </p>
+              <p>
+                  {{ throughModel.count }}
+              </p>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+
+  
+  </div>
+</section>
+
+
+<link rel="stylesheet" href="{% static 'css/view-item.css' %}">
+
+
+{% endblock %}
