@@ -42,8 +42,7 @@
         {% if community.items|length == 0 %}
         <p class="is-size-6 is-flex-grow-1">Get started adding plants and trees to your community</p>
         {% else %}
-        <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> {{
-          community.items|length}} {% if community.items|length == 1 %} item {% else %} items {% endif %}</p>
+        <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> {{community.items|length}} {% if community.items|length == 1 %} item {% else %} items {% endif %}</p>
         {% endif %}
 
         <div class="buttons">

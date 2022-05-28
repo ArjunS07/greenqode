@@ -21,8 +21,8 @@ def dashboard(request):
     template = loader.get_template('dashboard.html')
     return HttpResponse(template.render(context, request))
 
-from .utils.pdf_utils import firebasePDFFromCommunity, firebasePDFFromGroup
-
+from .utils.pdf_utils import pdfFromCommunity, pdfFromGroup
+from django.http import FileResponse
 def communityPDFView(request, communityID):
     if request.user.is_authenticated:
         communityForUser = Community.objects.get(account = request.user)
@@ -33,12 +33,14 @@ def communityPDFView(request, communityID):
     else:
         return redirect("/accounts/login")
 
-    firebase_url = firebasePDFFromCommunity(community_id=communityID, request=request)
-    return HttpResponseRedirect(firebase_url)
+    pdf_url = pdfFromCommunity(communityID, request)
+    response = FileResponse(open(pdf_url, 'rb'), content_type='application/pdf')
+    return response
 
 def groupPDFView(request, groupID):
-    firebase_url = firebasePDFFromGroup(group_id=groupID, request=request)
-    return HttpResponseRedirect(firebase_url)
+    pdf_url = pdfFromGroup(groupID, request)
+    response = FileResponse(open(pdf_url, 'rb'), content_type='application/pdf')
+    return response
 
 def addCommunityItem(request):
 
