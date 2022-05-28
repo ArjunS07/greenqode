@@ -15,11 +15,9 @@ def dashboard(request):
         return redirect('/')
     
     groups = CommunityItemGroup.objects.filter(community=communityFromAuthStatus)
-        
-    context = {'community': communityFromAuthStatus, 'groups': groups}
-
-    if request.session['dashboardMode']:
-        context['mode'] = request.session['dashboardMode']
+    
+    request.session['dashboardMode'] = 'all'
+    context = {'community': communityFromAuthStatus, 'groups': groups, 'mode': request.session['dashboardMode']}
 
     template = loader.get_template('dashboard.html')
     return HttpResponse(template.render(context, request))
