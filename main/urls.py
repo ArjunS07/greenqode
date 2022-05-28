@@ -21,6 +21,7 @@ urlpatterns = [
     path('deletecommunityitem/<str:communityItemID>',views.deleteitem, name='deletecommunityitem'),
 
     path('addgroup', views.addGroup, name='addgroup'),
+    path('editgroup/<str:groupID>', views.editGroup, name='editgroup'),
     
     path('viewcommunity/<str:communityNameID>', views.communityDetail, name='communityDetail'),
     path('viewitem/<str:communityItemID>',

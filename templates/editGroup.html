@@ -1,46 +1,48 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} 
-Add group
+{% block title %}
+Edit {{ group.title }}
 {% endblock title%}
 
 {% block content %}
 <section class="section">
 
-    <h3 class="title is-3">Edit group</h3>
+    <h3 class="title is-3">Edit {{ group.title }} </h3>
 
-
-    <form action="addgroup" method="POST">
+    <form method="post" enctype="multipart/form-data">
 
         {% csrf_token %}
 
         <div class="field">
             <label for="" class="label">Group name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="My plantation" name = "groupName" required>
+                <input class="input" type="text" placeholder="My plantation" name="groupName" value="{{ group.title }}"
+                    required>
             </div>
         </div>
 
         <div class="field">
             <label for="" class="label">Group location</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Plantation Area #2" name = "groupLocation" required>
+                <input class="input" type="text" placeholder="Plantation Area #2" name="groupLocation"
+                    value="{{ group.location }}" required>
             </div>
         </div>
 
         <label class="label">Plants and trees in this group:</label>
-        <div id="items" class = "p-2">
+        <div id="items" class="p-2">
 
+            {% for existingItem in existingItems %}
             <div class="field">
                 <div class="columns">
                     <div class="column is-10 p-1">
                         <div class="control is-fullwidth">
                             <div class="select is-fullwidth pr-2">
-                                <select name = "itemType_1">
-                                    <option disabled selected value class="has-text-grey"> Select item </option>
-                                    {% for item in items%}
-                                    <option value = "{{ item.item_id }}"> {{ item }} </option>
+                                <select name="{{ existingItem.item.name }}" required>
+                                    <option selected value="{{ existingItem.item.item_id }}"> {{ existingItem.item }} </option>
+                                    {% for communityItem in communityItems %}
+                                    <option value="{{ communityItem.item_id }}"> {{ communityItem }} </option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -48,13 +50,18 @@ Add group
                     </div>
                     <div class="column is-2 p-1">
                         <div class="control">
-                            <input type="number" class="input" placeholder="Quantity" min = "1" name = "itemQuantity_1" required>
+                            <input type="number" class="input" placeholder="Quantity" min="1"
+                                name="itemQuantity_{{ existingItem.item.name }}" value="{{ existingItem.quantity }}"
+                                required>
                         </div>
                     </div>
 
                 </div>
 
             </div>
+            {% endfor %}
+
+
 
         </div>
 
@@ -64,19 +71,19 @@ Add group
                     <i class="fas fa-plus"></i>
                 </span>
                 <span>
-                    Add item
+                    Add item to group
                 </span>
             </button>
         </div>
 
         <div class="control">
             <button class="button is-medium has-background-primary-dark has-text-white">
-            <span class="icon">
-                <i class="fas fa-check"></i>
-            </span>
-            <span>
-                Submit
-            </span>
+                <span class="icon">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span>
+                    Save group
+                </span>
             </button>
         </div>
 
@@ -100,15 +107,16 @@ Add group
         ids.push(newID);
 
         createdElement.classList.add('field');
+        createdElement.id = newID;
         container.appendChild(createdElement).innerHTML = `
         <div class = "columns">
             <div class = "column is-10 p-1">
-                <div class="control" id = "${newID}">
+                <div class="control">
                     <div class="select is-fullwidth pr-2">
-                        <select name = "${typeFieldName}">
+                        <select name = "${typeFieldName}" required>
                             <option disabled selected value class="has-text-grey"> Select item </option>
-                            {% for item in items%}
-                                <option> {{ item }} </option>
+                            {% for communityItem in communityItems %}
+                                <option value = "{{ communityItem.item_id }}"> {{ communityItem }} </option>
                             {% endfor %}                       
                         </select>
                     </div>
@@ -120,7 +128,7 @@ Add group
                         <input type="number" class="input" placeholder="Quantity" min = "1" select="" name = "${quantityFieldName}" required>
                     </div>
                     <div class="control pl-2">
-                        <button type = "button is-small" class="button is-danger is-small border-radius remove-btn" id="for-${newID}">
+                        <button type = "button" class="button is-danger is-small border-radius remove-btn" id="for-${newID}">
                             <i class="fa fa-minus"></i>
                         </button>
                     </div>
@@ -128,19 +136,23 @@ Add group
             </div>
         </div>
         `;
+        let buttons = document.getElementsByClassName('remove-btn');
+        console.log(buttons);
+        for (var i = 0; i < buttons.length; i++) {
+            let button = buttons[i];
+            console.log("adding button event listener")
+            button.addEventListener('click', function (e) {
+                let id = e.target.id.split('-')[1];
+                ids.splice(ids.indexOf(id), 1);
+                console.log(id);
+                document.getElementById(id).remove();
+            });
+        }
     }
 
     document.getElementById('addGroupButton').addEventListener('click', addItemField);
 
-    document.getElementsByClassName('remove-btn').forEach(element => {
-        element.addEventListener('click', function (e) {
-            let id = e.target.id.split('-')[1];
-            ids.splice(ids.indexOf(id), 1);
-            container.removeChild(document.getElementById(id));
-        });
-    })
-
 
 
 </script>
-{% endblock %}
+{% endblock content %}

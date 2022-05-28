@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect, FileResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-
+from django.urls import reverse
 from .models import Community, CommunityItem, CommunityItemGroup, CommunityItemGroupThrough
 from .forms import ItemForm
 
@@ -149,6 +149,74 @@ def addGroup(request):
 
         return HttpResponseRedirect('/dashboard')
 
+def editGroup(request, groupID): 
+    community = getCommunityFromAuthUser(request)
+    group = CommunityItemGroup.objects.get(group_id = groupID)
+    if group.community != community:
+            return redirect('/dashboard')
+
+    if request.method == 'GET':
+        existingItems = []
+        for item in group.items.all():
+            throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
+            quantity = throughModel.count
+            existingItems.append(
+                {
+                    'item': item,
+                    'quantity': quantity
+                }
+            )
+        communityItems = community.items
+        context = {'group': group, 'communityItems': communityItems, 'existingItems': existingItems}
+        template = loader.get_template('editGroup.html')
+        return HttpResponse(template.render(context, request))
+
+    elif request.method == 'POST':
+        data = request.POST
+        print((data))
+        name = data['groupName']
+        location = data['groupLocation']
+        # For a dictionary of n keys, n-2 keys will be from the items. (n-2) / 2 will always be even and equal to the number of items added
+        itemdata = (data).copy()
+        del itemdata['csrfmiddlewaretoken']
+        del itemdata['groupName']
+        del itemdata['groupLocation']
+
+        group = CommunityItemGroup.objects.get(group_id = groupID)
+
+        group.title = name
+        group.location = location
+        group.save()
+
+        print("Items:", itemdata.items())
+
+        values = []
+        for _, value in itemdata.items():
+            values.append(value)
+        
+        for i in range(0, len(values), 2):
+            itemID = values[i]
+            print(itemID)
+            item = CommunityItem.objects.get(item_id = itemID)
+            quantity = values[i+1]
+
+            print("item:", item)
+            print("Item type:", type(item))
+            
+            if group.items.filter(item_id = itemID).exists:
+                throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
+                throughModel.count = quantity
+                throughModel.save()
+            else:
+                group.items.add(item)
+                throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
+                throughModel.count = quantity
+                throughModel.save()
+
+        return HttpResponseRedirect(reverse('dashboard'))
+
+def deleteGroup(request):
+    pass
 
 def communityDetail(request, communityNameID):
     
