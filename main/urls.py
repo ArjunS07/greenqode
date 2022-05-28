@@ -19,13 +19,15 @@ urlpatterns = [
     path('additem', views.addCommunityItem, name='additem'),
     path('edititem/<str:communityItemID>',views.editCommunityItem, name='edititem'),
     path('deletecommunityitem/<str:communityItemID>',views.deleteitem, name='deletecommunityitem'),
+    path('viewitem/<str:communityItemID>', views.itemDetail, name='itemdetail'),
 
     path('addgroup', views.addGroup, name='addgroup'),
     path('editgroup/<str:groupID>', views.editGroup, name='editgroup'),
-    
+    path('deleteGroup/<str:groupID>', views.deleteGroup, name='deletegroup'),
+    path('viewGroup/<str:groupID>', views.groupDetail, name='groupdetail'),
+
     path('viewcommunity/<str:communityNameID>', views.communityDetail, name='communityDetail'),
-    path('viewitem/<str:communityItemID>',
-         views.itemDetail, name='itemdetail'),
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

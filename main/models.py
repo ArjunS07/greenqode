@@ -83,6 +83,10 @@ class CommunityItemGroup(models.Model):
     @property
     def editURL(self):
         return reverse('editgroup', kwargs={'groupID': self.group_id})
+
+    @property
+    def deleteURL(self):
+        return reverse('deletegroup', kwargs = {'groupID': self.group_id})
     
 
     def __str__(self):

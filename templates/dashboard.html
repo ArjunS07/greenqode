@@ -187,6 +187,11 @@
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 <script>
 
+  // when coming back with the back button, the page doesn't reload, so the mode doesn't always change. 
+  if(performance.navigation.type == 2){
+    location.reload(true);
+  }
+
   let allItemsBtn = document.getElementById('allitems-btn');
   let groupBtn = document.getElementById('group-btn');
 
@@ -209,7 +214,7 @@
     document.getElementById('groups').classList.remove('is-hidden');
   }
 
-  let mode = "{{ dashboardMode }}";
+  let mode = "{{ mode }}";
   console.log(mode);
 
   if (mode == 'all') {

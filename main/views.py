@@ -15,6 +15,7 @@ def dashboard(request):
         return redirect('/')
     
     groups = CommunityItemGroup.objects.filter(community=communityFromAuthStatus)
+    print(request.session['dashboardMode'])
     context = {'community': communityFromAuthStatus, 'groups': groups, 'mode': request.session['dashboardMode']}
 
     template = loader.get_template('dashboard.html')
@@ -40,8 +41,8 @@ def groupPDFView(request, groupID):
     return HttpResponseRedirect(firebase_url)
 
 def addCommunityItem(request):
+
     request.session['dashboardMode'] = 'all'
-    checkAuth(request)
 
     if request.method == 'POST':
         form = ItemForm(request.POST, request.FILES)
@@ -106,6 +107,8 @@ def deleteitem(request, communityItemID):
 
 def addGroup(request):
     request.session['dashboardMode'] = 'groups'
+    request.session.modified = True
+    print(request.session['dashboardMode'])
     if request.method == 'GET':
         community = getCommunityFromAuthUser(request)
         items = community.items
@@ -205,7 +208,20 @@ def editGroup(request, groupID):
 
         return HttpResponseRedirect(reverse('dashboard'))
 
-def deleteGroup(request):
+def deleteGroup(request, groupID):
+    
+    checkAuth(request)
+    currentCommunity = getCommunityFromAuthUser(request)
+    group = CommunityItemGroup.objects.get(group_id = groupID)
+    
+    if group.community != currentCommunity:
+        return redirect('/dashboard')
+    
+    group.delete()
+    request.session['dashboardMode'] = 'groups'
+    return redirect('/dashboard')
+
+def groupDetail(request, groupID):
     pass
 
 def communityDetail(request, communityNameID):
