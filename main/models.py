@@ -72,6 +72,15 @@ class CommunityItemGroup(models.Model):
         return self.items.all()
     
     @property
+    def numTotalItems(self):
+        items = self.itemsList
+        numItems = 0
+        for item in items:
+            throughModel = CommunityItemGroupThrough.objects.get(group=self, item=item)
+            numItems += throughModel.count
+        return numItems
+    
+    @property
     def editURL(self):
         return reverse('editgroup', kwargs={'groupID': self.group_id})
     
