@@ -1,0 +1,75 @@
+.hero-columns {
+  width: 100%;
+}
+
+.icon.is-large .fa {
+  font-size: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-columns {
+    flex-grow: 1;
+  }
+}
+
+.reader-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+
+#changing-text {
+  color: hsl(171, 100%, 41%);
+}
+
+
+.fadeOut{
+  visibility: hidden;
+  opacity: 0; 
+ -webkit-transition: all 0.5s ease-out;
+       -moz-transition: all 0.5s ease-out;
+        -ms-transition: all 0.5s ease-out;
+         -o-transition: all 0.5s ease-out;
+            transition: all 0.5s ease-out;
+  transform: translate(0,-50px);
+  -webkit-transform: translate(0,-50px);
+  -o-transform: translate(0,-50px); 
+  -moz-transform: translate(0,-50px);
+}
+
+.fadeIn{
+  visibility: visible;
+  opacity: 1; 
+ -webkit-transition: all 0.5s ease-in;
+       -moz-transition: all 0.5s ease-in;
+        -ms-transition: all 0.5s ease-in;
+         -o-transition: all 0.5s ease-in;
+            transition: all 0.5s ease-in;
+  transform: translate(0,-50px);
+  -webkit-transform: translate(0,-50px);
+  -o-transform: translate(0,-50px); 
+  -moz-transform: translate(0,-50px);
+}
+
+.animated {
+
+  -webkit-animation-duration: 10s;
+  animation-duration: 1.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes initialFadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes initialFadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.initialFadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
