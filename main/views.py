@@ -15,7 +15,6 @@ def dashboard(request):
         return redirect('/')
     
     groups = CommunityItemGroup.objects.filter(community=communityFromAuthStatus)
-    print(groups)    
     context = {'community': communityFromAuthStatus, 'groups': groups, 'mode': request.session['dashboardMode']}
 
     template = loader.get_template('dashboard.html')
@@ -115,10 +114,7 @@ def addGroup(request):
         return HttpResponse(template.render(context, request))
 
     elif request.method == 'POST':
-
         data = request.POST
-        print((data))
-
         name = data['groupName']
         location = data['groupLocation']
 
@@ -130,23 +126,20 @@ def addGroup(request):
 
         group = CommunityItemGroup(title=name, location=location, community=getCommunityFromAuthUser(request))
         group.save()
-        print("Items:", itemdata.items())
 
         values = []
         for _, value in itemdata.items():
-            values.append(value)        
+            values.append(value)
+        
         for i in range(0, len(values), 2):
             itemID = values[i]
-            print(itemID)
-            
             item = CommunityItem.objects.get(item_id = itemID)
-            print("item:", item)
-            print("Item type:", type(item))
             group.items.add(item)
-            
+
             quantity = values[i+1]
             throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
             throughModel.count = quantity
+            throughModel.save()
 
         return HttpResponseRedirect('/dashboard')
 
@@ -177,7 +170,6 @@ def editGroup(request, groupID):
 
     elif request.method == 'POST':
         data = request.POST
-        print((data))
         name = data['groupName']
         location = data['groupLocation']
         # For a dictionary of n keys, n-2 keys will be from the items. (n-2) / 2 will always be even and equal to the number of items added
@@ -192,21 +184,15 @@ def editGroup(request, groupID):
         group.location = location
         group.save()
 
-        print("Items:", itemdata.items())
-
         values = []
         for _, value in itemdata.items():
             values.append(value)
         
         for i in range(0, len(values), 2):
             itemID = values[i]
-            print(itemID)
             item = CommunityItem.objects.get(item_id = itemID)
             quantity = values[i+1]
 
-            print("item:", item)
-            print("Item type:", type(item))
-            
             if group.items.filter(item_id = itemID).exists:
                 throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
                 throughModel.count = quantity
