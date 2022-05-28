@@ -13,9 +13,12 @@
     <div class="">
       <h1 class="title is-3 has-text-weight-bold"> {{ group.title }} </h1>
       <p class="is-size-5 has-text-weight-medium"> 
-        In: <a href = "{{ group.community.detailURL }}" class = "has-text-success	">
+        By: <a href = "{{ group.community.detailURL }}" class = "has-text-success	">
            {{ group.community.name }} 
         </a>
+      </p>
+      <p class="is-size-5 has-text-weight-medium"> 
+        In: {{ group.location }} 
       </p>
       <p class="is-size-6 has-text-weight-medium" href=""> A total of {{ group.numTotalItems }} plants and trees are in this group </p>
   
