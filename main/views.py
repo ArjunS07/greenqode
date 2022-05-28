@@ -87,7 +87,7 @@ def editCommunityItem(request, communityItemID):
     
     else:
         form = ItemForm(instance = itemToEdit) 
-        context = {'form': form, 'rootImagesURL': '/static/item_images/'}
+        context = {'form': form, 'item': itemToEdit}
 
     
         template = loader.get_template('editItem.html')
@@ -147,6 +147,7 @@ def addGroup(request):
         return HttpResponseRedirect('/dashboard')
 
 def editGroup(request, groupID): 
+    request.session['dashboardMode'] = 'groups'
     community = getCommunityFromAuthUser(request)
     group = CommunityItemGroup.objects.get(group_id = groupID)
     if group.community != community:

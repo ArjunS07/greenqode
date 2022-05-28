@@ -1,70 +1,146 @@
-
 {% extends 'base.html' %}
 
 {% load static %}
 
-{% block title %} Edit item {% endblock %}
+{% block title %} Edit {{ item.name }} {% endblock %}
 
 {% block content %}
 <section class="section">
-  <div class="container mb-3">
-    <h1 class="title is-2">
-      Edit Item
-    </h1>
-  
-    <form method = "post" enctype="multipart/form-data">
-  
-      {% csrf_token %}
-  
-      {{ form.non_field_errors }}
-  
-      <div class="field">
-        {{ form.name.errors }}
-        <label for="{{ form.name.id_for_name }}" class="label">Name</label>
-        {{ form.name }}
-      </div>
-  
-      <div class="field">
-        {{ form.description.errors }}
-        <label for="{{ form.description.id_for_description }}" class="label">Description</label>
-        {{ form.description }}
-      </div>
-  
-        <button type = "button" id = "google-search-href" class = "button "> 
-          <span class="icon">
-            <i class="fa fa-search"></i>
-          </span>
-          <span>
-            Search for details on Google
-          </span>
-        </button>
-  
-        <br>
-        <br>
-      
-  
-      <div class="field">
-        {{ form.quantity.errors }}
-        <label for="{{ form.quantity.id_for_quantity }}" class="label">Number of items (this determines the number of QR codes printed for this tree or plant). Only you can see this. </label>
-        {{ form.quantity }}
-      </div>
-  
-  
-      <br/>
-  
-      <button type="submit" class = "button has-background-primary-dark has-text-white border-radius">
-        <span class="icon">
-          <i class="fa fa-check add-check"></i>
-        </span>
-        <span class = "has-text-weight-bold">
-          Update details
-        </span>
-      </button>
-  
+  <div class="is-flex is-flex-direction-row">
+    <h3 class="title is-3 is-flex-grow-1">Edit {{ item.name }} </h3>
+    <button class="button is-pulled-right has-background-danger has-text-white js-modal-trigger"
+      data-target="modal-js-example">
+      Delete
+    </button>
   </div>
+
+  <form method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div class="field">
+      {{ form.name.errors }}
+      <label for="{{ form.name.id_for_name }}" class="label">Name</label>
+      {{ form.name }}
+    </div>
+
+    <div class="field">
+      {{ form.description.errors }}
+      <label for="{{ form.description.id_for_description }}" class="label">Description</label>
+      {{ form.description }}
+    </div>
+
+    <button type="button" id="google-search-href" class="button ">
+      <span class="icon">
+        <i class="fa fa-search"></i>
+      </span>
+      <span>
+        Search for details on Google
+      </span>
+    </button>
+
+    <br>
+    <br>
+
+
+    <div class="field">
+      {{ form.quantity.errors }}
+      <label for="{{ form.quantity.id_for_quantity }}" class="label">Number of items (this determines the number of QR
+        codes printed for this tree or plant when you print QR codes for your entire community). Only you can see this.
+      </label>
+
+      {{ form.quantity }}
+    </div>
+
+
+    <br />
+
+    <button type="submit" class="button has-background-primary-dark has-text-white border-radius">
+      <span class="icon">
+        <i class="fa fa-check add-check"></i>
+      </span>
+      <span class="has-text-weight-bold">
+        Update details
+      </span>
+    </button>
+
+  </form>
+
+  <!-- Delete modal -->
+  <div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+      <div class="box">
+        <p class="has-text-weight-bold is-size-5">Are you sure you want to delete {{ item.name }}? </p>
+        <p class="mb-5"> All QR codes linking to it will no longer function. It will be removed from all groups that
+          contain it. <br> You cannot undo this action. </p>
+        <a href="{{ item.deleteURL }}">
+          <button class="button has-background-danger has-text-white">Yes, I'm sure. Delete it. </button>
+        </a>
+        <!-- Your content -->
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
+
 </section>
 
-<script src="{% static "js/google-search.js" %}"></script>
+<script src="{% static 'js/google-search.js' %}"></script>
+<script>
+  // Modal script
+
+  // Modal script
+  document.addEventListener('DOMContentLoaded', () => {
+    // Functions to open and close a modal
+    function openModal($el) {
+      $el.classList.add('is-active');
+    }
+
+    function closeModal($el) {
+      $el.classList.remove('is-active');
+    }
+
+    function closeAllModals() {
+      (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+        closeModal($modal);
+      });
+    }
+
+    // Add a click event on buttons to open a specific modal
+    (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+      const modal = $trigger.dataset.target;
+      const $target = document.getElementById(modal);
+
+      $trigger.addEventListener('click', () => {
+        openModal($target);
+      });
+    });
+
+    // Add a click event on various child elements to close the parent modal
+    (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+      const $target = $close.closest('.modal');
+
+      $close.addEventListener('click', () => {
+        closeModal($target);
+      });
+    });
+
+    // Add a keyboard event to close all modals
+    document.addEventListener('keydown', (event) => {
+      const e = event || window.event;
+
+      if (e.keyCode === 27) { // Escape key
+        closeAllModals();
+      }
+    });
+  });
+
+</script>
 <link rel="stylesheet" href="{% static 'css/item-detail.css' %}">
 
 

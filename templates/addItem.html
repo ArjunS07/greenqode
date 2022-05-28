@@ -7,9 +7,9 @@
 {% block content %}
 
 <div class="container mb-3">
-  <h1 class="title is-2">
+  <h3 class="title is-3">
     Add Item
-  </h1>
+  </h3>
 
   <form action="additem" method="POST">
 
@@ -44,7 +44,7 @@
 
     <div class="field">
       {{ form.quantity.errors }}
-      <label for="{{ form.quantity.id_for_quantity }}" class="label">Number of items (this determines the number of QR codes printed for this tree or plant).  Only you can see this. </label>
+      <label for="{{ form.quantity.id_for_quantity }}" class="label">Number of items (this determines the number of QR codes printed for this tree or plant when you print QR codes for your entire community).  Only you can see this. </label>
       {{ form.quantity }}
     </div>
 

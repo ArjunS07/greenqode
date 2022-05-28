@@ -55,6 +55,10 @@ class CommunityItem(models.Model):
     @property
     def get_absolute_url(self):
         return reverse('itemdetail', kwargs={'communityItemID': str(self.item_id)})
+    
+    @property
+    def deleteURL(self):
+        return reverse('deletecommunityitem', kwargs={'communityItemID': str(self.item_id)})
 
 class CommunityItemGroup(models.Model):
     title = models.CharField(max_length=100)
