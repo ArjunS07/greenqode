@@ -11,11 +11,9 @@ jwt==1.3.1
 
 fpdf==1.7.2
 qrcode==7.3.1
-Pyrebase==3.0.18
+Pyrebase4==4.5.0
 numpy==1.21.1
 
 sentry-sdk==1.5.7
-pycryptodome==3.5
+pycryptodome==3.6.4
 Pillow==9.0.1
-
-
