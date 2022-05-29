@@ -155,10 +155,12 @@ def addGroup(request):
             dead = values[i+2]
             if not dead:
                 dead = 0
-            throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
-            throughModel.alive = alive
-            throughModel.dead = dead
-            throughModel.save()
+            
+            if alive !=0 or dead != 0:
+                throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
+                throughModel.alive = alive
+                throughModel.dead = dead
+                throughModel.save()
 
         return HttpResponseRedirect('/dashboard')
 
@@ -223,22 +225,36 @@ def editGroup(request, groupID):
             itemID = values[i]
             item = CommunityItem.objects.get(item_id = itemID)
             print(item)
-            alive = values[i+1]
-            dead = values[i+2]
+            alive = int(values[i+1])
+            dead = int(values[i+2])
             if not alive:
                 alive = 0
             if not dead:
                 dead = 0
+            print(alive, dead)
 
-            if not group.items.filter(item_id = itemID).exists():
-                group.items.add(item)
-            
-            throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
-            throughModel.alive = alive
-            throughModel.dead = dead
-            throughModel.save()
-            
-            group.save()
+            if alive == 0 and dead == 0:
+
+                print("0 alive and 0 dead")
+                try:
+                    # If the item is already in the group, remove it
+                    throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
+                    group.items.remove(item)
+                except:
+                    # if the item is not in the group, do nothing
+                    pass
+            else:
+                if not group.items.filter(item_id = itemID).exists():
+                    group.items.add(item)
+                    group.save()
+                
+                throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
+                print(throughModel)
+                throughModel.alive = alive
+                throughModel.dead = dead
+                throughModel.save()
+
+                group.save()
 
         return HttpResponseRedirect(reverse('dashboard'))
 
