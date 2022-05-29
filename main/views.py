@@ -197,6 +197,7 @@ def editGroup(request, groupID):
             values.append(value)
         
         for i in range(0, len(values), 2):
+            group = CommunityItemGroup.objects.get(group_id = groupID)
             itemID = values[i]
             item = CommunityItem.objects.get(item_id = itemID)
             quantity = values[i+1]
@@ -210,6 +211,8 @@ def editGroup(request, groupID):
                 throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
                 throughModel.count = quantity
                 throughModel.save()
+            
+            group.save()
 
         return HttpResponseRedirect(reverse('dashboard'))
 
