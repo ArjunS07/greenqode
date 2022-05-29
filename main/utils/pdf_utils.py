@@ -30,7 +30,7 @@ def itemDetailsFromGroup(group_id, request):
     labels = []
     
     for item in items:
-        itemCount = CommunityItemGroupThrough.objects.get(item=item, group=group).count
+        itemCount = CommunityItemGroupThrough.objects.get(item=item, group=group).alive
         item_url = request.build_absolute_uri(item.get_absolute_url)
         label = item.name
         for _ in range(itemCount):

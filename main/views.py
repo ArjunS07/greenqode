@@ -138,14 +138,16 @@ def addGroup(request):
         for _, value in itemdata.items():
             values.append(value)
         
-        for i in range(0, len(values), 2):
+        for i in range(0, len(values), 3):
             itemID = values[i]
             item = CommunityItem.objects.get(item_id = itemID)
             group.items.add(item)
 
-            quantity = values[i+1]
+            alive = values[i+1]
+            dead = values[i+2]
             throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
-            throughModel.count = quantity
+            throughModel.alive = alive
+            throughModel.dead = dead
             throughModel.save()
 
         return HttpResponseRedirect('/dashboard')
@@ -165,11 +167,11 @@ def editGroup(request, groupID):
             if item in groupItems:
                 throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
                 itemsToPass.append({
-                    'item': item, 'quantity': throughModel.count
+                    'item': item, 'alive': throughModel.alive, 'dead': throughModel.dead
                 })
             else:
                 itemsToPass.append({
-                    'item': item, 'quantity': 0
+                    'item': item, 'alive': 0, 'dead': 0
                 })
                 
         context = {'group': group, 'items': itemsToPass}
@@ -178,6 +180,7 @@ def editGroup(request, groupID):
 
     elif request.method == 'POST':
         data = request.POST
+        print(data)
         name = data['groupName']
         location = data['groupLocation']
         # For a dictionary of n keys, n-2 keys will be from the items. (n-2) / 2 will always be even and equal to the number of items added
@@ -197,23 +200,26 @@ def editGroup(request, groupID):
             values.append(value)
         print(values)
         
-        for i in range(0, len(values), 2):
+        for i in range(0, len(values), 3):
             print("iteration: ", i)
             group = CommunityItemGroup.objects.get(group_id = groupID)
             print(group)
             itemID = values[i]
             item = CommunityItem.objects.get(item_id = itemID)
             print(item)
-            quantity = values[i+1]
+            alive = values[i+1]
+            dead = values[i+2]
 
             if group.items.filter(item_id = itemID).exists():
                 throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
-                throughModel.count = quantity
+                throughModel.alive = alive
+                throughModel.dead = dead
                 throughModel.save()
             else:
                 group.items.add(item)
                 throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
-                throughModel.count = quantity
+                throughModel.alive = alive
+                throughModel.dead = dead
                 throughModel.save()
             
             group.save()

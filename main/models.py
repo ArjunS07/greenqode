@@ -81,7 +81,25 @@ class CommunityItemGroup(models.Model):
         numItems = 0
         for item in items:
             throughModel = CommunityItemGroupThrough.objects.get(group=self, item=item)
-            numItems += throughModel.count
+            numItems += throughModel.allTotal
+        return numItems
+    
+    @property
+    def numAliveItems(self):
+        items = self.itemsList
+        numItems = 0
+        for item in items:
+            throughModel = CommunityItemGroupThrough.objects.get(group=self, item=item)
+            numItems += throughModel.alive
+        return numItems
+    
+    @property
+    def numDeadItems(self):
+        items = self.itemsList
+        numItems = 0
+        for item in items:
+            throughModel = CommunityItemGroupThrough.objects.get(group=self, item=item)
+            numItems += throughModel.dead
         return numItems
     
     @property
@@ -105,7 +123,12 @@ class CommunityItemGroup(models.Model):
 class CommunityItemGroupThrough(models.Model):
     group = models.ForeignKey(CommunityItemGroup, on_delete=models.CASCADE)
     item = models.ForeignKey(CommunityItem, on_delete=models.CASCADE)
-    count = models.IntegerField(default=1)
+    alive = models.IntegerField(default=1)
+    dead = models.IntegerField(default=0)
 
     def __str__(self):
-        return "Group: " + self.group.title + " Item: " + self.item.name + " Count: " + str(self.count)
+        return "Group: " + self.group.title + " Item: " + self.item.name + " Count: " + str(self.allTotal)
+    
+    @property
+    def allTotal(self):
+        return self.alive + self.dead

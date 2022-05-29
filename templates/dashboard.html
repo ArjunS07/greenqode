@@ -9,7 +9,7 @@
 {% block content %}
 
 <section class="section">
-  <div class="container ">
+  <div class="">
 
     <h1 class="is-size-2 has-text-weight-bold">Your Collection</h1>
 
@@ -42,7 +42,8 @@
         {% if community.items|length == 0 %}
         <p class="is-size-6 is-flex-grow-1">Get started adding plants and trees to your community</p>
         {% else %}
-        <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> {{community.items|length}} {% if community.items|length == 1 %} item {% else %} items {% endif %}</p>
+        <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1">
+          {{community.items|length}} {% if community.items|length == 1 %} item {% else %} items {% endif %}</p>
         {% endif %}
 
         <div class="buttons">
@@ -110,7 +111,7 @@
         <p class="is-size-6 is-flex-grow-1"> Make groups to more easily manage related sets of plants or trees - like in
           an individual plantation. </p>
         {% else %}
-        <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> You have {{ groups.count }} {% if groups.count == 1 %} group {% else %} groups {% endif %}</p>
+        <p class="is-size-5 has-text-weight-semibold mt-5 mb-2 is-flex-grow-1 is-flex-grow-1"> You have {{ groups.count}} {% if groups.count == 1 %} group {% else %} groups {% endif %}</p>
         {% endif %}
         <p class="is-size-6 is-flex-grow-1">
         </p>
@@ -136,9 +137,9 @@
 
             <div class="is-fullwidth">
               <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ group.title }}</p>
-              <p class="is-size-6 has-text-weight-regular has-text-grey has-text-left"> {{ group.location }}</p>
-              <p class="is-size-6 has-text-weight-regular has-text-grey has-text-left"> {{ group.numTotalItems }} plants
-                and trees in this group </p>
+              <p class="is-size-6 has-text-weight-regular has-text-left mb-2"> {{ group.location }}</p>
+              <p class="is-size-6 has-text-weight-regular has-text-left"> {{ group.numTotalItems }} plants and trees in this group </p>
+              <p class="is-size-6 has-text-weight-regular has-text-left">{{ group.numAliveItems }} active, {{ group.numDeadItems }} inactive </p>
 
 
               <div class="buttons are-small mt-3">
@@ -156,7 +157,8 @@
                   <span class="has-text-white"> Print </span>
                 </a>
 
-                <button class='button has-background-link box border-radius copy-btn' id="{{ group.group_id }}" onclick="copyGroupURL()">
+                <button class='button has-background-link box border-radius copy-btn' id="{{ group.group_id }}"
+                  onclick="copyGroupURL()">
                   <span class="icon">
                     <i class="fa fa-solid fa-share has-text-white"></i>
                   </span>
@@ -179,8 +181,7 @@
   </div>
 
   <div class="copy-container is-flex is-align-items-center is-justify-content-center is-fullwidth mt-6">
-    <div class="copy-notification has-background-black has-text-white py-2 px-4 is-hidden"
-      id="copy-notification">
+    <div class="copy-notification has-background-black has-text-white py-2 px-4 is-hidden" id="copy-notification">
       <p class="is-size-7 has-text-weight-medium has-text-centered" id="copy-notification-text"> Copied </p>
     </div>
   </div>

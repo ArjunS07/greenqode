@@ -1,5 +1,3 @@
-
-
 {% extends 'base.html' %}
 {% load static %}
 
@@ -12,37 +10,46 @@
   <div class="">
     <div class="">
       <h1 class="title is-3 has-text-weight-bold"> {{ group.title }} </h1>
-      <p class="is-size-5 has-text-weight-medium"> 
-        By: <a href = "{{ group.community.detailURL }}" class = "has-text-success	">
-           {{ group.community.name }} 
+      <p class="is-size-5 has-text-weight-medium">
+        By: <a href="{{ group.community.detailURL }}" class="has-text-success	">
+          {{ group.community.name }}
         </a>
       </p>
-      <p class="is-size-5 has-text-weight-medium"> 
-        In: {{ group.location }} 
+      <p class="is-size-5 has-text-weight-medium">
+        In: {{ group.location }}
       </p>
-      <p class="is-size-6 has-text-weight-medium" href=""> A total of {{ group.numTotalItems }} plants and trees are in this group </p>
-  
-  </div>
-  
-  <br>
+      <p class="is-size-6 has-text-weight-medium" href=""> A total of {{ group.numTotalItems }} plants and trees are in
+        this group </p>
 
-  <div class="columns is-desktop is-multiline">
+    </div>
 
-    {% for throughModel in throughModels %}
+    <br>
+
+    <div class="columns is-desktop is-multiline">
+
+      {% for throughModel in throughModels %}
       <div class="column is-one-quarter">
-          <div class="box">
-              <p class="is-size-5 has-text-weight-bold"> 
-                  {{ throughModel.item.name }}
-              </p>
-              <p>
-                  {{ throughModel.count }}
-              </p>
+        <div class="box">
+          <div class="is-flex is-flex-direction-row is-justify-content-space-between is-align-items-center mb-4">
+            <p class="is-size-4 has-text-weight-bold">
+              {{ throughModel.item.name }}
+            </p>
+            <a href="{{ throughModel.item.get_absolute_url }}">
+              <button class="button is-pulled-right is-primary is-small border-radius">More</button>
+            </a>
           </div>
+          <p class="has-text-weight-medium">
+            <b> {{ throughModel.allTotal }} </b> plants and trees in this group
+          </p>
+          <p class="has-text-grey">
+            {{ throughModel.alive }} active
+          </p>
+        </div>
       </div>
       {% endfor %}
-  </div>
+    </div>
 
-  
+
   </div>
 </section>
 
