@@ -8,7 +8,7 @@ from .forms import ItemForm
 def index(request):
     if request.user.is_authenticated:
         return redirect('/dashboard')
-        
+
     template = loader.get_template('index.html')
     return HttpResponse(template.render({}, request))
 
@@ -150,7 +150,11 @@ def addGroup(request):
             group.items.add(item)
 
             alive = values[i+1]
+            if not alive:
+                alive = 0
             dead = values[i+2]
+            if not dead:
+                dead = 0
             throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
             throughModel.alive = alive
             throughModel.dead = dead
@@ -215,18 +219,18 @@ def editGroup(request, groupID):
             print(item)
             alive = values[i+1]
             dead = values[i+2]
+            if not alive:
+                alive = 0
+            if not dead:
+                dead = 0
 
-            if group.items.filter(item_id = itemID).exists():
-                throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
-                throughModel.alive = alive
-                throughModel.dead = dead
-                throughModel.save()
-            else:
+            if not group.items.filter(item_id = itemID).exists():
                 group.items.add(item)
-                throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
-                throughModel.alive = alive
-                throughModel.dead = dead
-                throughModel.save()
+            
+            throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
+            throughModel.alive = alive
+            throughModel.dead = dead
+            throughModel.save()
             
             group.save()
 
