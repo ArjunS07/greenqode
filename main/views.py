@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from .models import Community, CommunityItem, CommunityItemGroup, CommunityItemGroupThrough
@@ -163,9 +163,15 @@ def addGroup(request):
         return HttpResponseRedirect('/dashboard')
 
 def editGroup(request, groupID): 
+
     request.session['dashboardMode'] = 'groups'
-    community = getCommunityFromAuthUser(request)
-    group = CommunityItemGroup.objects.get(group_id = groupID)
+
+    try:
+        community = getCommunityFromAuthUser(request)
+        group = CommunityItemGroup.objects.get(group_id = groupID)
+    except:
+        return HttpResponseNotFound
+    
     if group.community != community:
             return redirect('/dashboard')
 
@@ -239,8 +245,11 @@ def editGroup(request, groupID):
 def deleteGroup(request, groupID):
     
     checkAuth(request)
-    currentCommunity = getCommunityFromAuthUser(request)
-    group = CommunityItemGroup.objects.get(group_id = groupID)
+    try:
+        currentCommunity = getCommunityFromAuthUser(request)
+        group = CommunityItemGroup.objects.get(group_id = groupID)
+    except:
+        return HttpResponseNotFound
     
     if group.community != currentCommunity:
         return redirect('/dashboard')
@@ -250,7 +259,11 @@ def deleteGroup(request, groupID):
     return redirect('/dashboard')
 
 def groupDetail(request, groupID):
-    group = CommunityItemGroup.objects.get(group_id = groupID)
+    try:
+        group = CommunityItemGroup.objects.get(group_id = groupID)
+    except:
+        return HttpResponseNotFound
+
     items = group.itemsList
     throughModels = []
     for item in items:
@@ -260,8 +273,12 @@ def groupDetail(request, groupID):
     return render(request, 'groupDetail.html', context)
 
 def communityDetail(request, communityNameID):
-    
-    communityFromId = Community.objects.get(nameID=communityNameID)
+
+    try:
+        communityFromId = Community.objects.get(nameID=communityNameID)
+    except:
+        return HttpResponseNotFound
+
     items = CommunityItem.objects.filter(community=communityFromId)
 
     context = {'community': communityFromId, 'items': items}
@@ -274,6 +291,9 @@ def communityDetail(request, communityNameID):
 def itemDetail(request, communityItemID):
 
     item = CommunityItem.objects.get(item_id = communityItemID)
+    if not item:
+        return HttpResponseNotFound('Item not found')
+
     community = item.community
 
     context = {'community': community, 'item': item}
@@ -289,7 +309,10 @@ def checkAuth(request):
 # Returns community based on currently logged in user
 def getCommunityFromAuthUser(request):
     if request.user.is_authenticated:
-        community = Community.objects.get(account = request.user)
+        try:
+            community = Community.objects.get(account = request.user)
+        except:
+            return None
         return community
     else:
         return None
