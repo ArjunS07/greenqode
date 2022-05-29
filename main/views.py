@@ -225,12 +225,13 @@ def editGroup(request, groupID):
             itemID = values[i]
             item = CommunityItem.objects.get(item_id = itemID)
             print(item)
-            alive = int(values[i+1])
-            dead = int(values[i+2])
-            if not alive:
+            try:
+                alive = int(values[i+1])
+                dead = int(values[i+2])
+            except:
                 alive = 0
-            if not dead:
                 dead = 0
+            
             print(alive, dead)
 
             if alive == 0 and dead == 0:
