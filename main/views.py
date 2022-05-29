@@ -195,14 +195,18 @@ def editGroup(request, groupID):
         values = []
         for _, value in itemdata.items():
             values.append(value)
+        print(values)
         
         for i in range(0, len(values), 2):
+            print("iteration: ", i)
             group = CommunityItemGroup.objects.get(group_id = groupID)
+            print(group)
             itemID = values[i]
             item = CommunityItem.objects.get(item_id = itemID)
+            print(item)
             quantity = values[i+1]
 
-            if group.items.filter(item_id = itemID).exists:
+            if group.items.filter(item_id = itemID).exists():
                 throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
                 throughModel.count = quantity
                 throughModel.save()

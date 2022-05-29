@@ -28,8 +28,7 @@ environ.Env.read_env()
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-# os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = os.environ['DEBUG']
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
