@@ -16,17 +16,15 @@
         In: <a href = "{{ community.detailURL }}" class = "has-text-success	">
            {{ community.name }} 
         </a>
-      </p>
-      <p class="is-size-5 has-text-weight-medium" href=""> 
-              </p>
-  
+      </p>  
   </div>
   
   <br>
-   
-  <p class="is-size-6 has-text-weight-normal item-desc">
-    {{item.description}}
-  </p>
+
+  <div class="content">
+    {{ item.description|linebreaks }}
+
+  </div>
   
   </div>
 </section>
