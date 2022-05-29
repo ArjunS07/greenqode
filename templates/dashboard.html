@@ -93,6 +93,13 @@
                   </span>
                   <span class="has-text-white"> Edit </span>
                 </a>
+                <button class='button has-background-link box border-radius copy-btn' id="{{ item.item_id }}"
+                  onclick="copyItemURL()">
+                  <span class="icon">
+                    <i class="fa fa-solid fa-share has-text-white"></i>
+                  </span>
+                  <span class="has-text-white"> Share </span>
+                </button>
 
               </div>
 
@@ -138,7 +145,8 @@
             <div class="is-fullwidth">
               <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ group.title }}</p>
               <p class="is-size-6 has-text-weight-regular has-text-left mb-2"> {{ group.location }}</p>
-              <p class="is-size-6 has-text-weight-regular has-text-left"> {{ group.numTotalItems }} plants and trees in this group </p>
+              <p class="is-size-6 has-text-weight-regular has-text-left"> {{ group.numTotalItems }} plants and trees in
+                this group </p>
               <p class="is-size-6 has-text-weight-regular has-text-left">{{ group.numAliveItems }} active, {{ group.numDeadItems }} inactive </p>
 
 
@@ -230,34 +238,44 @@
     showGroups();
   }
 
+  // copy URLs
 
-  function copyGroupURL() {
-    var target = event.currentTarget;
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+  }
+
+  function copyURLFromTarget(target, detailRelativeURL) {
     var id = target.id;
     console.log("copy group url");
     console.log(event.target)
     console.log(id);
 
     let siteURL = document.location.host; // greenqode.org
-    let groupURL = "https://" + siteURL + "/viewgroup/" + id;
+    let copyingURL = "https://" + siteURL + "/" + detailRelativeURL + "/" + id;
 
-    copyToClipboard(groupURL);
+    copyToClipboard(copyingURL);
 
     // show success notification with URL
     document.getElementById('copy-notification').classList.remove('is-hidden');
-    var message = "Copied group URL to clipboard: " + groupURL;
+    var message = "Copied to clipboard: " + copyingURL;
     document.getElementById('copy-notification-text').innerHTML = message;
 
     // hide notification after 3 seconds
     setTimeout(function () {
       document.getElementById('copy-notification').classList.add('is-hidden');
     }, 4500);
+  }
 
+  function copyGroupURL() {
+    var target = event.currentTarget;
+    copyURLFromTarget(target, "viewgroup");
   };
 
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text);
-  }
+  function copyItemURL() {
+    var target = event.currentTarget;
+    copyURLFromTarget(target, "viewitem");
+  };
+
 
 
 </script>
