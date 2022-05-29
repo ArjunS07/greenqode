@@ -5,6 +5,12 @@ from django.urls import reverse
 from .models import Community, CommunityItem, CommunityItemGroup, CommunityItemGroupThrough
 from .forms import ItemForm
 
+def index(request):
+    if request.user.is_authenticated:
+        return redirect('/dashboard')
+        
+    template = loader.get_template('index.html')
+    return HttpResponse(template.render({}, request))
 
 
 def dashboard(request):
