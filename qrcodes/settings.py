@@ -25,7 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
 import dotenv
 
@@ -33,13 +32,16 @@ dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 SECRET_KEY = os.environ['SECRET_KEY']
+DEBUG = os.environ['DEBUG']
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "https://greenqode.herokuapp.com/"
 ]
 
-
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = False
 # Application definition
 
 INSTALLED_APPS = [
