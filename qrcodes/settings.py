@@ -33,7 +33,6 @@ if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ['DEBUG'] == 'True'
-print(os.environ)
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
