@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG = os.environ.get('DEBUG', False)
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ALLOWED_HOSTS = [
@@ -154,8 +154,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+is_heroku = os.environ.get('IS_HEROKU', False)
 
-if not DEBUG:
+if is_heroku:
     sentry_sdk.init(
         dsn="https://28a790a5ec07492295a1d3be3f3cb798@o879237.ingest.sentry.io/6265381",
         integrations=[DjangoIntegration()],
