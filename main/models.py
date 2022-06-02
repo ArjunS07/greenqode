@@ -123,11 +123,11 @@ class CommunityItemGroup(models.Model):
 class CommunityItemGroupThrough(models.Model):
     group = models.ForeignKey(CommunityItemGroup, on_delete=models.CASCADE)
     item = models.ForeignKey(CommunityItem, on_delete=models.CASCADE)
-    alive = models.IntegerField(default=1)
+    alive = models.IntegerField(default=0)
     dead = models.IntegerField(default=0)
 
     def __str__(self):
-        return "Group: " + self.group.title + " Item: " + self.item.name + " Count: " + str(self.allTotal)
+        return self.group.title + ": " + self.item.name
     
     @property
     def allTotal(self):

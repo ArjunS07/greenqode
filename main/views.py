@@ -43,7 +43,7 @@ def communityPDFView(request, communityID):
         return redirect("/accounts/login")
 
     pdf_url = pdfFromCommunity(communityID, request)
-    response = FileResponse(open(pdf_url, 'rb'), content_type='application/pdf')
+    response = FileResponse(open(pdf_url, 'rb'), content_type='application/pdf', filename="QRCodes_" + communityID +".pdf")
     return response
 
 def groupPDFView(request, groupID):
@@ -137,6 +137,8 @@ def addGroup(request):
         del itemdata['groupName']
         del itemdata['groupLocation']
 
+        print(itemdata)
+
         group = CommunityItemGroup(title=name, location=location, community=getCommunityFromAuthUser(request))
         group.save()
 
@@ -156,11 +158,14 @@ def addGroup(request):
             if not dead:
                 dead = 0
             
+            print(alive, dead)
+            
             if alive !=0 or dead != 0:
                 throughModel = CommunityItemGroupThrough.objects.get(group = group, item=item)
                 throughModel.alive = alive
                 throughModel.dead = dead
                 throughModel.save()
+                print(throughModel)
 
         return HttpResponseRedirect('/dashboard')
 
