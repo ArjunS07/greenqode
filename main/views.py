@@ -6,7 +6,7 @@ from .models import Community, CommunityItem, CommunityItemGroup, CommunityItemG
 from .forms import ItemForm
 
 def index(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and not request.user.is_superuser:
         return redirect('/dashboard')
 
     template = loader.get_template('index.html')
@@ -18,7 +18,7 @@ def dashboard(request):
     checkAuth(request)
     communityFromAuthStatus = getCommunityFromAuthUser(request)
     if not communityFromAuthStatus:
-        return redirect('/')
+        return redirect('index')
     
     groups = CommunityItemGroup.objects.filter(community=communityFromAuthStatus)
     
