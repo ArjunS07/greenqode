@@ -34,16 +34,25 @@
             <p class="is-size-4 has-text-weight-bold">
               {{ throughModel.item.name }}
             </p>
-            <a href="{{ throughModel.item.get_absolute_url }}">
-              <button class="button is-pulled-right has-background-primary-dark has-text-white is-small border-radius">Info</button>
-            </a>
+            <p class="has-text-weight-bold has-text-black is-size-5 is-pulled-right"> {{ throughModel.allTotal }} </p>
+
+
           </div>
-          <p class="has-text-weight-medium">
-            <b> {{ throughModel.allTotal }} </b> plants and trees in this group
-          </p>
-          <p class="has-text-grey">
-            {{ throughModel.alive }} active
-          </p>
+          <div class="is-flex is-flex-direction-row is-justify-content-space-between is-align-items-flex-end">
+            <div>
+              <p class="has-text-grey">
+                {{ throughModel.alive }} active
+              </p>
+              <p class="has-text-grey">
+                {{ throughModel.dead }} inactive
+              </p>
+            </div>
+            <a href="{{ throughModel.item.get_absolute_url }}">
+              <button class="button has-background-primary-dark has-text-white is-small border-radius">Info</button>
+            </a>
+
+          </div>
+
         </div>
       </div>
       {% endfor %}
