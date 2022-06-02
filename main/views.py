@@ -48,7 +48,7 @@ def communityPDFView(request, communityID):
 
 def groupPDFView(request, groupID):
     pdf_url = pdfFromGroup(groupID, request)
-    response = FileResponse(open(pdf_url, 'rb'), content_type='application/pdf')
+    response = FileResponse(open(pdf_url, 'rb'), content_type='application/pdf', filename="QRCodes_" + groupID +".pdf")
     return response
 
 def addCommunityItem(request):
