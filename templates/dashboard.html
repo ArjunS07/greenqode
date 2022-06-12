@@ -78,15 +78,15 @@
 
         {% for item in community.items %}
         <div class="column is-one-quarter">
-          <div class="box is-flex is-align-items-center is-justify-content-center is-flex-direction-column">
+          <div class="box dashboard-box-card is-flex is-flex-direction-column">
 
 
-            <div class="is-fullwidth">
-              <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ item.name }}</p>
-              <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
+              <div class="is-flex-grow-1">
+                <p class="is-size-5 has-text-weight-semibold has-text-left"> {{ item.name }}</p>
+                <p class="is-size-6 has-text-weight-normal has-text-left item-desc mt-3 mb-3"> {{ item.description }}</p>
+              </div>
 
-
-              <div class="buttons are-small mt-3">
+              <div class="buttons are-small is-flex-grow-0">
                 <a href="{% url 'edititem' item.item_id %}" class='button has-background-link box border-radius'>
                   <span class="icon">
                     <i class="fa fa-solid fa-pencil-alt has-text-white"></i>
@@ -101,7 +101,6 @@
                   <span class="has-text-white"> Share </span>
                 </button>
 
-              </div>
 
             </div>
 
