@@ -121,19 +121,30 @@
 
         <div class="columns is-desktop has-text-grey">
 
-          <div class="column is-four-fifths has-text-grey">
+          <div class="column has-text-grey is-two-fifths">
             <p class="title is-5 has-text-grey"> Contact </p>
             <p class = "subtitle is-6 mt-2 has-text-grey"> Email <a class = "has-text-weight-bold has-text-grey-light" href="mailto:contact.greenqode@gmail.com"> contact.greenqode@gmail.com </a> if you have any queries, suggestions, or feedback regarding GreenQode. <p>
             </p>
           </div>
 
+          <div class="column is-one-sixths"></div>
 
-          <div class="column is-one-fifth has-text-grey">
-            <p class="title is-5 has-text-grey"> About </p>
 
-            <a href = "{% url "about" %}" class = "has-text-grey"> About GreenQode </a> <br> 
-            <a href = "{% url "team" %}"  class = "has-text-grey" > Team </a> <br>
-            <a href = "{% url "aboutsite" %}"  class = "has-text-grey" > Our tech stack </a>
+          <div class="column is-half">
+            <div class="columns">
+              <div class="column">
+                <p class="title is-5 has-text-grey"> Resources </p>
+
+                <a href = "{% static 'resources/A_guide_to_using_GreenQode.pdf' %}" class = "has-text-grey" target="_blank"> PDF Guide to GreenQode</a> <br> 
+              </div>
+              <div class="column">
+                <p class="title is-5 has-text-grey"> About </p>
+
+                <a href = "{% url "about" %}" class = "has-text-grey"> About GreenQode </a> <br> 
+                <a href = "{% url "team" %}"  class = "has-text-grey" > Team </a> <br>
+                <a href = "{% url "aboutsite" %}"  class = "has-text-grey" > Our tech stack </a>
+              </div>
+            </div>
           </div>
 
         </div>
