@@ -74,9 +74,15 @@
 
     <div class="modal-content">
       <div class="box">
-        <p class="has-text-weight-bold is-size-5">Are you sure you want to delete {{ item.name }}? </p>
-        <p class="mb-5"> All QR codes linking to it will no longer function. It will be removed from all groups that
-          contain it. <br> You cannot undo this action. </p>
+        <div class="content">
+          <p class="has-text-weight-bold is-size-5">Are you sure you want to delete {{ item.name }}? </p>
+          <p class="mt-2"> All QR codes linking to it will no longer function. It will be removed from all groups that
+            contain it. </p>
+          <p>
+            <b>You cannot undo this action.</b>
+          </p>
+        </div>
+
         <a href="{{ item.deleteURL }}">
           <button class="button has-background-danger has-text-white">Yes, I'm sure. Delete it. </button>
         </a>

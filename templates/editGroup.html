@@ -85,13 +85,18 @@ Edit {{ group.title }}
 
         <div class="modal-content">
             <div class="box">
-                <p class="has-text-weight-bold is-size-5">Are you sure you want to delete '{{ group.title }}?'</p>
-                <p class = "mb-5">Any links related to this group will be lost. Items in this group will continue to exist independently and in other groups. <br> You cannot undo this action</p>
+                <div class="content">
+                    <p class="has-text-weight-bold is-size-5">Are you sure you want to delete '{{ group.title }}?'</p>
+                    <p class = "mt-2">Any links related to this group will be lost. Items in this group will continue to exist independently and in other groups. </p>
+                  <p>
+                    <b>You cannot undo this action.</b>
+                  </p>
+                </div>
+        
                 <a href="{{ group.deleteURL }}">
                     <button class="button has-background-danger has-text-white">Yes, I'm sure. Delete this group. </button>
                 </a>
-                <!-- Your content -->
-            </div>
+              </div>
         </div>
 
         <button class="modal-close is-large" aria-label="close"></button>
