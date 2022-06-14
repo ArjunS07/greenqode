@@ -3,7 +3,7 @@ $(function () {
   var longitude = $("#lng").val();
 
   $("#map-picker").locationpicker({
-    location: {latitude: latitude, longitude: longitude},
+    location: { latitude: latitude, longitude: longitude },
     radius: 0,
     inputBinding: {
       latitudeInput: $("#lat"),
@@ -11,14 +11,6 @@ $(function () {
       locationNameInput: $("#location"),
     },
     enableAutocomplete: true,
-    onchanged: function (currentLocation, radius, isMarkerDropped) {
-      alert(
-        "Location changed. New location (" +
-          currentLocation.latitude +
-          ", " +
-          currentLocation.longitude +
-          ")"
-      );
-    },
+    onchanged: function (currentLocation, radius, isMarkerDropped) {},
   });
 });

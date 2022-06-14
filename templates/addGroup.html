@@ -90,39 +90,6 @@ Add group
 <script src="https://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
 <script src="{% static "js/groups/map.js" %}"></script>
 <script src="{% static "js/groups/add-group-location-picker.js" %}"></script>
-
-<script>
-
-    let form = document.getElementById('creationForm');
-    form.addEventListener('change', validateForm);
-
-    function validateForm() {
-        let name = document.getElementById('groupName').value;
-        let location = document.getElementById('groupLocation').value;
-        let quantityInputFields = document.getElementsByClassName('item-quantity-input');
-        let submitBtn = document.getElementById('submitbtn');
-
-
-        var isOnlyZeros = true;
-        for (var i = 0; i < quantityInputFields.length; i++) {
-            if (quantityInputFields[i].value != 0) {
-                isOnlyZeros = false;
-                break;
-            }
-        }
-
-        var hasValidInput = false;
-        if (name != '' && location != '' && !isOnlyZeros) {
-            hasValidInput = true;
-        }
-
-        if (hasValidInput) {
-            submitBtn.disabled = false;
-        } else {
-            submitBtn.disabled = true;
-        }
-    }
-
-</script>
+<script src="{% static "js/groups/group-validation.js" %}"></script>
 
 {% endblock %}

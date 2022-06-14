@@ -133,17 +133,17 @@ def addGroup(request):
     elif request.method == 'POST':
         data = request.POST
         name = data['groupName']
-        location = data['groupLocation']
+        latitude = data['groupLat']
+        longitude = data['groupLong']
 
-        # For a dictionary of n keys, n-2 keys will be from the items. (n-2) / 2 will always be even and equal to the number of items added
+        # For a dictionary of n keys, n-4 keys will be from the items. (n-2) / 2 will always be even and equal to the number of items added
         itemdata = (data).copy()
         del itemdata['csrfmiddlewaretoken']
         del itemdata['groupName']
-        del itemdata['groupLocation']
+        del itemdata['groupLat']
+        del itemdata['groupLong']
 
-        print(itemdata)
-
-        group = CommunityItemGroup(title=name, location=location, community=community)
+        group = CommunityItemGroup(title=name, latitude=latitude, longitude=longitude, community=community)
         group.save()
 
         values = []
@@ -207,19 +207,21 @@ def editGroup(request, groupID):
 
     elif request.method == 'POST':
         data = request.POST
-        print(data)
         name = data['groupName']
-        location = data['groupLocation']
-        # For a dictionary of n keys, n-2 keys will be from the items. (n-2) / 2 will always be even and equal to the number of items added
+        latitude = data['groupLat']
+        longitude = data['groupLong']
+
         itemdata = (data).copy()
         del itemdata['csrfmiddlewaretoken']
         del itemdata['groupName']
-        del itemdata['groupLocation']
+        del itemdata['groupLat']
+        del itemdata['groupLong']
 
         group = CommunityItemGroup.objects.get(group_id = groupID)
 
         group.title = name
-        group.location = location
+        group.latitude = latitude
+        group.longitude = longitude
         group.save()
 
         values = []
