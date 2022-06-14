@@ -14,7 +14,6 @@ $(function () {
   });
 
   function success(pos) {
-    console.log("success");
     const crd = pos.coords;
 
     latitude = crd.latitude;
@@ -26,13 +25,9 @@ $(function () {
   }
 
   function error(err) {
-    console.log("error");
-    console.warn(`ERROR(${err.code}): ${err.message}`);
   }
 
   navigator.geolocation.getCurrentPosition(success, error);
-  console.log(latitude);
-  console.log(longitude);
 
   $("#map-picker").locationpicker("location", {
     latitude: latitude,

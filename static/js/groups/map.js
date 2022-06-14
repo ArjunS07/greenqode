@@ -279,7 +279,6 @@
                     var event = params.event;
                     var callback = params.callback;
                     if (!event || !callback) {
-                        console.error('LocationPicker: Invalid arguments for method "subscribe"');
                         return null;
                     }
                     google.maps.event.addListener(gmapContext.map, event, callback);

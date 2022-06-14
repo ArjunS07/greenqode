@@ -228,7 +228,6 @@
 
   // read tab mode from session
   let mode = "{{ mode }}";
-  console.log(mode);
 
   if (mode == 'all') {
     showAllItems();
@@ -244,9 +243,6 @@
 
   function copyURLFromTarget(target, detailRelativeURL) {
     var id = target.id;
-    console.log("copy group url");
-    console.log(event.target)
-    console.log(id);
 
     let siteURL = document.location.host; // greenqode.org
     let copyingURL = siteURL + "/" + detailRelativeURL + "/" + id;
