@@ -111,6 +111,13 @@ class CommunityItemGroup(models.Model):
     def deleteURL(self):
         return reverse('deletegroup', kwargs = {'groupID': self.group_id})
     
+    def googleMapsURL(self):
+        if self.latitude and self.longitude:
+            url = "http://maps.google.com/maps?q={},{}".format(self.latitude, self.longitude)
+            return url
+        else:
+            return None
+
     def __str__(self):
         return self.title
     
