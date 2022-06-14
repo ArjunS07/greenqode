@@ -62,10 +62,11 @@ class CommunityItem(models.Model):
 
 class CommunityItemGroup(models.Model):
     title = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
     items = models.ManyToManyField(CommunityItem, blank=True, through = "CommunityItemGroupThrough")
     community = models.ForeignKey(Community, on_delete=models.CASCADE, default=None)
     group_id = models.CharField(max_length=108, default=None, null=True, editable=True)
+    latitude = models.FloatField(default=None, null=True)
+    longitude = models.FloatField(default=None, null=True)
 
     @property
     def printURL(self):
@@ -110,7 +111,6 @@ class CommunityItemGroup(models.Model):
     def deleteURL(self):
         return reverse('deletegroup', kwargs = {'groupID': self.group_id})
     
-
     def __str__(self):
         return self.title
     

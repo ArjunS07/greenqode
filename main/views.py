@@ -117,10 +117,14 @@ def deleteitem(request, communityItemID):
 
 
 def addGroup(request):
+    checkAuth(request)
+    community = getCommunityFromAuthUser(request)
+    if not community:
+        return redirect('/')
+
     request.session['dashboardMode'] = 'groups'
     request.session.modified = True
     if request.method == 'GET':
-        community = getCommunityFromAuthUser(request)
         items = community.items
         context = {'items': items}
         template = loader.get_template('addGroup.html')
@@ -139,7 +143,7 @@ def addGroup(request):
 
         print(itemdata)
 
-        group = CommunityItemGroup(title=name, location=location, community=getCommunityFromAuthUser(request))
+        group = CommunityItemGroup(title=name, location=location, community=community)
         group.save()
 
         values = []
